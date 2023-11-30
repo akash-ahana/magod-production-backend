@@ -1,0 +1,867 @@
+const shiftEditor = require("express").Router();
+const { misQuery, setupQuery, misQueryMod, mchQueryMod , productionQueryMod } = require('../../helpers/dbconn');
+const { logger } = require('../../helpers/logger')
+var bodyParser = require('body-parser')
+const moment = require('moment')
+
+// create application/json parser
+var jsonParser = bodyParser.json() 
+
+
+// Returns the type of Shifts - First, Second , Third , General, Special
+shiftEditor.get('/typesOfShifts', async (req, res, next) => {
+    // console.log('Types of Shifts Request')
+    const shifts = [ "First" , "Second" , "Third" , "General" , "Special"]
+    res.send(shifts)  
+});
+
+//Returns the types of shifts and their timings
+shiftEditor.get('/shiftTimings', async (req, res, next) => {
+    try {
+        const shiftInchargeNames = [];
+        productionQueryMod("Select * from magod_production.shiftdb", (err, data) => {
+            if (err) logger.error(err);
+            // for (let i = 0; i < data.length; i++) {
+            //     shiftInchargeNames[i] = data[i].Name
+            //   }
+            res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
+
+
+//Returns the List of ShiftIncharges , in the organisation
+shiftEditor.get('/shiftInchargeList', async (req, res, next) => {
+    // console.log('Shift Incharge List Requested')
+    try {
+        const shiftInchargeNames = [];
+        productionQueryMod("Select Name from magod_production.shift_ic_list", (err, data) => {
+            if (err) logger.error(err);
+            for (let i = 0; i < data.length; i++) {
+                shiftInchargeNames[i] = data[i].Name
+              }
+            res.send(shiftInchargeNames)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
+
+// Creates Weekly Shift Planner 
+shiftEditor.post('/createWeeklyShiftPlan', jsonParser, async (req, res, next) => {
+    // console.log('CREATE WEEKLY SHIFT PLAN REQUEST', req.body);
+    let inputArray = req.body;
+    let shiftDataPresent = false; // Flag to track whether shift data is already present
+
+    for (let i = 0; i < inputArray.length; i++) {
+        if (inputArray[i].isChecked === false) {
+            try {
+                await new Promise((resolve, reject) => {
+                    // Check if shift data exists for the date and shift
+                    misQueryMod(
+                        `SELECT * FROM day_shiftregister WHERE ShiftDate = '${inputArray[i].ShiftDate}' AND Shift = '${inputArray[i].Shift}'`,
+                        (err, data) => {
+                            if (err) {
+                                logger.error(err);
+                                return reject(err);
+                            }
+
+                            if (data.length > 0) {
+                                shiftDataPresent = true; // Shift data is already present
+                            }
+
+                            resolve();
+                        }
+                    );
+                });
+
+                if (!shiftDataPresent) {
+                    // If shift data is not present, insert the record
+                    await new Promise((resolve, reject) => {
+                        misQueryMod(
+                            `INSERT INTO day_shiftregister (ShiftDate, Shift, FromTime, ToTime, Shift_Ic) VALUES ('${inputArray[i].ShiftDate}', '${inputArray[i].Shift}', '${inputArray[i].FromTime}', '${inputArray[i].ToTime}', '${inputArray[i].Shift_Ic}' )`,
+                            (err, data) => {
+                                if (err) {
+                                    logger.error(err);
+                                    return reject(err);
+                                }
+                                resolve();
+                            }
+                        );
+                    });
+                }
+            } catch (error) {
+                next(error);
+                return;
+            }
+        }
+    }
+
+    if (shiftDataPresent) {
+        res.send('Shift Data Already present');
+    } else {
+        res.send('Shift Data Successfully added');
+    }
+});
+
+/////4TH TABLE
+// shiftEditor.post('/getDailyShiftPlanTable', jsonParser, async (req, res, next) => {
+//     console.log('/getDailyShiftPlanTable', req.body);
+//     const shiftDate = req.body.ShiftDate?.item; // Safely access the ShiftDate property
+//     const dateSplit = shiftDate.split("/");
+//     const [day, month, year] = dateSplit;
+//     const finalDay = `${year}-${month}-${day}`;
+//     console.log("Final Date in 4th Table ", finalDay);
+
+//     try {
+//         productionQueryMod(`SELECT * FROM day_shiftregister WHERE ShiftDate='${finalDay}'`, (err, data) => {
+//             if (err) {
+//                 console.error(err);
+//                 next(err); // Pass the error to the error handling middleware
+//             } else {
+//                 console.log("4th Table response is ", data);
+//                 res.send(data); // Send the data response
+//             }
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         next(error); // Pass the error to the error handling middleware
+//     }
+// });
+
+/////////////////////////
+
+//4th Row First Table 
+shiftEditor.post('/getDailyShiftPlanTable', jsonParser ,  async (req, res, next) => {
+//    console.log('/getDailyShiftPlanTable' , req.body)
+   try {
+    const shiftDate = req.body.ShiftDate?.item; // Safely access the ShiftDate property
+    if (!shiftDate) {
+        return res.status(400).send('ShiftDate is missing in the request body');
+    }
+    const dateSplit = shiftDate.split("/");
+    const [day, month, year] = dateSplit;
+    const finalDay = `${year}-${month}-${day}`;
+    // console.log("required final day",finalDay)
+   
+    misQueryMod(`SELECT * FROM day_shiftregister WHERE ShiftDate='${finalDay}'`, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('An error occurred while querying the database');
+        }
+
+        if (data === null || data.length === 0) {
+            console.log('DATA IS EMPTY');
+            return res.send([]);
+        } else {
+            // console.log('DATA IS PRESENT');
+            // console.log("response required for that date is", data);
+            return res.send(data);
+        }
+    });
+} catch (error) {
+    console.error(error);
+    return res.status(500).send('An unexpected error occurred');
+}
+});
+
+
+
+// Gets Information of weekly shift plan
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  } 
+ shiftEditor.post('/getWeeklyShiftPlanSecondTable', jsonParser ,  async (req, res, next) => {
+    //delay is given so that as soon as the data is created from create week shift , the table has to get populated with all the records 
+    // console.log('/getWeeklyShiftPlanSecondTable REQUEST IS ' , req.body)
+    await delay(200);
+    let newDates = [];
+    if(req.body === '') {
+        res.send(null)   
+    } else {
+        for(let i=0; i<req.body.length; i++) {
+                    //console.log(letinputArray[i].ShiftDate)
+                    let dateSplit = req.body[i].split("/");
+                  let year = dateSplit[2];
+                  let month = dateSplit[1];
+                  let day = dateSplit[0];
+                  let finalDay = year+"-"+month+"-"+day
+                  req.body[i].ShiftDatae = finalDay
+                  newDates.push(finalDay)
+                  //console.log(finalDay)   
+                }
+                try {
+                        misQueryMod(` SELECT * FROM day_shiftregister WHERE ShiftDate='${newDates[0]}' || ShiftDate='${newDates[1]}' || ShiftDate='${newDates[2]}' || ShiftDate='${newDates[3]}' || ShiftDate='${newDates[4]}' || ShiftDate='${newDates[5]}' || ShiftDate='${newDates[6]}'`, (err, data) => {
+                            if (err) logger.error(err);
+                            
+                            if(data === null) {
+                              //  console.log('DATA IS EMPTY')
+                            } else {
+                                // console.log('DATA IS PRESENT')
+                                for(let i =0 ; i < data.length ; i++) {
+                                    let dateSplit = data[i].ShiftDate.split("-");
+                                    let year = dateSplit[2];
+                                    let month = dateSplit[1];
+                                    let day = dateSplit[0];
+                                    let finalDay = year+"-"+month+"-"+day 
+                                   // console.log( 'RESPONSE SHIFT DATE IS ' , finalDay)
+                                    data[i].ShiftDate = finalDay 
+            
+                                    let dateSplitFromTime = data[i].FromTime.split("-");
+                                    //console.log( ' DATE SPLIT RESPONSE From tIME IS ' , dateSplitFromTime)
+                                    let yearFromTime = dateSplitFromTime[0];
+                                    let monthFromTime = dateSplitFromTime[1];
+                                    let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
+                                    let dayFromTimeFinal = dayFromTimeINITIAL[0]
+                                    let time = dayFromTimeINITIAL[1]
+                                    let finalDayFromTime = dayFromTimeFinal+"-"+monthFromTime+"-"+yearFromTime+" "+time
+                                    //console.log( 'RESPONSE From tIME IS ' , finalDayFromTime)
+                                    data[i].FromTime = finalDayFromTime 
+            
+                                    let dateSplitToTime = data[i].ToTime.split("-");
+                                    // console.log( ' DATE SPLIT RESPONSE To tIME IS ' , dateSplitToTime)
+                                    let yearToTime = dateSplitToTime[0];
+                                    let monthToTime = dateSplitToTime[1];
+                                    let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
+                                    let dayToTimeFinal = dayToTimeINITIAL[0]
+                                    let time1 = dayToTimeINITIAL[1]
+                                    let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time1
+                                   // console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
+                                    data[i].ToTime = finalDayToTime 
+                                    //data[i].FromTime = finalDayFromTime 
+            
+                                } 
+                            }
+                           // console.log('/getWeeklyShiftPlanSecondTable RESPONSE IS' , data)
+                            res.send(data)
+                            
+                        })
+                    } catch (error) {  
+                        next(error)
+                    }
+
+
+    }
+});
+
+// Gets Information of the daily shift plan of a particular shift
+shiftEditor.post('/getDailyShiftPlan', jsonParser ,  async (req, res, next) => {
+    try { 
+       
+        misQueryMod(` SELECT * FROM day_shiftregister WHERE ShiftDate='${req.body.ShiftDate}' and Shift='${req.body.Shift}'`, (err, data) => {
+            if (err) logger.error(err);
+            
+            res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
+
+// Gets Information all the machine Operators
+shiftEditor.get('/getMachineOperators', jsonParser ,  async (req, res, next) => {
+   // console.log('/getMachineOperators REQUEST' , req.body)
+    try {
+       
+        productionQueryMod(` SELECT * FROM magod_production.operator_list`, (err, data) => {
+            if (err) logger.error(err);
+            
+            res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
+
+// Gets Information all the machine Operators for a particular Shift
+shiftEditor.post('/getMachineOperatorsShift', jsonParser ,  async (req, res, next) => {
+    // console.log('/getMachineOperatorsShift TABLE REQUEST' , req.body)
+    //console.log('/getMachineOperatorsShift TABLE REQUEST - ', req.body.ShiftDate)
+   // console.log(req.body.hasOwnProperty("ShiftId"));
+    if(req.body.hasOwnProperty("DayShiftId")) {
+        let dateSplit = req.body.ShiftDate.split("-");
+        let year = dateSplit[2];
+        let month = dateSplit[1];
+        let day = dateSplit[0];
+        let finalDay = year + "-" + month + "-" + day + " 00:00:00"
+        // console.log('RESPONSE SHIFT DATE IS ', finalDay)
+        req.body.ShiftDate = finalDay
+
+        try { 
+       
+            misQueryMod(` SELECT * FROM magodmis.shiftregister where ShiftDate ='${finalDay}' && Shift='${req.body.Shift}'`, (err, data) => {
+                if (err) logger.error(err);  
+                // console.log(' /getMachineOperatorsShift TABLE Response ' , data)
+                res.send(data) 
+            })
+        } catch (error) {
+            next(error)  
+        }
+    } 
+    
+    //console.log(req.body.ShiftDate)
+    
+});
+
+// Set Machine Operator For a Single Day 
+shiftEditor.post('/setMachineOperatorDay', jsonParser, async (req, res, next) => {
+    // console.log("MO REQIRED",req.body);
+    // if (!req.body.ShiftDate || !req.body.Shift || !req.body.FromTime || !req.body.ToTime || !req.body.Machine || !req.body.Operator || !req.body.DayShiftID) {
+    //     return res.status(400).send('Missing required fields');
+    // }
+
+    // Date formatting for ShiftDate
+    let dateSplit = req.body.ShiftDate.split("-");
+    let year = dateSplit[2];
+    let month = dateSplit[1];
+    let day = dateSplit[0];
+    let finalDay = year + "-" + month + "-" + day + " 00:00:00";
+    req.body.ShiftDate = finalDay;
+    // console.log("required finalday",finalDay)
+
+    // Date formatting for FromTime
+    let dateSplitFromTime = req.body.FromTime.split("-");
+    let yearFromTime = dateSplitFromTime[2];
+    let monthFromTime = dateSplitFromTime[1];
+    let dayFromTime = dateSplitFromTime[0];
+    let yearSplit = yearFromTime.split(" ");
+    let finalDayFromTime = yearSplit[0] + "-" + monthFromTime + "-" + dayFromTime + " " + yearSplit[1];
+    req.body.FromTime = finalDayFromTime;
+
+    // Date formatting for ToTime
+    let dateSplitToTime = req.body.ToTime.split("-");
+    let yearToTime = dateSplitToTime[2];
+    let monthToTime = dateSplitToTime[1];
+    let dayToTime = dateSplitToTime[0];
+    let yearSplit1 = yearToTime.split(" ");
+    let finalDayToTime = yearSplit1[0] + "-" + monthToTime + "-" + dayToTime + " " + yearSplit1[1];
+    req.body.ToTime = finalDayToTime;
+
+
+    try {
+        // Check if the data already exists for the given DayShiftID and Operator
+        const operatorData2 = await new Promise((resolve, reject) => {
+            misQueryMod(`SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${req.body.ShiftDate}' AND Operator='${req.body.Operator}'`, (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return reject(err);
+                }
+                resolve(data);
+                // console.log("checking MO IN DailyOperator",data)
+            });
+        });
+
+        if (operatorData2 && operatorData2.length > 0) {
+            // Operator already present for the given DayShiftID
+            res.send("Operator is already present");
+        } else {
+            // Operator not present, insert the new record
+            misQueryMod(`INSERT INTO magodmis.shiftregister (ShiftDate, Shift, FromTime, ToTime, Machine, Operator, DayShiftID) VALUES 
+                ('${req.body.ShiftDate}', '${req.body.Shift}', '${req.body.FromTime}', '${req.body.ToTime}', '${req.body.Machine}', '${req.body.Operator}', '${req.body.DayShiftID}')`, (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return next(err);
+                }
+                res.send("Data Successfully Added");
+            });
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+ 
+
+// Delete Machine Operator For a Single Day 
+shiftEditor.post('/deleteMachineOperatorDay', jsonParser ,  async (req, res, next) => {
+    // console.log("deleteMachineOperatorDay",req.body);
+    try {
+        misQueryMod(`DELETE FROM magodmis.shiftregister WHERE ShiftDate='${req.body.ShiftDate}' && Shift='${req.body.Shift}' && Machine='${req.body.Machine}' && Operator='${req.body.Operator}';`, (err, data) => {
+            if (err) logger.error(err); 
+          //  console.log(data)
+            res.send(data) 
+        })
+    } catch (error) {
+        next(error) 
+    }
+
+});
+
+// Update Single Day Shift - Shift Incharge 
+shiftEditor.post('/updateSingleDaySihiftIncharge', jsonParser ,  async (req, res, next) => {
+    // console.log('/updateSingleDaySihiftIncharge REQUEST' , req.body)
+    try {
+       
+        misQueryMod(` UPDATE  magodmis.day_shiftregister 
+        SET Shift_Ic = '${req.body.newShift_Ic}'
+        WHERE DayShiftId='${req.body.DayShiftId}'`, (err, data) => {
+            if (err) logger.error(err);
+            // console.log(data)
+            res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+
+    //res.send('Request Recieved')
+
+});
+
+// Update Single Day Shift - Shift Instructions
+shiftEditor.post('/updateSingleDaySihiftInstructions', jsonParser ,  async (req, res, next) => {
+    console.log('/updateSingleDaySihiftInstructions REQUEST' , req.body)
+
+    try {
+       
+        misQueryMod(` UPDATE  magodmis.day_shiftregister 
+        SET Shift_instruction = '${req.body.shiftInstruction}'
+        WHERE DayShiftId='${req.body.DayShiftId}'`, (err, data) => {
+            if (err) logger.error(err);
+           // console.log(data)
+            res.send(data)
+        }) 
+    } catch (error) {
+        next(error)  
+    }
+
+    //res.send('Request Recieved')
+    
+    
+});
+
+//Delete Operator For Week
+shiftEditor.post('/deleteWeekOperatorForMachine', jsonParser ,  async (req, res, next) => {
+    //console.log('/deleteWeekOperatorForMachine REQUEST' , req.body)
+
+    let letinputArray = req.body.selectedWeek
+
+    for(let i=0; i<letinputArray.length; i++) {
+        //console.log(letinputArray[i].ShiftDate)
+        let dateSplit = letinputArray[i].split("/");
+      let year = dateSplit[2];
+      let month = dateSplit[1];
+      let day = dateSplit[0];
+      let finalDay = year+"-"+month+"-"+day
+      letinputArray[i] = finalDay + " 00:00:00"
+      //console.log(finalDay) 
+    }
+
+   // console.log('After Date Conversion ' , letinputArray)
+
+    for(let i =0; i<letinputArray.length;i++) {
+
+        try {
+       
+        misQueryMod(` DELETE FROM magodmis.shiftregister WHERE Shift='${req.body.selectedShift}' && ShiftDate='${letinputArray[i]}' && Machine='${req.body.selectedMachine}' && Operator='${req.body.selectedOperator}' `, (err, data) => {
+            if (err) logger.error(err);
+            //console.log(data)
+            //res.send(data)
+        })
+    } catch (error) { 
+        next(error)
+    } 
+
+    } 
+
+    
+
+    res.send('Deleted Week Shift Operators')  
+});
+
+
+// Delete Week Shift 
+shiftEditor.post('/deleteWeekShift', jsonParser ,  async (req, res, next) => {
+    // console.log('/deleteWeekShift REQUEST' , req.body)
+
+    let letinputArray = req.body.selectedWeek
+
+    for(let i=0; i<letinputArray.length; i++) {
+        //console.log(letinputArray[i].ShiftDate)
+        let dateSplit = letinputArray[i].split("/");
+      let year = dateSplit[2];
+      let month = dateSplit[1];
+      let day = dateSplit[0];
+      let finalDay = year+"-"+month+"-"+day
+      letinputArray[i] = finalDay
+      //console.log(finalDay) 
+    }
+
+   // console.log('After Date Conversion ' , letinputArray)
+
+    for(let i =0; i<letinputArray.length;i++) {
+
+        try {
+       
+            misQueryMod(` DELETE FROM magodmis.shiftregister WHERE Shift='${req.body.selectedShift}' && ShiftDate='${letinputArray[i] + " 00:00:00"}'  `, (err, data) => {
+                if (err) logger.error(err);
+               // console.log(data)
+                //res.send(data)
+            })
+        } catch (error) { 
+            next(error)
+        } 
+
+        try {
+       
+        misQueryMod(` DELETE FROM magodmis.day_shiftregister WHERE Shift='${req.body.selectedShift}' && ShiftDate = '${letinputArray[i]}'`, (err, data) => {
+            if (err) logger.error(err);
+            //console.log(data)
+            //res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+
+    } 
+
+    
+
+    res.send('Deleted Week Shift ')  
+});
+
+
+
+// Delete Single Day Shift 
+shiftEditor.post('/deleteSingleDayShift', jsonParser ,  async (req, res, next) => {
+    //console.log('/deleteSingleDayShift REQUEST' , req.body)
+
+    try {
+       
+        misQueryMod(` DELETE FROM magodmis.day_shiftregister WHERE DayShiftId='${req.body.DayShiftId}'`, (err, data) => {
+            if (err) logger.error(err);
+            //console.log(data)
+            res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
+
+// ///////////////////////////
+// Sets machine with operator and shift plan
+shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) => {
+    // console.log('/setMachineOperators', req.body);
+    let inputArray = req.body;
+
+    let hasError = false; // Track if there's an error
+    let operatorAlreadyPresent = false; // Track if operator is already present
+
+    for (let i = 0; i < inputArray.length; i++) {
+        // Date formatting code
+        let dateSplit = inputArray[i].ShiftDate.split("/");
+        let year = dateSplit[2];
+        let month = dateSplit[1];
+        let day = dateSplit[0];
+        let finalDay = year + "-" + month + "-" + day;
+        inputArray[i].ShiftDate = finalDay;
+
+        // Determine fromTime and toTime based on the Shift type
+        let fromTime = "";
+        let toTime = "";
+        if (inputArray[i].Shift === "First") {
+            fromTime = " 06:00:00";
+            toTime = " 14:00:00";
+        } else if (inputArray[i].Shift === "Second") {
+            fromTime = " 14:00:00";
+            toTime = " 22:00:00";
+        } else if (inputArray[i].Shift === "Third") {
+            fromTime = " 22:00:00";
+            toTime = " 06:00:00";
+        } else if (inputArray[i].Shift === "General") {
+            fromTime = " 09:00:00";
+            toTime = " 17:00:00";
+        }
+        inputArray[i].FromTime = inputArray[i].ShiftDate + fromTime;
+        inputArray[i].ToTime = inputArray[i].ShiftDate + toTime;
+
+        try {
+            // Check if operator is already added for this dayShiftID
+            const operatorData = await new Promise((resolve, reject) => {
+                misQueryMod(`SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${inputArray[i].ShiftDate}' AND Shift='${inputArray[i].Shift}' AND Operator='${inputArray[i].Operator}'`, (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        hasError = true; // Set the error flag
+                        return reject(err);
+                    }
+                    resolve(data);
+                });
+            });
+
+            if (operatorData.length > 0) {
+                console.log("Operator already added");
+                operatorAlreadyPresent = true; // Set the flag
+            } else {
+                // Insert the data
+                const dayShiftID = 123; // Replace with the actual dayShiftID
+                const insertData = await new Promise((resolve, reject) => {
+                    misQueryMod(`INSERT INTO magodmis.shiftregister (ShiftDate, Shift, FromTime, ToTime, Machine, Operator, DayShiftID) VALUES 
+                        ('${inputArray[i].ShiftDate}', '${inputArray[i].Shift}', '${inputArray[i].FromTime}', '${inputArray[i].ToTime}', '${inputArray[i].Machine}', '${inputArray[i].Operator}', '${dayShiftID}')`, (err, data) => {
+                        if (err) {
+                            console.error(err);
+                            hasError = true; // Set the error flag
+                            return reject(err);
+                        }
+                        resolve(data);
+                    });
+                });
+                // console.log('Response After Insert Query Set Machine Operators', insertData);
+            }
+        } catch (error) {
+            hasError = true; // Set the error flag
+            next(error);
+        }
+    }
+
+    if (hasError) {
+        // Send an error response
+        return res.status(404).send('No data found for the provided shift date and shift.');
+    } else {
+        if (operatorAlreadyPresent) {
+            // Send response if operator is already present
+            res.send('Operator already present');
+        } else {
+            // Send a success response
+            res.send('Data Added Sucessfully');
+        }
+    }
+}); 
+// //////////////////////////////////////////////////////////////////////////
+// getSingleDayDetailShiftInformation
+shiftEditor.post('/getSingleDayDetailShiftInformation', jsonParser, async (req, res, next) => {
+    // console.log('/getSingleDayDetailShiftInformation REQUEST', req.body);
+    let dateSplit = req.body.ShiftDate.split("-");
+    let year = dateSplit[2];
+    let month = dateSplit[1];
+    let day = dateSplit[0];
+    let finalDay = year + "-" + month + "-" + day;
+    let finalDay1 = year + "-" + month + "-" + day + " " + "00:00:00";
+    try {
+        misQueryMod(`SELECT * FROM magodmis.day_shiftregister WHERE ShiftDate='${finalDay}'`, async (err, data) => {
+            if (err) {
+                logger.error(err);
+                res.status(500).send('An error occurred');
+                return;
+            }
+
+            const outputArray = await Promise.all(data.map(async (item) => {
+                const customObject = { ShiftIc: "", Shift: "", day: "",from:"",To:"",Shift_instruction:"",machineOperators: [] };
+                customObject.ShiftIc = item.Shift_Ic;
+                customObject.Shift = item.Shift;
+                customObject.day = finalDay;
+                customObject.from=item.FromTime;
+                customObject.To=item.ToTime;
+                customObject.Shift_instruction=item.Shift_instruction  
+                try {
+                    const subArrayData = await fetchSubArrayData1(item.Shift, finalDay1);
+                    customObject.machineOperators = subArrayData;
+                } catch (subArrayError) {
+                    logger.error('Error fetching subarray data:', subArrayError);
+                }
+
+                return customObject;
+            }));
+
+            res.send(outputArray);
+            // console.log("OuPut array required,",outputArray)
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+async function fetchSubArrayData1(shift, finalDay1) {
+    // console.log("Required Shift is ",shift,finalDay1);
+    return new Promise((resolve, reject) => {
+        misQueryMod(`SELECT * FROM magodmis.shiftregister  WHERE Shift='${shift}' AND ShiftDate='${finalDay1}'`, (err, data) => {
+            // console.log("second query result is ",data)
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(data);
+        });
+    });
+}
+
+
+
+/////////////////////////////////////////
+// getFullWeekDetailPlan
+// Utility function to introduce a delay
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+shiftEditor.post('/getFullWeekDetailPlan', jsonParser, async (req, res, next) => {
+    try {
+        const inputArray = req.body.ShiftDate;
+        const outputArray = [];
+
+        for (let i = 0; i < inputArray.length; i++) {
+            const dateSplit = inputArray[i].split("/"); 
+            const year = dateSplit[2];
+            const month = dateSplit[1];
+            const day = dateSplit[0];    
+            const finalDay = `${year}-${month}-${day}`;
+
+            // Step 1: Fetch day_shiftregister data for the current finalDay
+            const dayShiftData = await new Promise((resolve, reject) => {
+                misQueryMod(`select * FROM magodmis.day_shiftregister WHERE ShiftDate='${finalDay}'`, (err, data) => {
+                    if (err) reject(err);
+                    else resolve(data);
+                });
+            });
+            await delay(500); // Adjust the delay time as needed
+            const innerArray = [];
+            // Step 2: Process each day_shiftregister entry and fetch related shiftregister data
+            for (const dayShift of dayShiftData) {
+                const customObject = {
+                    ShiftIc: dayShift.Shift_Ic,
+                    Shift: dayShift.Shift,
+                    day: dayShift.ShiftDate,
+                    machineOperators: []
+                };
+                const shiftData = await new Promise((resolve, reject) => {
+                    misQueryMod(`select * FROM magodmis.shiftregister WHERE DayShiftID='${dayShift.ShiftId}' && Shift='${dayShift.Shift}'`, (err, data) => {
+                        if (err) reject(err);
+                        else resolve(data);
+                    });
+                });
+
+                customObject.machineOperators = shiftData;
+                innerArray.push(customObject);
+            }
+            outputArray.push(innerArray);
+        }
+        res.send(outputArray);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/////Try PDF MACHINE OPEARTOR
+shiftEditor.post('/getPdfMachineOperator', jsonParser ,  async (req, res, next) => {
+    // console.log("req.body for pdf MO",req.body);
+    //delay is given so that as soon as the data is created from create week shift , the table has to get populated with all the records 
+    let newDates = [];
+for (let i = 0; i < req.body.ShiftDate.length; i++) {
+    let dateSplit = req.body.ShiftDate[i].split("/");
+    let year = dateSplit[2];
+    let month = dateSplit[1];
+    let day = dateSplit[0];
+    let finalDay = `${year}-${month}-${day} 00:00:00`;
+    newDates.push(finalDay);
+}
+                try {
+                        misQueryMod(` SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${newDates[0]}' || ShiftDate='${newDates[1]}' || ShiftDate='${newDates[2]}' || ShiftDate='${newDates[3]}' || ShiftDate='${newDates[4]}' || ShiftDate='${newDates[5]}' || ShiftDate='${newDates[6]}'`, (err, data) => {
+                            if (err) logger.error(err);
+                            
+                            if(data === null) {
+                              //  console.log('DATA IS EMPTY')
+                            } else {
+                                // console.log('DATA IS PRESENT')
+                            }
+                           // console.log('/getWeeklyShiftPlanSecondTable RESPONSE IS' , data)
+                            res.send(data)
+                            // console.log("pdf machineOperatorData",data)
+                        })
+                    } catch (error) {  
+                        next(error)
+                    }
+});
+
+/////WeeklyPrint PDF 
+shiftEditor.post('/TryWeeklyPdf', jsonParser, async (req, res, next) => {
+    console.log('/TryWeeklyPdf REQUEST', req.body);
+
+    try {
+        const flatShiftArray = await Promise.all(req.body.ShiftDate.flatMap(async (date) => {
+            const dateParts = date.split("/");
+            const day = dateParts[0];
+            const month = dateParts[1];
+            const year = dateParts[2];
+            const finalDay = year + "-" + month + "-" + day;
+            const finalDay1 = year + "-" + month + "-" + day + " " + "00:00:00";
+
+            try {
+                const firstQueryResult = await fetchFirstQueryData(finalDay);
+
+                return await Promise.all(firstQueryResult.map(async (item) => {
+                    const customObject = { ShiftIc: "", Shift: "", day: "", machineOperators: [] };
+                    customObject.ShiftIc = item.Shift_Ic;
+                    customObject.Shift = item.Shift;
+                    customObject.day = finalDay;
+
+                    try {
+                        // Pass finalDay1 as a parameter to fetchSubArrayData
+                        const subArrayData = await fetchSubArrayData(item.Shift, item.DayShiftId, finalDay1);
+                        customObject.machineOperators = subArrayData;
+                    } catch (subArrayError) {
+                        logger.error('Error fetching subarray data:', subArrayError);
+                    }
+
+                    return customObject;
+                }));
+            } catch (firstQueryError) {
+                logger.error('Error fetching first query data:', firstQueryError);
+                return [];
+            }
+        }));
+
+        const sortedShiftArray = flatShiftArray.sort((a, b) => (a.day > b.day) ? 1 : (a.day < b.day) ? -1 : 0);
+        res.send(sortedShiftArray);
+    } catch (error) {
+        next(error);
+    }
+});
+
+async function fetchFirstQueryData(finalDay) {
+    return new Promise((resolve, reject) => {
+        misQueryMod(`SELECT * FROM magodmis.day_shiftregister WHERE ShiftDate='${finalDay}'`, (err, data) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(data);
+        });
+    });
+}
+
+async function fetchSubArrayData(shift, dayShiftID, finalDay1) {
+    // console.log("Required Shift is ", shift, finalDay1);
+    return new Promise((resolve, reject) => {
+        // Use finalDay1 in the query
+        misQueryMod(`SELECT * FROM magodmis.shiftregister  WHERE Shift='${shift}' AND ShiftDate='${finalDay1}'`, (err, data) => {
+            // console.log("second query result is ", data);
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(data);
+        });
+    });
+}
+
+
+//getmachineListfor DropDown
+shiftEditor.get('/getMachineList', async (req, res, next) => {
+    try {
+        const shiftInchargeNames = [];
+        productionQueryMod("Select * from machine_data.machine_list where activeMachine=1 and Working=1", (err, data) => {
+            if (err) logger.error(err);
+            // for (let i = 0; i < data.length; i++) {
+            //     shiftInchargeNames[i] = data[i].Name
+            //   }
+            res.send(data)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
+
+
+
+
+
+module.exports = shiftEditor; 
