@@ -9,8 +9,9 @@ var jsonParser = bodyParser.json()
 
 
 processSetup.post('/addProcess', jsonParser, (req, res, next) => {
+    // console.log(req.body);
     try {
-        mchQueryMod(`Insert into machine_data.magod_process_list(ProcessID,ProcessDescription,RawMaterial,Service,MultiOperation,Profile,No_of_Operations,Active) values('${req.body.ProcessID}','${req.body.ProcessDescription}','${req.body.RawMaterial}',0,0,0,0,1)`, (err, data) => {
+        mchQueryMod(`Insert into machine_data.magod_process_list(ProcessID,ProcessDescription,RawMaterial,Service,MultiOperation,Profile,No_of_Operations,Active) values('${req.body.ProcessID}','${req.body.ProcessDescription}','${req.body.RawMaterial}',0,0,0,'${req.body.No_of_Operations}',1)`, (err, data) => {
             if (err) logger.error(err);
             res.send(data)
         })
@@ -20,15 +21,16 @@ processSetup.post('/addProcess', jsonParser, (req, res, next) => {
 });
 
 processSetup.post('/SavedProcess', jsonParser, (req, res, next) => {
+    console.log("save",req.body)
     try {
         // Determine the values for MultiOperation and No_of_Operations based on Service and Profile
-        let multiOperationValue = req.body.Service === 1 && req.body.Profile === 1 ? 1 : 0;
-        let noOfOperationsValue = req.body.Service === 1 && req.body.Profile === 1 ? 2 : 1;
+        // let multiOperationValue = req.body.Service === 1 && req.body.Profile === 1 ? 1 : 0;
+        // let noOfOperationsValue = req.body.Service === 1 && req.body.Profile === 1 ? 2 : 1;
 
 
         mchQueryMod(`UPDATE machine_data.magod_process_list 
             SET Service='${req.body.Service}', Profile='${req.body.Profile}',
-                MultiOperation=${multiOperationValue}, No_of_Operations=${noOfOperationsValue} where ID='${req.body.ID}'`,
+                MultiOperation=${req.body.fabrication}, No_of_Operations=${req.body.selectRow.No_of_Operations} where ID='${req.body.ID}'`,
             (err, data) => {
                 if (err) logger.error(err);
                 res.send(data);
