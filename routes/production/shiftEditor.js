@@ -11,7 +11,7 @@ var jsonParser = bodyParser.json()
 // Returns the type of Shifts - First, Second , Third , General, Special
 shiftEditor.get('/typesOfShifts', async (req, res, next) => {
     // console.log('Types of Shifts Request')
-    const shifts = [ "First" , "Second" , "Third" , "General" , "Special"]
+    const shifts = [ "First" , "Second" , "Third" , "General"]
     res.send(shifts)  
 });
 
@@ -37,7 +37,7 @@ shiftEditor.get('/shiftInchargeList', async (req, res, next) => {
     // console.log('Shift Incharge List Requested')
     try {
         const shiftInchargeNames = [];
-        productionQueryMod("Select Name from magod_production.shift_ic_list", (err, data) => {
+        productionQueryMod(`Select Name from magod_production.shift_ic_list where Active='1'`, (err, data) => {
             if (err) logger.error(err);
             for (let i = 0; i < data.length; i++) {
                 shiftInchargeNames[i] = data[i].Name
@@ -144,9 +144,10 @@ shiftEditor.post('/getDailyShiftPlanTable', jsonParser ,  async (req, res, next)
     const dateSplit = shiftDate.split("/");
     const [day, month, year] = dateSplit;
     const finalDay = `${year}-${month}-${day}`;
-    // console.log("required final day",finalDay)
+    console.log("required final day",finalDay)
    
     misQueryMod(`SELECT * FROM day_shiftregister WHERE ShiftDate='${finalDay}'`, (err, data) => {
+        // console.log("Shift Editor",data)
         if (err) {
             console.error(err);
             return res.status(500).send('An error occurred while querying the database');
@@ -265,7 +266,7 @@ shiftEditor.get('/getMachineOperators', jsonParser ,  async (req, res, next) => 
    // console.log('/getMachineOperators REQUEST' , req.body)
     try {
        
-        productionQueryMod(` SELECT * FROM magod_production.operator_list`, (err, data) => {
+        productionQueryMod(`SELECT * FROM magod_production.operator_list where  Active='1'`, (err, data) => {
             if (err) logger.error(err);
             
             res.send(data)
@@ -277,9 +278,7 @@ shiftEditor.get('/getMachineOperators', jsonParser ,  async (req, res, next) => 
 
 // Gets Information all the machine Operators for a particular Shift
 shiftEditor.post('/getMachineOperatorsShift', jsonParser ,  async (req, res, next) => {
-    // console.log('/getMachineOperatorsShift TABLE REQUEST' , req.body)
-    //console.log('/getMachineOperatorsShift TABLE REQUEST - ', req.body.ShiftDate)
-   // console.log(req.body.hasOwnProperty("ShiftId"));
+    // console.log("DayShiftID is",req.body);
     if(req.body.hasOwnProperty("DayShiftId")) {
         let dateSplit = req.body.ShiftDate.split("-");
         let year = dateSplit[2];
@@ -289,9 +288,18 @@ shiftEditor.post('/getMachineOperatorsShift', jsonParser ,  async (req, res, nex
         // console.log('RESPONSE SHIFT DATE IS ', finalDay)
         req.body.ShiftDate = finalDay
 
+        FromTime=req.body.FromTime.split(' ');
+        FromTime1=FromTime[0].split('-')
+        FromTimeNew=FromTime1[2]+"-"+FromTime1[1]+"-"+FromTime1[0]+" "+FromTime[1];
+
+        ToTime=req.body.ToTime.split(' ');
+        ToTime1=ToTime[0].split('-')
+        ToTimeNew=ToTime1[2]+"-"+ToTime1[1]+"-"+ToTime1[0]+" "+ToTime[1];
+        // console.log("time FromTimeNew is",FromTimeNew,"ToTimeNew is",ToTimeNew);
+
         try { 
        
-            misQueryMod(` SELECT * FROM magodmis.shiftregister where ShiftDate ='${finalDay}' && Shift='${req.body.Shift}'`, (err, data) => {
+            misQueryMod(`SELECT * FROM magodmis.shiftregister where ShiftDate ='${finalDay}' and  Shift='${req.body.Shift}' and FromTime='${FromTimeNew}' and ToTime='${ToTimeNew}'`, (err, data) => {
                 if (err) logger.error(err);  
                 // console.log(' /getMachineOperatorsShift TABLE Response ' , data)
                 res.send(data) 
@@ -311,6 +319,7 @@ shiftEditor.post('/setMachineOperatorDay', jsonParser, async (req, res, next) =>
     // if (!req.body.ShiftDate || !req.body.Shift || !req.body.FromTime || !req.body.ToTime || !req.body.Machine || !req.body.Operator || !req.body.DayShiftID) {
     //     return res.status(400).send('Missing required fields');
     // }
+    // console.log("dayShift ID",req.body.DayShiftID);
 
     // Date formatting for ShiftDate
     let dateSplit = req.body.ShiftDate.split("-");
@@ -338,7 +347,6 @@ shiftEditor.post('/setMachineOperatorDay', jsonParser, async (req, res, next) =>
     let yearSplit1 = yearToTime.split(" ");
     let finalDayToTime = yearSplit1[0] + "-" + monthToTime + "-" + dayToTime + " " + yearSplit1[1];
     req.body.ToTime = finalDayToTime;
-
 
     try {
         // Check if the data already exists for the given DayShiftID and Operator
@@ -376,8 +384,9 @@ shiftEditor.post('/setMachineOperatorDay', jsonParser, async (req, res, next) =>
 // Delete Machine Operator For a Single Day 
 shiftEditor.post('/deleteMachineOperatorDay', jsonParser ,  async (req, res, next) => {
     // console.log("deleteMachineOperatorDay",req.body);
+
     try {
-        misQueryMod(`DELETE FROM magodmis.shiftregister WHERE ShiftDate='${req.body.ShiftDate}' && Shift='${req.body.Shift}' && Machine='${req.body.Machine}' && Operator='${req.body.Operator}';`, (err, data) => {
+        misQueryMod(`DELETE FROM magodmis.shiftregister WHERE ShiftDate='${req.body.ShiftDate}' && Shift='${req.body.Shift}' && Machine='${req.body.Machine}' && Operator='${req.body.Operator}' and FromTime='${req.body.FromTime}' and ToTime='${req.body.ToTime}'`, (err, data) => {
             if (err) logger.error(err); 
           //  console.log(data)
             res.send(data) 
@@ -410,7 +419,7 @@ shiftEditor.post('/updateSingleDaySihiftIncharge', jsonParser ,  async (req, res
 
 // Update Single Day Shift - Shift Instructions
 shiftEditor.post('/updateSingleDaySihiftInstructions', jsonParser ,  async (req, res, next) => {
-    console.log('/updateSingleDaySihiftInstructions REQUEST' , req.body)
+    // console.log('/updateSingleDaySihiftInstructions REQUEST' , req.body)
 
     try {
        
@@ -538,8 +547,9 @@ shiftEditor.post('/deleteSingleDayShift', jsonParser ,  async (req, res, next) =
     }
 });
 
+
 // ///////////////////////////
-// Sets machine with operator and shift plan
+// getSingleDayDetailShiftInformation
 shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) => {
     // console.log('/setMachineOperators', req.body);
     let inputArray = req.body;
@@ -574,7 +584,6 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
         }
         inputArray[i].FromTime = inputArray[i].ShiftDate + fromTime;
         inputArray[i].ToTime = inputArray[i].ShiftDate + toTime;
-
         try {
             // Check if operator is already added for this dayShiftID
             const operatorData = await new Promise((resolve, reject) => {
@@ -587,9 +596,7 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
                     resolve(data);
                 });
             });
-
             if (operatorData.length > 0) {
-                console.log("Operator already added");
                 operatorAlreadyPresent = true; // Set the flag
             } else {
                 // Insert the data
@@ -612,7 +619,6 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
             next(error);
         }
     }
-
     if (hasError) {
         // Send an error response
         return res.status(404).send('No data found for the provided shift date and shift.');
@@ -626,63 +632,6 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
         }
     }
 }); 
-// //////////////////////////////////////////////////////////////////////////
-// getSingleDayDetailShiftInformation
-shiftEditor.post('/getSingleDayDetailShiftInformation', jsonParser, async (req, res, next) => {
-    // console.log('/getSingleDayDetailShiftInformation REQUEST', req.body);
-    let dateSplit = req.body.ShiftDate.split("-");
-    let year = dateSplit[2];
-    let month = dateSplit[1];
-    let day = dateSplit[0];
-    let finalDay = year + "-" + month + "-" + day;
-    let finalDay1 = year + "-" + month + "-" + day + " " + "00:00:00";
-    try {
-        misQueryMod(`SELECT * FROM magodmis.day_shiftregister WHERE ShiftDate='${finalDay}'`, async (err, data) => {
-            if (err) {
-                logger.error(err);
-                res.status(500).send('An error occurred');
-                return;
-            }
-
-            const outputArray = await Promise.all(data.map(async (item) => {
-                const customObject = { ShiftIc: "", Shift: "", day: "",from:"",To:"",Shift_instruction:"",machineOperators: [] };
-                customObject.ShiftIc = item.Shift_Ic;
-                customObject.Shift = item.Shift;
-                customObject.day = finalDay;
-                customObject.from=item.FromTime;
-                customObject.To=item.ToTime;
-                customObject.Shift_instruction=item.Shift_instruction  
-                try {
-                    const subArrayData = await fetchSubArrayData1(item.Shift, finalDay1);
-                    customObject.machineOperators = subArrayData;
-                } catch (subArrayError) {
-                    logger.error('Error fetching subarray data:', subArrayError);
-                }
-
-                return customObject;
-            }));
-
-            res.send(outputArray);
-            // console.log("OuPut array required,",outputArray)
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-async function fetchSubArrayData1(shift, finalDay1) {
-    // console.log("Required Shift is ",shift,finalDay1);
-    return new Promise((resolve, reject) => {
-        misQueryMod(`SELECT * FROM magodmis.shiftregister  WHERE Shift='${shift}' AND ShiftDate='${finalDay1}'`, (err, data) => {
-            // console.log("second query result is ",data)
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(data);
-        });
-    });
-}
-
 
 
 /////////////////////////////////////////
@@ -773,7 +722,7 @@ for (let i = 0; i < req.body.ShiftDate.length; i++) {
 
 /////WeeklyPrint PDF 
 shiftEditor.post('/TryWeeklyPdf', jsonParser, async (req, res, next) => {
-    console.log('/TryWeeklyPdf REQUEST', req.body);
+    // console.log('/TryWeeklyPdf REQUEST', req.body);
 
     try {
         const flatShiftArray = await Promise.all(req.body.ShiftDate.flatMap(async (date) => {
@@ -848,7 +797,7 @@ async function fetchSubArrayData(shift, dayShiftID, finalDay1) {
 shiftEditor.get('/getMachineList', async (req, res, next) => {
     try {
         const shiftInchargeNames = [];
-        productionQueryMod("Select * from machine_data.machine_list where activeMachine=1 and Working=1", (err, data) => {
+        productionQueryMod(`Select * from machine_data.machine_list where activeMachine=1 and Working=1`, (err, data) => {
             if (err) logger.error(err);
             // for (let i = 0; i < data.length; i++) {
             //     shiftInchargeNames[i] = data[i].Name
@@ -859,6 +808,41 @@ shiftEditor.get('/getMachineList', async (req, res, next) => {
         next(error)
     }
 });
+
+
+
+//create special Shift
+shiftEditor.post('/createSpecialShift', jsonParser, async (req, res, next) => {
+    // console.log("req.body special shift", req.body.FromTime);
+    try {
+        const { ShiftDate, FromTime, ToTime, Shift_Ic } = req.body;
+        // console.log(FromTime)
+        let ShiftDate1=FromTime.split(' ');
+        let ShiftDate2=ShiftDate1[0];
+        // const formatedShiftDate1=ShiftDate1[0].split('-');
+        // let formatedShiftDate=formatedShiftDate1[2]+"-"+formatedShiftDate1[1]+"-"+formatedShiftDate1[0];
+        // console.log("formated",formatedShiftDate);
+         
+
+        misQueryMod(
+            `INSERT INTO magodmis.day_shiftregister (ShiftDate, Shift, FromTime, ToTime, Shift_Ic) VALUES ('${ShiftDate2}', 'Special', '${FromTime}', '${ToTime}', '${Shift_Ic}' )`,
+            (err, data) => {
+                if (err) {
+                    console.error("Error executing query:", err);
+                    next(err); // Call next with the error to pass it to the error handling middleware
+                } else {
+                    // console.log("Query result:", data);
+                    res.send(data);
+                    // console.log("data",data)
+                }
+            }
+        );
+    } catch (error) {
+        console.error("Error in try-catch block:", error);
+        next(error);
+    }
+});
+
 
 
 

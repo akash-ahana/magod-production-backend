@@ -11,7 +11,13 @@ function delay(time) {
   scheduleListProfile.post("/getSchedulesByCustomer", jsonParser , async (req, res, next) => {
     console.log('/getSchedulesByCustomer', req.body)
     try {
-        misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where (osd.Type='Profile' && osd.Schedule_Status = 'Tasked' || osd.Schedule_Status = 'Programmed' || osd.Schedule_Status = 'Production' || osd.Schedule_Status = 'Completed' || osd.Schedule_Status = 'Processing') and c.Cust_Code = '${req.body.Cust_Code}' order by osd.Delivery_date`, (err, data) => {
+        misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o, magodmis.order_list o1,
+        magodmis.cust_data c 
+        WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
+        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' 
+        OR o.Schedule_Status='Completed')
+        AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No AND o1.Type='Profile' 
+        ORDER BY o.Delivery_date;`, (err, data) => {
             if (err) logger.error(err);
             console.log(data.length)
             //const slicedArray = data.slice(0, 200); 
@@ -108,7 +114,13 @@ scheduleListProfile.get('/printSchedulesList', async (req, res, next) => {
 scheduleListProfile.get('/schedulesList', async (req, res, next) => {
     //console.log('Request Done to Get Schedule List Profile Table ')
     try {
-        misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Tasked' || osd.Schedule_Status = 'Programmed' || osd.Schedule_Status = 'Production' || osd.Schedule_Status = 'Processing'  order by osd.Delivery_date`, (err, data) => {
+        misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o, magodmis.order_list o1,
+        magodmis.cust_data c 
+        WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
+        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' 
+        OR o.Schedule_Status='Completed')
+        AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No AND o1.Type='Profile' 
+        ORDER BY o.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
           //  console.log(data.length)
             //const slicedArray = data.slice(0, 200); 

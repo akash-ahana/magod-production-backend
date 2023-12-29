@@ -1,0 +1,15 @@
+2023-12-22T06:52:35.715Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: '18/12/2023'
+2023-12-22T06:52:50.433Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: '18/12/2023'
+2023-12-22T07:00:04.200Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: '18/12/2023'
+2023-12-22T07:02:29.246Z [test] error: Status Code : undefined  - Error : Incorrect DATETIME value: 'undefined-undefined-2023-12-18'
+2023-12-22T07:03:17.852Z [test] error: Status Code : undefined  - Error : formattedShiftDate is not defined
+2023-12-22T07:03:34.454Z [test] error: Status Code : undefined  - Error : formattedShiftDate is not defined
+2023-12-22T07:05:05.419Z [test] error: Status Code : undefined  - Error : Incorrect DATETIME value: 'null'
+2023-12-22T07:09:49.877Z [test] error: Status Code : undefined  - Error : Cannot access 'dateSplit' before initialization
+2023-12-22T07:21:37.247Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2023-12-22T07:21:38.807Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2023-12-22T07:22:08.648Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2023-12-22T07:22:10.520Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2023-12-22T07:25:13.686Z [test] error: Status Code : undefined  - Error : Incorrect integer value: 'undefined' for column 'DayShiftID' at row 1
+2023-12-22T07:28:50.798Z [test] error: Status Code : undefined  - Error : Incorrect integer value: 'undefined' for column 'DayShiftID' at row 1
+2023-12-22T07:29:12.341Z [test] error: Status Code : undefined  - Error : Incorrect integer value: 'undefined' for column 'DayShiftID' at row 1

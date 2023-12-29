@@ -28,6 +28,12 @@ app.use("/productionSetup", productionSetupRouter);
 const ProcesssetupRouter = require('./routes/production/ProcessSetup');
 app.use("/processSetup", ProcesssetupRouter);
 
+const EditShiftIcRouter = require('./routes/production/EditShiftIc');
+app.use("/editShiftIc", EditShiftIcRouter);
+
+const EditOperatorRouter = require('./routes/production/EditOperator');
+app.use("/EditOperator", EditOperatorRouter);
+
 const machineAllotmentRouter = require('./routes/production/machineAllotment');
 app.use("/machineAllotment", machineAllotmentRouter);
 
@@ -36,6 +42,7 @@ app.use("/machineAllotmentService", machineAllotmentServiceRouter);
 
 const shiftEditorRouter = require('./routes/production/shiftEditor');
 app.use("/shiftEditor", shiftEditorRouter); 
+
 
 const scheduleListProfileRouter = require('./routes/production/scheduleListProfile');
 app.use("/scheduleListProfile", scheduleListProfileRouter); 
