@@ -63,12 +63,9 @@ reports.post('/getMachineUtilisationSummary', jsonParser, async (req, res, next)
 
                 // Insert data for each machine
                 const insertQueries = existingMachines.map((machine) => {
-                  return `INSERT INTO magod_production.machine_utilisationsummary (Machine, TotalOn, ProdON, NonProdOn, TotalOff, Date, LaserOn) 
-                      SELECT '${machine}', '1440', '0', '0', '0', '${req.body.Date}', LaserOn
-                      FROM magodmis.shiftlogbook
-                      WHERE Machine = '${machine}'
-                      AND FromTime >= CONCAT('${req.body.Date}', ' 06:00:00')
-                      AND ToTime < CONCAT(DATE_ADD('${req.body.Date}', INTERVAL 1 DAY), ' 06:00:00')`;
+                  // console.log("machinesData",machine);
+                  return `INSERT INTO magod_production.machine_utilisationsummary (Machine, TotalOn, ProdON, NonProdOn, TotalOff, Date, LaserOn) Values
+                    ('${machine}', '1440', '0', '0', '0', '${req.body.Date}', 0)`;
                 });
 
                 // Execute all insert queries
@@ -122,8 +119,7 @@ reports.post('/getMachineUtilisationSummary', jsonParser, async (req, res, next)
 
 // Update Machine Utilization summary
 reports.post('/UpdateMachineUtilisationSummary', jsonParser, async (req, res, next) => {
-  // ////////////////
-  console.log("required req in reports save",req.body);
+  // console.log("required req in reports save",req.body);
   if (req.body.TotalOff != '' && req.body.LaserOn != '') {
     console.log(" Hi...im condition 1")
     try {
@@ -245,13 +241,11 @@ reports.post('/machineLog', jsonParser, async (req, res, next) => {
   // console.log('required date is', req.body);
 
   try {
-    const firstQuery = `SELECT magodmis.shiftlogbook.*, magodmis.shiftregister.Shift, magodmis.shiftregister.ShiftID,
-      (TIMESTAMPDIFF(MINUTE, magodmis.shiftlogbook.FromTime, magodmis.shiftlogbook.ToTime)) AS MachineTime
-  FROM magodmis.shiftlogbook
-  JOIN magodmis.shiftregister ON magodmis.shiftlogbook.ShiftID = magodmis.shiftregister.ShiftID
-  WHERE magodmis.shiftlogbook.FromTime >= CONCAT('${req.body.Date}', ' 06:00:00')
-      AND magodmis.shiftlogbook.ToTime < CONCAT(DATE_ADD('${req.body.Date}', INTERVAL 1 DAY), ' 06:00:00') and TaskNo!='100'
-  ORDER BY Shift, Machine`;
+    const firstQuery = `SELECT sl.*,sr.ShiftID,sr.ShiftDate,sr.Shift,sr.Machine,(TIMESTAMPDIFF(MINUTE,
+      sl.FromTime,sl.ToTime)) AS MachineTime
+    FROM magodmis.shiftlogbook sl
+    JOIN magodmis.shiftregister sr ON sl.ShiftID = sr.ShiftID
+    WHERE sr.ShiftDate='${req.body.Date}'`;
 
     mchQueryMod(firstQuery, async (err, data) => {
       if (err) {
@@ -394,6 +388,7 @@ reports.post('/UpdateMachineUtilisation', jsonParser, async (req, res, next) => 
     }
 
     res.send(Production1.machine_utilisationsummary.Rows); // Sending updated machine utilization summary data
+    console.log("Production1.machine_utilisationsummary.Rows",Production1.machine_utilisationsummary.Rows)
   } catch (error) {
     next(error);
   }
@@ -491,14 +486,11 @@ reports.post('/reportsTreeView', jsonParser , async (req, res, next) => {
 reports.post('/machineOnclick', jsonParser, async (req, res, next) => {
   // console.log('required date is', req.body);
   try {
-    const firstQuery = `SELECT magodmis.shiftlogbook.*, magodmis.shiftregister.Shift, magodmis.shiftregister.ShiftID,
-    (TIMESTAMPDIFF(MINUTE, magodmis.shiftlogbook.FromTime, magodmis.shiftlogbook.ToTime)) AS MachineTime
-  FROM magodmis.shiftlogbook
-  JOIN magodmis.shiftregister ON magodmis.shiftlogbook.ShiftID = magodmis.shiftregister.ShiftID
-  WHERE magodmis.shiftlogbook.FromTime >= CONCAT('${req.body.Date}', ' 06:00:00')
-      AND magodmis.shiftlogbook.ToTime < CONCAT(DATE_ADD('${req.body.Date}', INTERVAL 1 DAY), ' 06:00:00')
-      AND magodmis.shiftlogbook.TaskNo != '100'
-      AND magodmis.shiftlogbook.Machine='${req.body.Machine}'`;
+    const firstQuery = `SELECT sl.*, sr.ShiftID,sr.ShiftDate,sr.Shift,sr.Machine,(TIMESTAMPDIFF(MINUTE,
+      sl.FromTime,sl.ToTime)) AS MachineTime
+    FROM magodmis.shiftlogbook sl
+    JOIN magodmis.shiftregister sr ON sl.ShiftID = sr.ShiftID
+    WHERE sr.ShiftDate='${req.body.Date}'  and  sr.Machine='${req.body.Machine}'`;
 
     mchQueryMod(firstQuery, async (err, data) => {
       if (err) {
@@ -506,7 +498,7 @@ reports.post('/machineOnclick', jsonParser, async (req, res, next) => {
         return next(err);
       }
 
-      // console.log('First query result:', data.length);
+      // console.log('First query result:', data);
 
       // Extract unique MProcess values from the first query result
       const MProcessValues = Array.from(new Set(data.map((row) => row.MProcess)));
@@ -556,14 +548,11 @@ reports.post('/machineOnclick', jsonParser, async (req, res, next) => {
 reports.post('/shiftOnClick', jsonParser, async (req, res, next) => {
   // console.log('required date is', req.body);
   try {
-    const firstQuery = `SELECT magodmis.shiftlogbook.*, magodmis.shiftregister.Shift, magodmis.shiftregister.ShiftID,
-    (TIMESTAMPDIFF(MINUTE, magodmis.shiftlogbook.FromTime, magodmis.shiftlogbook.ToTime)) AS MachineTime
-  FROM magodmis.shiftlogbook
-  JOIN magodmis.shiftregister ON magodmis.shiftlogbook.ShiftID = magodmis.shiftregister.ShiftID
-  WHERE magodmis.shiftlogbook.FromTime >= CONCAT('${req.body.Date}', ' 06:00:00')
-      AND magodmis.shiftlogbook.ToTime < CONCAT(DATE_ADD('${req.body.Date}', INTERVAL 1 DAY), ' 06:00:00')
-      AND magodmis.shiftlogbook.TaskNo != '100'
-      AND magodmis.shiftlogbook.Machine='${req.body.Machine}'and  magodmis.shiftregister.Shift='${req.body.Shift}' `;
+    const firstQuery = `SELECT sl.*,sr.ShiftID,sr.ShiftDate,sr.Shift,sr.Machine,(TIMESTAMPDIFF(MINUTE,
+      sl.FromTime,sl.ToTime)) AS MachineTime
+    FROM magodmis.shiftlogbook sl
+    JOIN magodmis.shiftregister sr ON sl.ShiftID = sr.ShiftID
+    WHERE sr.ShiftDate='${req.body.Date}'  and  sr.Machine='${req.body.Machine}' and sr.Shift='${req.body.Shift}'`;
 
     mchQueryMod(firstQuery, async (err, data) => {
       if (err) {
@@ -636,7 +625,7 @@ reports.post('/prepare-report', jsonParser, async (req, res, next) => {
 
 //GET STATUS
 reports.post('/getStatusPrintReport', jsonParser, async (req, res, next) => {
-  console.log('required date for status is ', req.body.Date);
+  // console.log('required date for status is ', req.body.Date);
 
   try {
     mchQueryMod(`SELECT COUNT(*) AS rowCount FROM magodmis.dailyreport_status WHERE Date = '${req.body.Date}'`, (err, data) => {
@@ -650,7 +639,6 @@ reports.post('/getStatusPrintReport', jsonParser, async (req, res, next) => {
       else{
         res.send(true)
       }
-
     })
   } catch (error) {
     next(error)

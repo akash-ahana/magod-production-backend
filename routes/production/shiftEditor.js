@@ -144,7 +144,7 @@ shiftEditor.post('/getDailyShiftPlanTable', jsonParser ,  async (req, res, next)
     const dateSplit = shiftDate.split("/");
     const [day, month, year] = dateSplit;
     const finalDay = `${year}-${month}-${day}`;
-    console.log("required final day",finalDay)
+    // console.log("required final day",finalDay)
    
     misQueryMod(`SELECT * FROM day_shiftregister WHERE ShiftDate='${finalDay}'`, (err, data) => {
         // console.log("Shift Editor",data)
@@ -315,12 +315,6 @@ shiftEditor.post('/getMachineOperatorsShift', jsonParser ,  async (req, res, nex
 
 // Set Machine Operator For a Single Day 
 shiftEditor.post('/setMachineOperatorDay', jsonParser, async (req, res, next) => {
-    // console.log("MO REQIRED",req.body);
-    // if (!req.body.ShiftDate || !req.body.Shift || !req.body.FromTime || !req.body.ToTime || !req.body.Machine || !req.body.Operator || !req.body.DayShiftID) {
-    //     return res.status(400).send('Missing required fields');
-    // }
-    // console.log("dayShift ID",req.body.DayShiftID);
-
     // Date formatting for ShiftDate
     let dateSplit = req.body.ShiftDate.split("-");
     let year = dateSplit[2];
@@ -457,11 +451,8 @@ shiftEditor.post('/deleteWeekOperatorForMachine', jsonParser ,  async (req, res,
     }
 
    // console.log('After Date Conversion ' , letinputArray)
-
     for(let i =0; i<letinputArray.length;i++) {
-
         try {
-       
         misQueryMod(` DELETE FROM magodmis.shiftregister WHERE Shift='${req.body.selectedShift}' && ShiftDate='${letinputArray[i]}' && Machine='${req.body.selectedMachine}' && Operator='${req.body.selectedOperator}' `, (err, data) => {
             if (err) logger.error(err);
             //console.log(data)
@@ -472,9 +463,6 @@ shiftEditor.post('/deleteWeekOperatorForMachine', jsonParser ,  async (req, res,
     } 
 
     } 
-
-    
-
     res.send('Deleted Week Shift Operators')  
 });
 
@@ -482,9 +470,7 @@ shiftEditor.post('/deleteWeekOperatorForMachine', jsonParser ,  async (req, res,
 // Delete Week Shift 
 shiftEditor.post('/deleteWeekShift', jsonParser ,  async (req, res, next) => {
     // console.log('/deleteWeekShift REQUEST' , req.body)
-
     let letinputArray = req.body.selectedWeek
-
     for(let i=0; i<letinputArray.length; i++) {
         //console.log(letinputArray[i].ShiftDate)
         let dateSplit = letinputArray[i].split("/");
@@ -495,13 +481,9 @@ shiftEditor.post('/deleteWeekShift', jsonParser ,  async (req, res, next) => {
       letinputArray[i] = finalDay
       //console.log(finalDay) 
     }
-
    // console.log('After Date Conversion ' , letinputArray)
-
     for(let i =0; i<letinputArray.length;i++) {
-
         try {
-       
             misQueryMod(` DELETE FROM magodmis.shiftregister WHERE Shift='${req.body.selectedShift}' && ShiftDate='${letinputArray[i] + " 00:00:00"}'  `, (err, data) => {
                 if (err) logger.error(err);
                // console.log(data)
@@ -510,9 +492,7 @@ shiftEditor.post('/deleteWeekShift', jsonParser ,  async (req, res, next) => {
         } catch (error) { 
             next(error)
         } 
-
         try {
-       
         misQueryMod(` DELETE FROM magodmis.day_shiftregister WHERE Shift='${req.body.selectedShift}' && ShiftDate = '${letinputArray[i]}'`, (err, data) => {
             if (err) logger.error(err);
             //console.log(data)
@@ -523,9 +503,6 @@ shiftEditor.post('/deleteWeekShift', jsonParser ,  async (req, res, next) => {
     }
 
     } 
-
-    
-
     res.send('Deleted Week Shift ')  
 });
 
@@ -534,7 +511,6 @@ shiftEditor.post('/deleteWeekShift', jsonParser ,  async (req, res, next) => {
 // Delete Single Day Shift 
 shiftEditor.post('/deleteSingleDayShift', jsonParser ,  async (req, res, next) => {
     //console.log('/deleteSingleDayShift REQUEST' , req.body)
-
     try {
        
         misQueryMod(` DELETE FROM magodmis.day_shiftregister WHERE DayShiftId='${req.body.DayShiftId}'`, (err, data) => {
@@ -548,7 +524,6 @@ shiftEditor.post('/deleteSingleDayShift', jsonParser ,  async (req, res, next) =
 });
 
 
-// ///////////////////////////
 // getSingleDayDetailShiftInformation
 shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) => {
     // console.log('/setMachineOperators', req.body);
@@ -634,13 +609,11 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
 }); 
 
 
-/////////////////////////////////////////
 // getFullWeekDetailPlan
 // Utility function to introduce a delay
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 
 shiftEditor.post('/getFullWeekDetailPlan', jsonParser, async (req, res, next) => {
     try {
@@ -691,7 +664,6 @@ shiftEditor.post('/getFullWeekDetailPlan', jsonParser, async (req, res, next) =>
 
 /////Try PDF MACHINE OPEARTOR
 shiftEditor.post('/getPdfMachineOperator', jsonParser ,  async (req, res, next) => {
-    // console.log("req.body for pdf MO",req.body);
     //delay is given so that as soon as the data is created from create week shift , the table has to get populated with all the records 
     let newDates = [];
 for (let i = 0; i < req.body.ShiftDate.length; i++) {
@@ -701,6 +673,7 @@ for (let i = 0; i < req.body.ShiftDate.length; i++) {
     let day = dateSplit[0];
     let finalDay = `${year}-${month}-${day} 00:00:00`;
     newDates.push(finalDay);
+    console.log(newDates);
 }
                 try {
                         misQueryMod(` SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${newDates[0]}' || ShiftDate='${newDates[1]}' || ShiftDate='${newDates[2]}' || ShiftDate='${newDates[3]}' || ShiftDate='${newDates[4]}' || ShiftDate='${newDates[5]}' || ShiftDate='${newDates[6]}'`, (err, data) => {
@@ -722,7 +695,6 @@ for (let i = 0; i < req.body.ShiftDate.length; i++) {
 
 /////WeeklyPrint PDF 
 shiftEditor.post('/TryWeeklyPdf', jsonParser, async (req, res, next) => {
-    // console.log('/TryWeeklyPdf REQUEST', req.body);
 
     try {
         const flatShiftArray = await Promise.all(req.body.ShiftDate.flatMap(async (date) => {
@@ -845,7 +817,69 @@ shiftEditor.post('/createSpecialShift', jsonParser, async (req, res, next) => {
 
 
 
+//get Print Pdf for  a day
+shiftEditor.post('/printdayShiftPlan', jsonParser, (req, res, next) => {
+    console.log("req.body", req.body);
 
+    const shiftDate = req.body.ShiftDate;
+    const newDate = shiftDate + " " + "00:00:00";
+
+    try {
+        productionQueryMod(`SELECT * FROM magodmis.day_shiftregister WHERE ShiftDate='${shiftDate}'`, (err, dayShiftData) => {
+            if (err) {
+                console.log("err", err);
+                next(err); // Forward error to error handler middleware
+                return;
+            }
+
+            productionQueryMod(`SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${newDate}'`, (err, shiftData) => {
+                if (err) {
+                    console.log("err", err);
+                    next(err); // Forward error to error handler middleware
+                    return;
+                }
+
+                const newData = dayShiftData.map(dayShift => {
+                    const shiftIc = dayShift.Shift_Ic;
+                    const shift = dayShift.Shift;
+                
+                    // Trimming the time part from the shiftDate
+                    const shiftDateTrimmed = dayShift.ShiftDate.split(' ')[0];
+                    console.log("shiftDateTrimmed", shiftDateTrimmed);
+                
+                    // Filtering shiftData based on Shift and ShiftDate
+                    const shiftOperators = shiftData.filter(operator =>
+                        operator.Shift.trim().toLowerCase() === shift.trim().toLowerCase() &&
+                        operator.ShiftDate.split(' ')[0] === shiftDateTrimmed
+                    );
+                
+                    const machineOperators = shiftOperators.map(operator => ({
+                        Machine: operator.Machine,
+                        Operator: operator.Operator,
+                        FromTime: operator.FromTime,
+                        ToTime: operator.ToTime
+                    }));
+                
+                    // Log machineOperators array and its contents
+                    console.log("machineOperators:", machineOperators);
+                
+                    return {
+                        ShiftIc: shiftIc,
+                        Shift: shift,
+                        FromTime: dayShift.FromTime,
+                        ToTime: dayShift.ToTime,
+                        machineOperators: machineOperators  // Ensure that machineOperators is an array of objects
+                    };
+                });
+                
+                res.json(newData);  // Send newData as JSON                
+                // console.log("response is", newData);                
+            });
+        });
+    } catch (error) {
+        next(error); // Forward error to error handler middleware
+    }
+});
 
 
 module.exports = shiftEditor; 

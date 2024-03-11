@@ -1,0 +1,3 @@
+2024-02-01T07:18:52.821Z [test] error: Unknown column 'Active' in 'where clause'
+2024-02-01T07:24:31.120Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-01T07:24:31.309Z [test] error: Incorrect DATE value: 'undefined-undefined-'

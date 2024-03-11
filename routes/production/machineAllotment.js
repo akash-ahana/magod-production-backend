@@ -175,7 +175,7 @@ machineAllotment.get('/profileListMachineswithLoad', async (req, res, next) => {
             
               // Calculate prochours and procminutes for each RefProcess entry
               acc[refName].process.forEach((entry) => {
-                console.log(entry.processLoad[0].TotalLoad)
+                // console.log(entry.processLoad[0].TotalLoad)
                 procHours = Math.floor(entry.processLoad[0].TotalLoad / 60);
                 procMinutes = entry.processLoad[0].TotalLoad % 60;
                 entry.formattedLoad = entry.processLoad[0].TotalLoad != null ? `${procHours.toString().padStart(2, '0')}:${procMinutes.toString().padStart(2, '0')}` : '00:00';
@@ -189,7 +189,7 @@ machineAllotment.get('/profileListMachineswithLoad', async (req, res, next) => {
               output.push(groupedData[machineName]);
             }
             
-            console.log(JSON.stringify(output, null, 2));
+            // console.log(JSON.stringify(output, null, 2));
             
             res.send(output);
         })

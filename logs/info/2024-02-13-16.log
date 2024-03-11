@@ -1,0 +1,10 @@
+2024-02-13T10:30:03.871Z [test] info: Login Success - akash1
+2024-02-13T10:30:17.019Z [test] info: Login Success - anil
+2024-02-13T10:30:20.608Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-13T10:30:20.824Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-13T11:05:56.399Z [test] info: listening on port 5007
+2024-02-13T11:09:49.423Z [test] info: Login Success - anil
+2024-02-13T11:09:53.545Z [test] error: Table 'magodmis.dailyreport_status' doesn't exist
+2024-02-13T11:12:27.348Z [test] info: listening on port 5007
+2024-02-13T11:12:27.899Z [test] info: Login Success - anil
+2024-02-13T11:12:30.911Z [test] error: Table 'magodmis.dailyreport_status' doesn't exist

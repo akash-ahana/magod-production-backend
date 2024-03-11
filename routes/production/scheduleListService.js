@@ -21,13 +21,33 @@ var jsonParser = bodyParser.json()
 
 // });
 
+scheduleListService.post("/getSchedulesByCustomer", jsonParser , async (req, res, next) => {
+    // console.log('/getSchedulesByCustomer service', req.body)
+    try {
+        misQueryMod(`SELECT o.*, c.Cust_name 
+        FROM magodmis.orderschedule o, magodmis.order_list o1, magodmis.cust_data c 
+        WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
+               OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing')
+               AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No 
+               AND o1.Type='Service' AND c.Cust_Code='${req.body.Cust_Code}'
+        ORDER BY o.Delivery_date
+        `, (err, data) => {
+            if (err) logger.error(err);
+            //const slicedArray = data.slice(0, 200); 
+            res.send(data)
+            // console.log("response is",data);
+        })
+    } catch (error) {
+        next(error)    
+    }
+  });  
+
 scheduleListService.get('/schedulesList', async (req, res, next) => {
     try {
         misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o, magodmis.order_list o1,
         magodmis.cust_data c 
         WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
-        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' 
-        OR o.Schedule_Status='Completed')
+        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing')
         AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No AND o1.Type='Service' 
         ORDER BY o.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
@@ -55,7 +75,7 @@ scheduleListService.post('/schedulesListSecondTableService', jsonParser ,  async
 }); 
 
 scheduleListService.get('/schedulesListStatusProgrammedService', async (req, res, next) => {
-    console.log('Request Done to Get Schedule List Profile Table ')
+    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
         misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Programmed'  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
@@ -69,7 +89,7 @@ scheduleListService.get('/schedulesListStatusProgrammedService', async (req, res
 });
 
 scheduleListService.get('/schedulesListStatusCompletedService', async (req, res, next) => {
-    console.log('Request Done to Get Schedule List Profile Table ')
+    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
         misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Completed'  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
@@ -83,7 +103,7 @@ scheduleListService.get('/schedulesListStatusCompletedService', async (req, res,
 });
 
 scheduleListService.get('/schedulesListStatusProductionService', async (req, res, next) => {
-    console.log('Request Done to Get Schedule List Profile Table ')
+    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
         misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Production'  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
@@ -97,7 +117,7 @@ scheduleListService.get('/schedulesListStatusProductionService', async (req, res
 });
 
 scheduleListService.get('/schedulesListStatusTaskedService', async (req, res, next) => {
-    console.log('Request Done to Get Schedule List Profile Table ')
+    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
         misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Tasked'  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
@@ -111,7 +131,7 @@ scheduleListService.get('/schedulesListStatusTaskedService', async (req, res, ne
 });
 
 scheduleListService.get('/schedulesListStatusProgrammedService', async (req, res, next) => {
-    console.log('Request Done to Get Schedule List Profile Table ')
+    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
         misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Programmed'  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);

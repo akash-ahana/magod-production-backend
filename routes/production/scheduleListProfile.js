@@ -9,17 +9,17 @@ function delay(time) {
   }
 
   scheduleListProfile.post("/getSchedulesByCustomer", jsonParser , async (req, res, next) => {
-    console.log('/getSchedulesByCustomer', req.body)
+    // console.log('/getSchedulesByCustomer', req.body)
     try {
-        misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o, magodmis.order_list o1,
-        magodmis.cust_data c 
+        misQueryMod(`SELECT o.*, c.Cust_name 
+        FROM magodmis.orderschedule o, magodmis.order_list o1, magodmis.cust_data c 
         WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
-        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' 
-        OR o.Schedule_Status='Completed')
-        AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No AND o1.Type='Profile' 
-        ORDER BY o.Delivery_date;`, (err, data) => {
+               OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing')
+               AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No 
+               AND o1.Type='Profile' AND c.Cust_Code='${req.body.Cust_Code}'
+        ORDER BY o.Delivery_date
+        `, (err, data) => {
             if (err) logger.error(err);
-            console.log(data.length)
             //const slicedArray = data.slice(0, 200); 
             res.send(data)
         })
@@ -117,8 +117,7 @@ scheduleListProfile.get('/schedulesList', async (req, res, next) => {
         misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o, magodmis.order_list o1,
         magodmis.cust_data c 
         WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
-        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' 
-        OR o.Schedule_Status='Completed')
+        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' )
         AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No AND o1.Type='Profile' 
         ORDER BY o.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
@@ -238,7 +237,7 @@ scheduleListProfile.post('/schedulesListSecondTable', jsonParser ,  async (req, 
 scheduleListProfile.post('/schedulesListPartsList', jsonParser ,  async (req, res, next) => {
     //console.log('schedulesList Parts List Table request ' , req.body) 
     try {
-        misQueryMod(`SELECT *  FROM magodmis.task_partslist tpl where tpl.TaskNo = '${req.body.TaskId}'`, (err, data) => {
+        misQueryMod(`SELECT *  FROM magodmis.ncprogram_partslist  where TaskNo = '${req.body.TaskId}'`, (err, data) => {
             if (err) logger.error(err);
            // console.log('response parts list table' , data) 
             res.send(data)       

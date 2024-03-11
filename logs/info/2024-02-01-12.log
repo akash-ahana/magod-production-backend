@@ -1,0 +1,14 @@
+2024-02-01T07:17:01.594Z [test] info: listening on port 5006
+2024-02-01T07:17:30.335Z [test] info: listening on port 5006
+2024-02-01T07:17:48.975Z [test] info: listening on port 5006
+2024-02-01T07:18:04.057Z [test] info: listening on port 5006
+2024-02-01T07:18:06.171Z [test] info: listening on port 5006
+2024-02-01T07:18:28.707Z [test] info: listening on port 5006
+2024-02-01T07:18:31.414Z [test] info: listening on port 5006
+2024-02-01T07:18:35.372Z [test] info: listening on port 5006
+2024-02-01T07:18:45.318Z [test] info: Login Success - anil
+2024-02-01T07:18:52.821Z [test] error: Unknown column 'Active' in 'where clause'
+2024-02-01T07:23:38.730Z [test] info: listening on port 5006
+2024-02-01T07:24:24.306Z [test] info: Login Success - anil
+2024-02-01T07:24:31.120Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-01T07:24:31.309Z [test] error: Incorrect DATE value: 'undefined-undefined-'

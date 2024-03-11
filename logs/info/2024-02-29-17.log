@@ -1,0 +1,108 @@
+2024-02-29T11:30:32.151Z [test] error: BIGINT UNSIGNED value is out of range in '(`magod_production`.`machine_utilisationsummary`.`TotalOn` - `productiontime`.`ProdTime`)'
+2024-02-29T11:32:26.856Z [test] info: listening on port 5007
+2024-02-29T11:32:29.244Z [test] info: listening on port 5007
+2024-02-29T11:32:47.810Z [test] info: listening on port 5007
+2024-02-29T11:34:42.386Z [test] info: listening on port 5007
+2024-02-29T11:34:45.216Z [test] info: listening on port 5007
+2024-02-29T11:34:50.952Z [test] info: listening on port 5007
+2024-02-29T11:35:22.320Z [test] info: listening on port 5007
+2024-02-29T11:35:25.685Z [test] info: listening on port 5007
+2024-02-29T11:35:28.282Z [test] info: listening on port 5007
+2024-02-29T11:35:34.962Z [test] info: listening on port 5007
+2024-02-29T11:35:35.456Z [test] error: Status Code : undefined  - Error : mchQueryMod1 is not defined
+2024-02-29T11:36:09.941Z [test] info: listening on port 5007
+2024-02-29T11:36:17.314Z [test] info: listening on port 5007
+2024-02-29T11:36:31.838Z [test] info: listening on port 5007
+2024-02-29T11:36:51.340Z [test] info: listening on port 5007
+2024-02-29T11:36:52.178Z [test] error: Status Code : undefined  - Error : mchQueryMod1 is not defined
+2024-02-29T11:37:14.195Z [test] info: listening on port 5007
+2024-02-29T11:37:19.690Z [test] info: listening on port 5007
+2024-02-29T11:37:32.720Z [test] info: listening on port 5007
+2024-02-29T11:37:37.077Z [test] info: listening on port 5007
+2024-02-29T11:37:59.884Z [test] info: listening on port 5007
+2024-02-29T11:38:02.137Z [test] info: listening on port 5007
+2024-02-29T11:38:04.999Z [test] info: listening on port 5007
+2024-02-29T11:38:06.311Z [test] info: listening on port 5007
+2024-02-29T11:38:10.166Z [test] info: listening on port 5007
+2024-02-29T11:38:16.499Z [test] info: listening on port 5007
+2024-02-29T11:43:03.189Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:43:03.992Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:43:14.358Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:43:14.561Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:45:03.213Z [test] info: listening on port 5007
+2024-02-29T11:45:07.157Z [test] info: listening on port 5007
+2024-02-29T11:45:57.815Z [test] info: listening on port 5007
+2024-02-29T11:48:01.622Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:48:01.985Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:48:09.529Z [test] error: Incorrect DATETIME value: 'undefined-undefined-2 00:00:00'
+2024-02-29T11:48:30.710Z [test] info: listening on port 5007
+2024-02-29T11:48:33.048Z [test] info: listening on port 5007
+2024-02-29T11:48:43.344Z [test] info: listening on port 5007
+2024-02-29T11:48:45.890Z [test] error: Incorrect DATETIME value: 'undefined-undefined-2 00:00:00'
+2024-02-29T11:50:19.717Z [test] info: listening on port 5007
+2024-02-29T11:50:25.946Z [test] info: listening on port 5007
+2024-02-29T11:50:27.959Z [test] info: listening on port 5007
+2024-02-29T11:50:31.012Z [test] info: listening on port 5007
+2024-02-29T11:50:35.333Z [test] error: Incorrect DATETIME value: 'undefined-undefined-2 00:00:00'
+2024-02-29T11:52:29.523Z [test] info: listening on port 5007
+2024-02-29T11:53:25.553Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:53:26.052Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:53:55.465Z [test] info: listening on port 5007
+2024-02-29T11:54:19.243Z [test] info: listening on port 5007
+2024-02-29T11:54:21.575Z [test] info: listening on port 5007
+2024-02-29T11:54:54.923Z [test] info: listening on port 5007
+2024-02-29T11:54:56.421Z [test] info: listening on port 5007
+2024-02-29T11:54:58.014Z [test] info: listening on port 5007
+2024-02-29T11:55:02.120Z [test] info: listening on port 5007
+2024-02-29T11:55:06.644Z [test] info: listening on port 5007
+2024-02-29T11:55:08.768Z [test] info: listening on port 5007
+2024-02-29T11:55:11.209Z [test] info: listening on port 5007
+2024-02-29T11:55:13.403Z [test] info: listening on port 5007
+2024-02-29T11:55:17.860Z [test] info: listening on port 5007
+2024-02-29T11:55:19.956Z [test] info: listening on port 5007
+2024-02-29T11:55:22.122Z [test] info: listening on port 5007
+2024-02-29T11:55:26.244Z [test] info: listening on port 5007
+2024-02-29T11:55:29.623Z [test] info: listening on port 5007
+2024-02-29T11:55:35.708Z [test] info: listening on port 5007
+2024-02-29T11:56:00.451Z [test] info: listening on port 5007
+2024-02-29T11:56:06.612Z [test] info: listening on port 5007
+2024-02-29T12:06:07.019Z [test] error: Incorrect DATE value: '26-02-2024'
+2024-02-29T12:12:02.437Z [test] info: listening on port 5007
+2024-02-29T12:12:06.690Z [test] info: listening on port 5007
+2024-02-29T12:12:10.123Z [test] info: listening on port 5007
+2024-02-29T12:12:16.940Z [test] info: listening on port 5007
+2024-02-29T12:12:19.616Z [test] info: listening on port 5007
+2024-02-29T12:12:20.844Z [test] info: listening on port 5007
+2024-02-29T12:12:28.474Z [test] info: listening on port 5007
+2024-02-29T12:12:34.113Z [test] info: listening on port 5007
+2024-02-29T12:12:49.937Z [test] info: listening on port 5007
+2024-02-29T12:12:57.182Z [test] info: listening on port 5007
+2024-02-29T12:13:02.129Z [test] info: listening on port 5007
+2024-02-29T12:13:45.539Z [test] info: listening on port 5007
+2024-02-29T12:13:54.178Z [test] info: listening on port 5007
+2024-02-29T12:14:01.735Z [test] info: listening on port 5007
+2024-02-29T12:14:05.904Z [test] info: listening on port 5007
+2024-02-29T12:14:15.650Z [test] info: listening on port 5007
+2024-02-29T12:14:17.408Z [test] info: listening on port 5007
+2024-02-29T12:14:44.641Z [test] info: listening on port 5007
+2024-02-29T12:14:50.419Z [test] info: listening on port 5007
+2024-02-29T12:15:07.495Z [test] info: listening on port 5007
+2024-02-29T12:15:10.873Z [test] info: listening on port 5007
+2024-02-29T12:15:30.864Z [test] info: listening on port 5007
+2024-02-29T12:15:37.976Z [test] info: listening on port 5007
+2024-02-29T12:15:47.044Z [test] info: listening on port 5007
+2024-02-29T12:15:50.984Z [test] info: listening on port 5007
+2024-02-29T12:15:53.634Z [test] info: listening on port 5007
+2024-02-29T12:15:57.053Z [test] info: listening on port 5007
+2024-02-29T12:16:00.911Z [test] info: listening on port 5007
+2024-02-29T12:16:03.622Z [test] info: listening on port 5007
+2024-02-29T12:16:37.353Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:16:37.550Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:17:07.799Z [test] info: listening on port 5007
+2024-02-29T12:17:15.193Z [test] info: listening on port 5007
+2024-02-29T12:17:20.927Z [test] info: listening on port 5007
+2024-02-29T12:18:28.014Z [test] info: listening on port 5007
+2024-02-29T12:19:00.600Z [test] info: listening on port 5007
+2024-02-29T12:19:04.361Z [test] info: listening on port 5007
+2024-02-29T12:23:36.876Z [test] info: listening on port 5007
+2024-02-29T12:24:28.673Z [test] info: listening on port 5007
