@@ -1,0 +1,4 @@
+2024-03-06T06:30:58.830Z [test] info: listening on port 5007
+2024-03-06T06:50:11.178Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-03-06T06:50:52.106Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-03-06T06:51:03.257Z [test] error: Truncated incorrect DOUBLE value: 'undefined'

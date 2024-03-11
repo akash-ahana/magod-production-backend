@@ -1,0 +1,17 @@
+2024-02-29T11:30:32.151Z [test] error: BIGINT UNSIGNED value is out of range in '(`magod_production`.`machine_utilisationsummary`.`TotalOn` - `productiontime`.`ProdTime`)'
+2024-02-29T11:35:35.456Z [test] error: Status Code : undefined  - Error : mchQueryMod1 is not defined
+2024-02-29T11:36:52.178Z [test] error: Status Code : undefined  - Error : mchQueryMod1 is not defined
+2024-02-29T11:43:03.189Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:43:03.992Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:43:14.358Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:43:14.561Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:48:01.622Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:48:01.985Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:48:09.529Z [test] error: Incorrect DATETIME value: 'undefined-undefined-2 00:00:00'
+2024-02-29T11:48:45.890Z [test] error: Incorrect DATETIME value: 'undefined-undefined-2 00:00:00'
+2024-02-29T11:50:35.333Z [test] error: Incorrect DATETIME value: 'undefined-undefined-2 00:00:00'
+2024-02-29T11:53:25.553Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T11:53:26.052Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:06:07.019Z [test] error: Incorrect DATE value: '26-02-2024'
+2024-02-29T12:16:37.353Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:16:37.550Z [test] error: Incorrect DATE value: 'undefined-undefined-'

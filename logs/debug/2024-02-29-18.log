@@ -1,0 +1,36 @@
+2024-02-29T12:30:05.644Z [test] info: listening on port 5007
+2024-02-29T12:30:17.835Z [test] info: listening on port 5007
+2024-02-29T12:31:44.626Z [test] info: listening on port 5007
+2024-02-29T12:31:56.340Z [test] info: listening on port 5007
+2024-02-29T12:32:21.543Z [test] info: listening on port 5007
+2024-02-29T12:32:28.252Z [test] info: listening on port 5007
+2024-02-29T12:33:24.528Z [test] info: listening on port 5007
+2024-02-29T12:33:32.770Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:33:33.738Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:34:57.758Z [test] info: listening on port 5007
+2024-02-29T12:35:01.413Z [test] info: listening on port 5007
+2024-02-29T12:35:02.567Z [test] info: listening on port 5007
+2024-02-29T12:35:10.899Z [test] info: listening on port 5007
+2024-02-29T12:35:15.413Z [test] info: listening on port 5007
+2024-02-29T12:35:18.072Z [test] info: listening on port 5007
+2024-02-29T12:35:21.601Z [test] info: listening on port 5007
+2024-02-29T12:36:52.858Z [test] info: listening on port 5007
+2024-02-29T12:36:57.016Z [test] info: listening on port 5007
+2024-02-29T12:37:33.333Z [test] info: listening on port 5007
+2024-02-29T12:37:37.940Z [test] info: listening on port 5007
+2024-02-29T12:37:42.509Z [test] info: listening on port 5007
+2024-02-29T12:37:44.288Z [test] info: listening on port 5007
+2024-02-29T12:37:46.028Z [test] info: listening on port 5007
+2024-02-29T12:37:51.603Z [test] info: listening on port 5007
+2024-02-29T12:37:56.615Z [test] info: listening on port 5007
+2024-02-29T12:38:04.568Z [test] info: listening on port 5007
+2024-02-29T12:38:12.758Z [test] info: listening on port 5007
+2024-02-29T12:38:18.353Z [test] info: listening on port 5007
+2024-02-29T12:38:20.103Z [test] info: listening on port 5007
+2024-02-29T12:38:22.676Z [test] info: listening on port 5007
+2024-02-29T12:38:29.065Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:38:29.790Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:41:12.347Z [test] info: listening on port 5007
+2024-02-29T12:41:19.090Z [test] info: listening on port 5007
+2024-02-29T12:41:32.220Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T12:41:32.943Z [test] error: Incorrect DATE value: 'undefined-undefined-'

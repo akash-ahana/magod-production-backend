@@ -3,70 +3,65 @@ var mysql = require('mysql2');
 var misConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'Welcome@123',
     database: 'magodmis',
     dateStrings:true, 
-    port:3310
-
+    port:33062
 });
 
 var setupConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'Welcome@123',
     database: 'magod_setup',
     dateStrings:true,  
-    port:3310
+    port:33062
 
 });
 
 var qtnConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'Welcome@123',
     database: 'magodqtn',
     dateStrings:true,
-    port:3310
+    port:33062
 });
 
 var mchConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'Welcome@123',
     database: 'machine_data',
     dateStrings:true,
-    port:3310
-
+    port:33062
 });
 
 var slsConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password:'admin',
+    password:'Welcome@123',
     database: 'magod_sales',
     dateStrings:true,
-    port:3310
-
+    port:33062
 });
 
 var mtrlConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'Welcome@123',
     database: 'magod_mtrl',
     dateStrings:true,
-    port:3310
-
+    port:33062
 });
 
 var productionConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin', 
+    password: 'Welcome@123', 
     database: 'magod_production',
     dateStrings:true,
-    port:3310
-
+    port:33062
 });
 
 let misQuery = async (q, callback) => {
@@ -163,6 +158,17 @@ let qtnQueryMod = (q, callback) => {
     })
  }
 
+ let mchQueryMod1 = async (m) => {
+    try {
+        const [rows, fields] = await mchConn.promise().query(m);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
 
 
-module.exports = { misQuery, setupQuery, qtnQuery, misQueryMod, qtnQueryMod, qtnQueryModv2, slsQueryMod, mchQueryMod, mtrlQueryMod, setupQueryMod , productionQueryMod };
+
+
+
+module.exports = { misQuery, setupQuery, qtnQuery, misQueryMod, qtnQueryMod, qtnQueryModv2, slsQueryMod, mchQueryMod, mtrlQueryMod, setupQueryMod , productionQueryMod,mchQueryMod1 };

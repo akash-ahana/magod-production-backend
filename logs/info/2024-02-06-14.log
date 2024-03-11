@@ -1,0 +1,6 @@
+2024-02-06T09:13:20.363Z [test] info: listening on port 5006
+2024-02-06T09:17:10.690Z [test] info: Login Success - akash1
+2024-02-06T09:17:29.577Z [test] error: Login Failed - adminuser IP : ::1
+2024-02-06T09:17:36.006Z [test] info: Login Success - anil
+2024-02-06T09:17:40.494Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-06T09:17:40.666Z [test] error: Incorrect DATE value: 'undefined-undefined-'

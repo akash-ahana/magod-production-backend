@@ -1,0 +1,28 @@
+2024-02-29T06:31:20.414Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-02-29T06:34:20.704Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-02-29T06:34:38.343Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-02-29T06:34:43.283Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-02-29T06:35:42.752Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-02-29T06:51:20.342Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T06:51:20.896Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-02-29T07:00:29.604Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 'undefined'' at line 1
+2024-02-29T07:01:19.546Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 'undefined'' at line 1
+2024-02-29T07:01:51.494Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 'undefined'' at line 1
+2024-02-29T07:16:53.546Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.560Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.562Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.564Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.566Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.569Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.571Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.572Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.573Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.575Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.576Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.577Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.578Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.580Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.581Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.583Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:16:53.585Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
+2024-02-29T07:20:51.199Z [test] error: Table 'magodmis.dailyreport_status' doesn't exist

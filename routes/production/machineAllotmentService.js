@@ -72,7 +72,7 @@ function delay(time) {
             
               // Calculate prochours and procminutes for each RefProcess entry
               acc[refName].process.forEach((entry) => {
-                console.log(entry.processLoad[0].TotalLoad)
+                // console.log(entry.processLoad[0].TotalLoad)
                 procHours = Math.floor(entry.processLoad[0].TotalLoad / 60);
                 procMinutes = entry.processLoad[0].TotalLoad % 60;
                 entry.formattedLoad = entry.processLoad[0].TotalLoad != null ? `${procHours.toString().padStart(2, '0')}:${procMinutes.toString().padStart(2, '0')}` : '00:00';
@@ -86,7 +86,7 @@ function delay(time) {
               output.push(groupedData[machineName]);
             }
             
-            console.log(JSON.stringify(output, null, 2));
+            // console.log(JSON.stringify(output, null, 2));
             
             res.send(output);
         })
@@ -112,7 +112,7 @@ machineAllotmentService.post('/getNCprogramTabTableData', jsonParser ,  async (r
 
 machineAllotmentService.post('/afterChangeMachine', jsonParser ,  async (req, res, next) => {
     try {
-       console.log(req.body.MachineName.MachineName)
+      //  console.log(req.body.MachineName.MachineName)
         misQueryMod(` SELECT * , c.Cust_name  FROM magodmis.ncprograms ncp
         inner join magodmis.cust_data c on c.Cust_Code = ncp.Cust_Code
         where ncp.Machine = '${req.body.MachineName}' && (PStatus = 'Cutting' || PStatus = 'Mtrl Issue' || PStatus = 'Created' || PStatus = 'Processing' || PStatus = 'Mtrl Return')`, (err, data) => {
@@ -128,7 +128,7 @@ machineAllotmentService.post('/afterChangeMachine', jsonParser ,  async (req, re
 }); 
 
 machineAllotmentService.get('/machineAllotmentServiceSchedule', jsonParser ,  async (req, res, next) => {
-    console.log('/machineAllotmentSchedule')
+    // console.log('/machineAllotmentSchedule')
          try {
       // console.log(req.body.MachineName.MachineName)
         misQueryMod(`SELECT os.* , c.Cust_name FROM magodmis.orderschedule os
@@ -146,9 +146,9 @@ machineAllotmentService.get('/machineAllotmentServiceSchedule', jsonParser ,  as
 });
 
 machineAllotmentService.post('/machineAllotmentScheduleTableFormMachinesService', jsonParser ,  async (req, res, next) => {
-    console.log('/machineAllotmentScheduleTableFormMachines')
+    // console.log('/machineAllotmentScheduleTableFormMachines')
 
-    console.log(req.body.Operation)
+    // console.log(req.body.Operation)
          try {
         misQueryMod(`SELECT distinct m.refName , m.Machine_srl FROM machine_data.machine_list m,
         machine_data.machine_process_list m1,machine_data.operationslist o,
