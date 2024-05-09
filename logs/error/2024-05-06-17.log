@@ -1,0 +1,11 @@
+2024-05-06T11:32:47.161Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-06T11:33:28.242Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-06T11:44:59.031Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:47:47.426Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:49:41.934Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:52:10.578Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:52:58.648Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:55:18.985Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:56:10.181Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T11:57:03.571Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-06T12:06:26.786Z [test] error: Unknown column 'undefined' in 'where clause'

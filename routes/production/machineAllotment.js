@@ -332,7 +332,7 @@ machineAllotment.post('/machineAllotmentScheduleTableFormMachines', jsonParser ,
 });
 
 machineAllotment.post('/changeMachineInForm', jsonParser ,  async (req, res, next) => {
-    // console.log('/changeMachineInForm')
+    // console.log('/changeMachineInForm',req.body);
 
     // console.log(req.body.Operation)
          try {

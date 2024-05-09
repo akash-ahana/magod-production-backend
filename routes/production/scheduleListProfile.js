@@ -114,11 +114,11 @@ scheduleListProfile.get('/printSchedulesList', async (req, res, next) => {
 scheduleListProfile.get('/schedulesList', async (req, res, next) => {
     //console.log('Request Done to Get Schedule List Profile Table ')
     try {
-        misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o, magodmis.order_list o1,
+        misQueryMod(`SELECT o.*,c.Cust_name FROM magodmis.orderschedule o,
         magodmis.cust_data c 
         WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
-        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' )
-        AND c.cust_code=o.cust_code AND o.Order_No=o1.Order_No AND o1.Type='Profile' 
+        OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' OR o.Schedule_Status='Completed' )
+        AND c.cust_code=o.cust_code  AND o.Type='Profile' 
         ORDER BY o.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
           //  console.log(data.length)
@@ -222,7 +222,7 @@ scheduleListProfile.get('/schedulesListStatusProgrammed', async (req, res, next)
 });
 
 scheduleListProfile.post('/schedulesListSecondTable', jsonParser ,  async (req, res, next) => {
-   // console.log('schedulesListSecondTable' , req.body)
+//    console.log('schedulesListSecondTable' , req.body)
     try {
         misQueryMod(`select  * from magodmis.nc_task_list where ScheduleNo = '${req.body.ScheduleID}' `, (err, data) => {
             if (err) logger.error(err);
@@ -235,9 +235,12 @@ scheduleListProfile.post('/schedulesListSecondTable', jsonParser ,  async (req, 
 }); 
 
 scheduleListProfile.post('/schedulesListPartsList', jsonParser ,  async (req, res, next) => {
-    //console.log('schedulesList Parts List Table request ' , req.body) 
+    // console.log('schedulesList Parts List Table request ' , req.body) 
     try {
-        misQueryMod(`SELECT *  FROM magodmis.ncprogram_partslist  where TaskNo = '${req.body.TaskId}'`, (err, data) => {
+        misQueryMod(`SELECT n.Mtrl_Code, n.CustMtrl, n.MProcess,t.* 
+        FROM magodmis.task_partslist t,magodmis.nc_task_list n 
+        WHERE t.TaskNo=n.TaskNo  AND n.ScheduleID='${req.body.processrowselect.ScheduleID}' and 
+        t.TaskNo='${req.body.processrowselect.TaskNo}' order by Task_Part_ID;`, (err, data) => {
             if (err) logger.error(err);
            // console.log('response parts list table' , data) 
             res.send(data)       

@@ -1,0 +1,12 @@
+2024-03-15T04:46:31.945Z [test] error: BIGINT UNSIGNED value is out of range in '(`magod_production`.`machine_utilisationsummary`.`TotalOn` - `productiontime`.`ProdTime`)'
+2024-03-15T04:46:39.388Z [test] error: BIGINT UNSIGNED value is out of range in '(`magod_production`.`machine_utilisationsummary`.`TotalOn` - `productiontime`.`ProdTime`)'
+2024-03-15T04:51:06.878Z [test] info: listening on port 5007
+2024-03-15T05:10:00.553Z [test] info: listening on port 5007
+2024-03-15T05:15:58.940Z [test] info: listening on port 5007
+2024-03-15T05:16:02.448Z [test] info: listening on port 5007
+2024-03-15T05:16:10.391Z [test] info: listening on port 5007
+2024-03-15T05:16:22.376Z [test] info: listening on port 5007
+2024-03-15T05:16:29.545Z [test] info: listening on port 5007
+2024-03-15T05:16:36.585Z [test] info: listening on port 5007
+2024-03-15T05:29:47.208Z [test] info: listening on port 5007
+2024-03-15T05:29:48.843Z [test] info: listening on port 5007

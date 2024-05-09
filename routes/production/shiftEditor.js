@@ -413,7 +413,7 @@ shiftEditor.post('/updateSingleDaySihiftIncharge', jsonParser ,  async (req, res
 
 // Update Single Day Shift - Shift Instructions
 shiftEditor.post('/updateSingleDaySihiftInstructions', jsonParser ,  async (req, res, next) => {
-    // console.log('/updateSingleDaySihiftInstructions REQUEST' , req.body)
+    console.log('/updateSingleDaySihiftInstructions REQUEST' , req.body)
 
     try {
        
@@ -709,10 +709,11 @@ shiftEditor.post('/TryWeeklyPdf', jsonParser, async (req, res, next) => {
                 const firstQueryResult = await fetchFirstQueryData(finalDay);
 
                 return await Promise.all(firstQueryResult.map(async (item) => {
-                    const customObject = { ShiftIc: "", Shift: "", day: "", machineOperators: [] };
+                    const customObject = { ShiftIc: "", Shift: "", day: "",Shift_instruction: "", machineOperators: [] };
                     customObject.ShiftIc = item.Shift_Ic;
                     customObject.Shift = item.Shift;
                     customObject.day = finalDay;
+                    customObject.Shift_instruction=item.Shift_instruction;
 
                     try {
                         // Pass finalDay1 as a parameter to fetchSubArrayData
@@ -819,7 +820,7 @@ shiftEditor.post('/createSpecialShift', jsonParser, async (req, res, next) => {
 
 //get Print Pdf for  a day
 shiftEditor.post('/printdayShiftPlan', jsonParser, (req, res, next) => {
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
 
     const shiftDate = req.body.ShiftDate;
     const newDate = shiftDate + " " + "00:00:00";
@@ -842,10 +843,11 @@ shiftEditor.post('/printdayShiftPlan', jsonParser, (req, res, next) => {
                 const newData = dayShiftData.map(dayShift => {
                     const shiftIc = dayShift.Shift_Ic;
                     const shift = dayShift.Shift;
+                    const Shift_instruction=dayShift.Shift_instruction;
                 
                     // Trimming the time part from the shiftDate
                     const shiftDateTrimmed = dayShift.ShiftDate.split(' ')[0];
-                    console.log("shiftDateTrimmed", shiftDateTrimmed);
+                    // console.log("shiftDateTrimmed", shiftDateTrimmed);
                 
                     // Filtering shiftData based on Shift and ShiftDate
                     const shiftOperators = shiftData.filter(operator =>
@@ -857,17 +859,18 @@ shiftEditor.post('/printdayShiftPlan', jsonParser, (req, res, next) => {
                         Machine: operator.Machine,
                         Operator: operator.Operator,
                         FromTime: operator.FromTime,
-                        ToTime: operator.ToTime
+                        ToTime: operator.ToTime,
                     }));
                 
                     // Log machineOperators array and its contents
-                    console.log("machineOperators:", machineOperators);
+                    // console.log("machineOperators:", machineOperators);
                 
                     return {
                         ShiftIc: shiftIc,
                         Shift: shift,
                         FromTime: dayShift.FromTime,
                         ToTime: dayShift.ToTime,
+                        Shift_instruction:dayShift.Shift_instruction,
                         machineOperators: machineOperators  // Ensure that machineOperators is an array of objects
                     };
                 });

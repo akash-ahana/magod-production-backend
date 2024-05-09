@@ -1,0 +1,2 @@
+2024-03-15T04:46:31.945Z [test] error: BIGINT UNSIGNED value is out of range in '(`magod_production`.`machine_utilisationsummary`.`TotalOn` - `productiontime`.`ProdTime`)'
+2024-03-15T04:46:39.388Z [test] error: BIGINT UNSIGNED value is out of range in '(`magod_production`.`machine_utilisationsummary`.`TotalOn` - `productiontime`.`ProdTime`)'

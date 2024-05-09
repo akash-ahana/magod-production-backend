@@ -10,9 +10,172 @@ function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
 
+  //completed
+  shiftManagerService.post('/taskNoProgramNoCompleted', jsonParser ,  async (req, res, next) => {
+    //console.log('/taskNoProgramNoCompleted' , req.body)
+     try {
+         mchQueryMod(`
+         SELECT n.*, (
+            SELECT p.ProcessDescription 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation
+        ) AS ProcessDescription
+        FROM magodmis.ncprograms AS n
+        WHERE n.PStatus = 'Completed' and
+        n.NCProgramNo = '${req.body.NCProgramNo}'
+        AND EXISTS (
+            SELECT 1 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation 
+            AND (p.Service = 1 OR p.Service = -1)
+        )`, (err, data) => {
+             if (err) logger.error(err);
+             //console.log(data)
+             res.send(data)
+         })
+     } catch (error) { 
+         next(error)
+     }
+ });
+
+ shiftManagerService.post('/profileListMachinesProgramesCompleted', jsonParser ,  async (req, res, next) => {
+    try {
+        mchQueryMod(`
+        SELECT n.*, (
+            SELECT p.ProcessDescription 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation
+        ) AS ProcessDescription
+        FROM magodmis.ncprograms AS n
+        WHERE n.PStatus = 'Completed' and
+        n.Machine = '${req.body.MachineName}'
+        AND EXISTS (
+            SELECT 1 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation 
+            AND (p.Service = 1 OR p.Service = -1)
+        );
+        `, (err, data) => {
+            if (err) logger.error(err);
+            //console.log(data)
+            res.send(data)
+        })
+    } catch (error) { 
+        next(error)
+    }
+});
+
+
+shiftManagerService.get('/allCompleted', jsonParser ,  async (req, res, next) => {
+    //console.log('/taskNoProgramNoCompleted' , req.body)
+     try {
+         mchQueryMod(`SELECT n.*, (
+            SELECT p.ProcessDescription 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation
+        ) AS ProcessDescription
+        FROM magodmis.ncprograms AS n
+        WHERE n.PStatus = 'Completed'
+        AND EXISTS (
+            SELECT 1 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation 
+            AND (p.Service = 1 OR p.Service = -1)
+        );`, (err, data) => {
+             if (err) logger.error(err);
+             //console.log(data)
+             res.send(data)
+         })
+     } catch (error) { 
+         next(error)
+     }
+ });
+
+ //Cutting
+ shiftManagerService.get('/allProcessing', jsonParser ,  async (req, res, next) => {
+    //console.log('/taskNoProgramNoCompleted' , req.body)
+     try {
+         mchQueryMod(`
+         SELECT n.*, (
+            SELECT p.ProcessDescription 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation
+        ) AS ProcessDescription
+        FROM magodmis.ncprograms AS n
+        WHERE n.PStatus = 'Cutting'
+        AND EXISTS (
+            SELECT 1 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation 
+            AND (p.Service = 1 OR p.Service = -1)
+        );`, (err, data) => {
+             if (err) logger.error(err);
+             //console.log(data)
+             res.send(data)
+         })
+     } catch (error) { 
+         next(error)
+     }
+ });
+
+ shiftManagerService.post('/taskNoProgramNoProcessing', jsonParser ,  async (req, res, next) => {
+    // console.log('/taskNoProgramNoProcessing' , req.body)
+     try {
+         mchQueryMod(`
+         SELECT n.*, (
+            SELECT p.ProcessDescription 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation
+        ) AS ProcessDescription
+        FROM magodmis.ncprograms AS n
+        WHERE n.PStatus = 'Cutting' and
+        n.NCProgramNo = '${req.body.NCProgramNo}'
+        AND EXISTS (
+            SELECT 1 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation 
+            AND (p.Service = 1 OR p.Service = -1)
+        )
+         `, (err, data) => {
+             if (err) logger.error(err);
+             //console.log(data)
+             res.send(data)
+         })
+     } catch (error) { 
+         next(error)
+     }
+ });
+
+ shiftManagerService.post('/profileListMachinesProgramesProcessing', jsonParser ,  async (req, res, next) => {
+    //console.log('/profileListMachinesProgramesProcessing' , req.body)
+     try {
+         misQueryMod(`
+         SELECT n.*, (
+            SELECT p.ProcessDescription 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation
+        ) AS ProcessDescription
+        FROM magodmis.ncprograms AS n
+        WHERE n.PStatus = 'Cutting' and
+        n.Machine = '${req.body.MachineName}'
+        AND EXISTS (
+            SELECT 1 
+            FROM machine_data.magod_process_list AS p 
+            WHERE p.ProcessDescription = n.Operation 
+            AND (p.Service = 1 OR p.Service = -1)
+        );
+         `, (err, data) => {
+             if (err) logger.error(err);
+             //console.log(data)
+             res.send(data)
+         })
+     } catch (error) {
+         next(error)
+     }
+ });
 
   shiftManagerService.get('/serviceListMachinesTaskNo', async (req, res, next) => {
-    console.log('OnClick of Machines')
+    // console.log('OnClick of Machines')
     let outputArray = []
     try {
         misQueryMod(`SELECT DISTINCT m.refName , m.Machine_srl, n.TaskNo, n.Mtrl_Code , n.NCProgramNo , n.PStatus FROM machine_data.machine_list m
@@ -62,7 +225,7 @@ function delay(time) {
 });
 
 shiftManagerService.post('/shiftManagerServiceFilteredMachines', jsonParser ,  async (req, res, next) => {
-    console.log('/machineAllotmentScheduleTableFormMachines')
+    // console.log('/machineAllotmentScheduleTableFormMachines')
 
     console.log(req.body.Operation)
          try {
@@ -159,7 +322,7 @@ shiftManagerService.get('/orderByOperationsService', jsonParser ,  async (req, r
 });
 
 shiftManagerService.get('/orderByCustomersService', jsonParser ,  async (req, res, next) => {
-    console.log('/orderByCustomers')
+    // console.log('/orderByCustomers')
     let outputArray = []
 
     try {
@@ -194,7 +357,7 @@ shiftManagerService.get('/orderByCustomersService', jsonParser ,  async (req, re
 });
 
 shiftManagerService.post('/ProductionTaskList', jsonParser, async (req, res, next) => {
-    console.log('requiredtype',req.body);
+    // console.log('requiredtype',req.body);
     try {
       mchQueryMod(`SELECT n.TaskNo, m1.Mtrl_Code, m1.Operation, m1.NestCount, m1.NoOfDwgs, m1.DwgsNested, m1.PartsNested, m1.TotalParts, m1.Priority, m1.EstimatedTime, SUM(n.qty) AS NoOfSheets
       FROM magodmis.ncprograms n

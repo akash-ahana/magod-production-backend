@@ -1,0 +1,19 @@
+2024-04-08T06:43:24.948Z [test] error: Status Code : undefined  - Error : req.body.machineLogData is not iterable
+2024-04-08T06:43:25.416Z [test] error: Status Code : undefined  - Error : req.body.machineLogData is not iterable
+2024-04-08T06:46:26.011Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed' )
+        AND c.cust_code=o.cust_code AND o.Order_' at line 4
+2024-04-08T06:46:26.082Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed')
+        AND c.cust_code=o.cust_code AND o.Order_N' at line 4
+2024-04-08T06:46:32.591Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed')
+        AND c.cust_code=o.cust_code AND o.Order_N' at line 4
+2024-04-08T06:46:35.154Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-04-08T06:47:18.864Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-04-08T07:00:07.522Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-04-08T07:05:15.000Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed' )
+        AND c.cust_code=o.cust_code AND o.Order_' at line 4
+2024-04-08T07:05:19.123Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed')
+        AND c.cust_code=o.cust_code AND o.Order_N' at line 4
+2024-04-08T07:05:21.329Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed')
+        AND c.cust_code=o.cust_code AND o.Order_N' at line 4
+2024-04-08T07:06:54.939Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-04-08T07:06:55.039Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'

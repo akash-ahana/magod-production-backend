@@ -59,8 +59,6 @@ app.use("/user", userRouter);
 const reportsRouter = require('./routes/production/reports');
 app.use("/reports", reportsRouter);
 
-// const stoppagelistRouter = require('./routes/production/StoppageList');
-// app.use("/StoppageList", stoppagelistRouter);
  
 app.use((err, req, res, next) => {
     res.status(err.status || 500);

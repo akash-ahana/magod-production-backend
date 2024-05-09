@@ -1,0 +1,16 @@
+2024-03-21T04:37:03.173Z [test] info: listening on port 5007
+2024-03-21T04:37:36.307Z [test] info: listening on port 5007
+2024-03-21T04:37:38.931Z [test] info: Login Success - adminuser
+2024-03-21T04:46:01.123Z [test] info: listening on port 5007
+2024-03-21T04:46:05.906Z [test] info: listening on port 5007
+2024-03-21T04:46:17.501Z [test] info: listening on port 5007
+2024-03-21T04:46:19.433Z [test] info: listening on port 5007
+2024-03-21T04:47:26.314Z [test] info: listening on port 5007
+2024-03-21T04:47:31.099Z [test] info: listening on port 5007
+2024-03-21T04:47:36.532Z [test] info: listening on port 5007
+2024-03-21T04:47:38.488Z [test] info: listening on port 5007
+2024-03-21T04:47:43.943Z [test] info: listening on port 5007
+2024-03-21T04:51:58.114Z [test] info: listening on port 5007
+2024-03-21T04:51:59.444Z [test] info: listening on port 5007
+2024-03-21T04:56:18.457Z [test] error: Status Code : undefined  - Error : req.body.machineLogData is not iterable
+2024-03-21T04:56:18.465Z [test] error: Status Code : undefined  - Error : req.body.machineLogData is not iterable

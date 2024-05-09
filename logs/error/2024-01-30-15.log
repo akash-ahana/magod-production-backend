@@ -1,0 +1,18 @@
+2024-01-30T10:08:08.974Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''undefined''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:08:29.641Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''undefined''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:16.441Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='undefined'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:21.181Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='undefined'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:54.447Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:57.778Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='3589'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:10:51.874Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:10:56.378Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='3072'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:11:36.992Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''
+        ORDER BY o.Delivery_date' at line 6
