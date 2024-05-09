@@ -1,0 +1,9 @@
+2024-05-07T05:36:36.412Z [test] info: listening on port 5007
+2024-05-07T05:37:03.980Z [test] info: listening on port 5007
+2024-05-07T05:37:16.567Z [test] info: listening on port 5007
+2024-05-07T05:37:21.127Z [test] info: listening on port 5007
+2024-05-07T05:38:24.944Z [test] info: listening on port 5007
+2024-05-07T05:38:28.771Z [test] info: listening on port 5007
+2024-05-07T05:39:06.626Z [test] info: Login Success - adminuser
+2024-05-07T06:06:42.432Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 2550)'
+2024-05-07T06:08:04.685Z [test] info: listening on port 5007

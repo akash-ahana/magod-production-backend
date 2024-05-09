@@ -1,0 +1,2 @@
+2024-05-08T09:22:45.203Z [test] info: listening on port 5006
+2024-05-08T09:26:12.947Z [test] error: Error updating machine LasWeld4 utilisation summary: Error: Out of range value for column 'NonProdOn' at row 75180

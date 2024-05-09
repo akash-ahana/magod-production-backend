@@ -170,5 +170,4 @@ let qtnQueryMod = (q, callback) => {
 
 
 
-
 module.exports = { misQuery, setupQuery, qtnQuery, misQueryMod, qtnQueryMod, qtnQueryModv2, slsQueryMod, mchQueryMod, mtrlQueryMod, setupQueryMod , productionQueryMod,mchQueryMod1 };

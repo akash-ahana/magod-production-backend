@@ -1,0 +1,2 @@
+2024-03-21T04:56:18.457Z [test] error: Status Code : undefined  - Error : req.body.machineLogData is not iterable
+2024-03-21T04:56:18.465Z [test] error: Status Code : undefined  - Error : req.body.machineLogData is not iterable

@@ -1,5 +1,5 @@
 const reports = require("express").Router();
-const { misQuery, setupQuery, misQueryMod, mchQueryMod } = require('../../helpers/dbconn');
+const { misQuery, setupQuery, misQueryMod, mchQueryMod,productionQueryMod } = require('../../helpers/dbconn');
 const { logger } = require('../../helpers/logger')
 var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
@@ -10,7 +10,7 @@ reports.post('/muData', jsonParser, async (req, res, next) => {
   try {
     mchQueryMod(`SELECT * FROM magod_production.machine_utilisationsummary where Date='${req.body.Date}'`, (err, data) => {
       if (err) logger.error(err);
-      console.log(data.length)
+      // console.log(data.length)
       res.send(data)
     })
   } catch (error) {
@@ -20,6 +20,7 @@ reports.post('/muData', jsonParser, async (req, res, next) => {
 
 //Get Machine Utilisation Summary
 reports.post('/getMachineUtilisationSummary', jsonParser, async (req, res, next) => {
+  // console.log("req.body getMachineUtilisationSummary",req.body);
   try {
     // Check if the machines for the given date already exist in the table
     mchQueryMod(
@@ -32,6 +33,7 @@ reports.post('/getMachineUtilisationSummary', jsonParser, async (req, res, next)
           res.status(500).send({ error: 'An error occurred while checking data existence.' });
         } else {
           const { count } = result[0];
+          // console.log("count is",count);
           if (count > 0) {
             // Retrieve all data for the given date
             mchQueryMod(
@@ -50,16 +52,13 @@ reports.post('/getMachineUtilisationSummary', jsonParser, async (req, res, next)
 
           // Fetch the machines from the first query
           mchQueryMod(
-            `SELECT DISTINCT Machine
-          FROM magodmis.shiftlogbook
-          WHERE magodmis.shiftlogbook.FromTime >= CONCAT('${req.body.Date}', ' 06:00:00')
-            AND magodmis.shiftlogbook.ToTime < CONCAT(DATE_ADD('${req.body.Date}', INTERVAL 1 DAY), ' 06:00:00')`,
+            `Select refName  from machine_data.machine_list where activeMachine=1`,
             async (err, machinesData) => {
               if (err) {
                 console.error(err);
                 res.status(500).send({ error: 'An error occurred while fetching machines.' });
               } else {
-                const existingMachines = machinesData.map((machine) => machine.Machine);
+                const existingMachines = machinesData.map((machine) => machine.refName);
 
                 // Insert data for each machine
                 const insertQueries = existingMachines.map((machine) => {
@@ -117,103 +116,122 @@ reports.post('/getMachineUtilisationSummary', jsonParser, async (req, res, next)
   }
 });
 
-// Update Machine Utilization summary
-reports.post('/UpdateMachineUtilisationSummary', jsonParser, async (req, res, next) => {
-  // console.log("required req in reports save",req.body);
-  if (req.body.TotalOff != '' && req.body.LaserOn != '') {
-    console.log(" Hi...im condition 1")
-    try {
-        mchQueryMod(`UPDATE magod_production.machine_utilisationsummary 
-        JOIN (
-            SELECT
-                Machine,
-                (TIMESTAMPDIFF(MINUTE, FromTime, ToTime)) AS ProdTime
-            FROM
-                magodmis.shiftlogbook
-            WHERE
-                NOT (ISNULL(FromTime) OR ISNULL(ToTime)) AND TaskNo != '100'
-            GROUP BY
-                Machine
-        ) AS productionTime ON magod_production.machine_utilisationsummary.Machine = productionTime.Machine
-        SET
-            magod_production.machine_utilisationsummary.ProdON = productionTime.ProdTime,
-            magod_production.machine_utilisationsummary.NonProdOn = magod_production.machine_utilisationsummary.TotalOn - productionTime.ProdTime,
-            magod_production.machine_utilisationsummary.TotalOff = COALESCE('${req.body.TotalOff}', 0),
-            magod_production.machine_utilisationsummary.TotalOn = 1440, 
-            magod_production.machine_utilisationsummary.LaserOn = COALESCE('${req.body.LaserOn}', '')
-        WHERE
-            magod_production.machine_utilisationsummary.ID = '${req.body.rowSelected.ID}'`, (err, data) => {
-            if (err) logger.error(err);
-            res.send(data);
-            console.log(data);
-        });
-    } catch (error) {
-        next(error);
-    }
-} else if (req.body.TotalOff != '' && req.body.LaserOn === '') {
-  // console.log(" Hi...im condition 2")
 
-    try {
-        mchQueryMod(`UPDATE magod_production.machine_utilisationsummary 
-        JOIN (
-            SELECT
-                Machine,
-                (TIMESTAMPDIFF(MINUTE, FromTime, ToTime)) AS ProdTime
-            FROM
-                magodmis.shiftlogbook
-            WHERE
-                NOT (ISNULL(FromTime) OR ISNULL(ToTime)) AND TaskNo != '100'
-            GROUP BY
-                Machine
-        ) AS productionTime ON magod_production.machine_utilisationsummary.Machine = productionTime.Machine
-        SET
-            magod_production.machine_utilisationsummary.ProdON = productionTime.ProdTime,
-            magod_production.machine_utilisationsummary.NonProdOn = magod_production.machine_utilisationsummary.TotalOn - productionTime.ProdTime,
-            magod_production.machine_utilisationsummary.TotalOff = COALESCE('${req.body.TotalOff}', 0),
-            magod_production.machine_utilisationsummary.TotalOn = 1440, 
-            magod_production.machine_utilisationsummary.LaserOn = COALESCE(0)
-        WHERE
-            magod_production.machine_utilisationsummary.ID = '${req.body.rowSelected.ID}'`, (err, data) => {
-            if (err) logger.error(err);
-            res.send(data);
-        });
-    } catch (error) {
-        next(error);
-    }
-}
-// ////////////////////////////
+//update Production (In MachineUtilisation Summary)
+reports.post('/updateProductionMachineUtilsationSummary', jsonParser, async (req, res, next) => {
+  // console.log('required date is', req.body);
+  try {
+    mchQueryMod(`
+      SELECT 
+        sl.*, 
+        sr.ShiftID, 
+        sr.ShiftDate, 
+        sr.Shift, 
+        sr.Machine, 
+        (TIMESTAMPDIFF(MINUTE, sl.FromTime, sl.ToTime)) AS MachineTime
+      FROM 
+        magodmis.shiftlogbook sl
+      JOIN 
+        magodmis.shiftregister sr ON sl.ShiftID = sr.ShiftID
+      WHERE 
+        sr.ShiftDate='${req.body.Date}' AND sl.TaskNo!='100'`,
+      (err, data) => {
+        if (err) {
+          logger.error(err);
+          return res.status(500).json({ error: 'An error occurred while fetching data' });
+        }
 
-  // try {
-    
-  //   mchQueryMod(`UPDATE magod_production.machine_utilisationsummary 
-  //   JOIN (
-  //       SELECT
-  //           Machine,
-  //           (TIMESTAMPDIFF(MINUTE, FromTime, ToTime)) AS ProdTime
-  //       FROM
-  //           magodmis.shiftlogbook
-  //       WHERE
-  //           NOT (ISNULL(FromTime) OR ISNULL(ToTime)) AND TaskNo != '100'
-  //       GROUP BY
-  //           Machine
-  //   ) AS productionTime ON magod_production.machine_utilisationsummary.Machine = productionTime.Machine
-  //   SET
-  //       magod_production.machine_utilisationsummary.ProdON = productionTime.ProdTime,
-  //       magod_production.machine_utilisationsummary.NonProdOn = magod_production.machine_utilisationsummary.TotalOn - productionTime.ProdTime,
-  //       magod_production.machine_utilisationsummary.TotalOff = COALESCE('${req.body.TotalOff}', 0),
-  //       magod_production.machine_utilisationsummary.TotalOn = 1440 - COALESCE('${req.body.TotalOff}', 0), 
-  //       magod_production.machine_utilisationsummary.LaserOn = COALESCE('${req.body.LaserOn}', '')
-  //   WHERE
-  //       magod_production.machine_utilisationsummary.ID = '${req.body.rowSelected.ID}'
-  //   `, (err, data) => {
-  //     if (err) logger.error(err);
-  //     // console.log(data.length)
-  //     res.send(data)
-  //   })
-  // } catch (error) {
-  //   next(error)
-  // }
+        // console.log("data is",data);
+        // Calculate total production time (ProdOn) for each machine
+        const prodOnByMachine = Object.entries(data.reduce((acc, curr) => {
+          const { Machine, MachineTime } = curr;
+          acc[Machine] = (acc[Machine] || 0) + MachineTime;
+          // console.log("acc[Machine] is",acc[Machine]);
+          return acc;
+        }, {})).map(([Machine, ProdOn]) => ({ Machine, ProdOn }));
+
+        // Update query execution
+        prodOnByMachine.forEach(({ Machine, ProdOn }) => {
+          // console.log("Machine is",Machine,"ProdOn is",ProdOn);
+
+          mchQueryMod(`
+          UPDATE magod_production.machine_utilisationsummary AS mus
+          INNER JOIN (
+              SELECT TotalOff, Machine
+              FROM magod_production.machine_utilisationsummary 
+              WHERE Machine = '${Machine}' AND Date = '${req.body.Date}'
+          ) AS temp ON mus.Machine = temp.Machine AND mus.Date = '${req.body.Date}'
+          SET mus.ProdON = ${ProdOn}, 
+              mus.NonProdOn = 1440 - temp.TotalOff - ${ProdOn};
+          `, (updateErr, updateResult) => {
+            if (updateErr) {
+              logger.error(updateErr);
+              return res.status(500).json({ error: 'An error occurred while updating data' });
+            }
+          });
+        });
+
+        // After all updates, fetch and send updated machine utilization summary
+        mchQueryMod(`
+          SELECT * 
+          FROM magod_production.machine_utilisationsummary 
+          WHERE Date = '${req.body.Date}';
+        `, (fetchErr, fetchResult) => {
+          if (fetchErr) {
+            logger.error(fetchErr);
+            return res.status(500).json({ error: 'An error occurred while fetching updated data' });
+          }
+          res.send(fetchResult);
+        });
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
 });
+
+
+
+
+
+// Save Machine Utilisation Summary
+reports.post('/saveMachineUtilisationSummary', jsonParser, async (req, res, next) => {
+  // console.log("req.body",req.body);
+  try {
+      const machineUtilisationData = req.body.machineutilisationSummartdata;
+      const date = req.body.Date;
+
+      // Loop through each machine utilisation data
+      for (let i = 0; i < machineUtilisationData.length; i++) {
+          const data = machineUtilisationData[i];
+          const machine = data.Machine;
+          const prodON = data.ProdON;
+          const nonProdON = data.NonProdOn;
+          const totalOff = data.TotalOff;
+          const laserOn = data.LaserOn || 0;
+          const totalOn=data.TotalOn;
+
+          const updateQuery = `UPDATE magod_production.machine_utilisationsummary 
+                               SET  NonProdOn='${nonProdON}', TotalOff='${parseInt(totalOff)}', LaserOn='${laserOn}'
+                               WHERE Date='${date}' AND Machine='${machine}'`;
+
+          // Execute the update query
+          await mchQueryMod(updateQuery, (err, result) => {
+              if (err) {
+                  logger.error(`Error updating machine ${machine} utilisation summary: ${err}`);
+              } else {
+                  // console.log(updateQuery);
+              }
+          });
+      }
+
+      res.send('Machine utilisation summary updated successfully');
+  } catch (error) {
+      next(error);
+  }
+});
+
+
 
 
       
@@ -227,7 +245,7 @@ reports.post('/productTaskSummary', jsonParser, async (req, res, next) => {
     WHERE s1.ShiftDate='${req.body.Date}' AND s1.ShiftID=s.ShiftID AND  not s.TaskNo like '100'
      AND n.TaskNo=s.TaskNo GROUP BY s.TaskNo, s.Machine`, (err, data) => {
       if (err) logger.error(err);
-      console.log(data.length)
+      // console.log(data.length)
       res.send(data)
     })
   } catch (error) {
@@ -259,7 +277,7 @@ reports.post('/machineLog', jsonParser, async (req, res, next) => {
       const MProcessValues = Array.from(new Set(data.map((row) => row.MProcess)));
 
       if (MProcessValues.length === 0) {
-        console.log('No MProcess values found');
+        // console.log('No MProcess values found');
         // Handle the case where no MProcess values are present (e.g., handle as 'Administrative')
         const combinedData = {
           firstQueryResult: data,
@@ -388,7 +406,7 @@ reports.post('/UpdateMachineUtilisation', jsonParser, async (req, res, next) => 
     }
 
     res.send(Production1.machine_utilisationsummary.Rows); // Sending updated machine utilization summary data
-    console.log("Production1.machine_utilisationsummary.Rows",Production1.machine_utilisationsummary.Rows)
+    // console.log("Production1.machine_utilisationsummary.Rows",Production1.machine_utilisationsummary.Rows)
   } catch (error) {
     next(error);
   }
@@ -504,7 +522,7 @@ reports.post('/machineOnclick', jsonParser, async (req, res, next) => {
       const MProcessValues = Array.from(new Set(data.map((row) => row.MProcess)));
 
       if (MProcessValues.length === 0) {
-        console.log('No MProcess values found');
+        // console.log('No MProcess values found');
         // Handle the case where no MProcess values are present (e.g., handle as 'Administrative')
         const combinedData = {
           firstQueryResult: data,
@@ -566,7 +584,7 @@ reports.post('/shiftOnClick', jsonParser, async (req, res, next) => {
       const MProcessValues = Array.from(new Set(data.map((row) => row.MProcess)));
 
       if (MProcessValues.length === 0) {
-        console.log('No MProcess values found');
+        // console.log('No MProcess values found');
         // Handle the case where no MProcess values are present (e.g., handle as 'Administrative')
         const combinedData = {
           firstQueryResult: data,
@@ -614,7 +632,7 @@ reports.post('/prepare-report', jsonParser, async (req, res, next) => {
     mchQueryMod(`INSERT INTO magodmis.dailyreport_status (Date,report_status) 
     VALUES ('${req.body.Date}',1)`, (err, data) => {
       if (err) logger.error(err);
-      console.log(data.length)
+      // console.log(data.length)
       res.send(data)
     })
   } catch (error) {
@@ -846,7 +864,7 @@ reports.post('/deleteGroup', jsonParser, async (req, res, next) => {
 });
 
 reports.post('/deleteReason', jsonParser, async (req, res, next) => {
-  console.log("Delete Reason", req.body);
+  // console.log("Delete Reason", req.body);
   try {
     mchQueryMod(`UPDATE magod_production.stoppagereasonlist SET \`Use\` = 0 WHERE StoppageID = '${req.body.StoppageID}'`, (err, data) => {
       if (err) logger.error(err);

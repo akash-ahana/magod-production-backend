@@ -1,0 +1,12 @@
+2024-03-13T04:30:03.275Z [test] info: listening on port 5007
+2024-03-13T04:30:08.491Z [test] info: listening on port 5007
+2024-03-13T04:30:10.285Z [test] info: listening on port 5007
+2024-03-13T04:31:05.880Z [test] info: listening on port 5007
+2024-03-13T04:31:31.116Z [test] info: listening on port 5007
+2024-03-13T04:31:34.920Z [test] info: listening on port 5007
+2024-03-13T04:31:38.332Z [test] info: listening on port 5007
+2024-03-13T04:31:47.987Z [test] info: listening on port 5007
+2024-03-13T04:32:11.352Z [test] info: Login Success - adminuser
+2024-03-13T04:32:16.477Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-03-13T04:32:16.667Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-03-13T04:39:48.105Z [test] info: listening on port 5007
