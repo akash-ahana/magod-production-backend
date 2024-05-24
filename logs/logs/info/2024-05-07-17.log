@@ -1,0 +1,7 @@
+2024-05-07T11:31:06.446Z [test] info: listening on port 5006
+2024-05-07T11:31:09.531Z [test] info: listening on port 5006
+2024-05-07T11:31:32.608Z [test] info: listening on port 5006
+2024-05-07T11:58:01.288Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-07T12:00:13.573Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-07T12:20:35.627Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-07T12:20:35.764Z [test] error: Incorrect DATE value: 'undefined-undefined-'

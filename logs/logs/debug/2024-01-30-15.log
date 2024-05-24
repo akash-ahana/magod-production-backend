@@ -1,0 +1,53 @@
+2024-01-30T09:32:50.796Z [test] info: listening on port 5006
+2024-01-30T10:03:20.189Z [test] info: listening on port 5006
+2024-01-30T10:05:08.203Z [test] info: listening on port 5006
+2024-01-30T10:07:12.958Z [test] info: listening on port 5006
+2024-01-30T10:07:24.810Z [test] info: listening on port 5006
+2024-01-30T10:07:33.484Z [test] info: listening on port 5006
+2024-01-30T10:08:01.199Z [test] info: listening on port 5006
+2024-01-30T10:08:08.974Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''undefined''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:08:23.975Z [test] info: listening on port 5006
+2024-01-30T10:08:26.045Z [test] info: listening on port 5006
+2024-01-30T10:08:28.538Z [test] info: listening on port 5006
+2024-01-30T10:08:29.641Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''undefined''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:06.261Z [test] info: listening on port 5006
+2024-01-30T10:09:08.962Z [test] info: listening on port 5006
+2024-01-30T10:09:16.441Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='undefined'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:21.181Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='undefined'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:46.124Z [test] info: listening on port 5006
+2024-01-30T10:09:49.527Z [test] info: listening on port 5006
+2024-01-30T10:09:54.447Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:09:57.778Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='3589'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:10:43.041Z [test] info: listening on port 5006
+2024-01-30T10:10:46.873Z [test] info: listening on port 5006
+2024-01-30T10:10:51.874Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:10:56.378Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code='3072'
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:11:36.992Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND c.Cust_Code=''
+        ORDER BY o.Delivery_date' at line 6
+2024-01-30T10:12:01.015Z [test] info: listening on port 5006
+2024-01-30T10:12:03.419Z [test] info: listening on port 5006
+2024-01-30T10:18:10.075Z [test] info: listening on port 5006
+2024-01-30T10:18:13.231Z [test] info: listening on port 5006
+2024-01-30T10:19:42.373Z [test] info: Login Success - akash1
+2024-01-30T10:22:34.597Z [test] info: listening on port 5006
+2024-01-30T10:22:37.115Z [test] info: listening on port 5006
+2024-01-30T10:23:13.006Z [test] info: listening on port 5006
+2024-01-30T10:23:41.288Z [test] info: listening on port 5006
+2024-01-30T10:23:49.320Z [test] info: listening on port 5006
+2024-01-30T10:24:14.204Z [test] info: listening on port 5006
+2024-01-30T10:24:20.979Z [test] info: listening on port 5006
+2024-01-30T10:24:29.264Z [test] info: listening on port 5006
+2024-01-30T10:24:34.953Z [test] info: listening on port 5006
+2024-01-30T10:26:13.363Z [test] info: Login Success - akash1
+2024-01-30T10:26:49.584Z [test] info: listening on port 5006
+2024-01-30T10:27:06.804Z [test] info: listening on port 5006
+2024-01-30T10:28:42.067Z [test] info: listening on port 5006
+2024-01-30T10:28:50.818Z [test] info: listening on port 5006

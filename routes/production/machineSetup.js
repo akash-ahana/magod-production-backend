@@ -48,7 +48,7 @@ var jsonParser = bodyParser.json()
 machineSetup.get('/getallmachines', async (req, res, next) => {
     //console.log('requested')
     try {
-        mchQueryMod("Select * from machine_data.machine_list where activeMachine=1", (err, data) => {
+        mchQueryMod("Select * from machine_data.machine_list where activeMachine=1 ORDER BY Machine_srl DESC", (err, data) => {
             if (err) logger.error(err);
             //console.log(data)
             let newData = data;
@@ -337,7 +337,7 @@ machineSetup.post('/deleteMachine', jsonParser , async (req, res, next) => {
 machineSetup.get('/getAllProcessList', jsonParser , async (req, res, next) => {
     //console.log(req.body)
     try {
-        mchQueryMod(`select * from machine_data.magod_process_list where Active='1'`, (err, data) => {
+        mchQueryMod(`select * from machine_data.magod_process_list where Active='1' ORDER BY Id DESC`, (err, data) => {
             if (err) logger.error(err);
             res.send(data)
         })
@@ -362,12 +362,8 @@ machineSetup.post('/addProcessToMachine', jsonParser , async (req, res, next) =>
 
 //fetch all the process for the machine
 machineSetup.post('/getProcessForMachine', jsonParser , async (req, res, next) => {
-
-  //  console.log('Get Process For Machine' , req.body)
-  
-    
     try {
-        mchQueryMod(`select * from machine_process_list where Machine_srl='${req.body.Machine_srl}' and Active='1'`, (err, data) => {
+        mchQueryMod(`select * from machine_process_list where Machine_srl='${req.body.Machine_srl}' and Active='1'  ORDER BY Id DESC`, (err, data) => {
             if (err) logger.error(err);
             res.send(data)
         })
@@ -390,9 +386,7 @@ machineSetup.post('/deleteProcessFromMachine', jsonParser , async (req, res, nex
 });
 
 //fetch process list for machine using Machine Ref name 
-machineSetup.post('/getProcessForMachineRefName', jsonParser , async (req, res, next) => {
-    //console.log(req.body)
-    
+machineSetup.post('/getProcessForMachineRefName', jsonParser , async (req, res, next) => {    
     try {
         mchQueryMod(`Select * from machine_list where refName='${req.body.refName}'`, (err, data) => {
             if (err) logger.error(err);
@@ -402,7 +396,6 @@ machineSetup.post('/getProcessForMachineRefName', jsonParser , async (req, res, 
            try {
             mchQueryMod(`Select * from machine_process_list where Machine_srl='${data[0].Machine_srl}'`, (err, data1) => {
                 if (err) logger.error(err);
-                console.log(data1)
                 res.send(data1) 
             })
         } catch (error) {

@@ -1,0 +1,3 @@
+2024-03-22T09:43:03.335Z [test] error: Error updating machine Laser 10 utilisation summary: Error: Incorrect integer value: '' for column 'NonProdOn' at row 75431
+2024-03-22T09:43:05.431Z [test] error: Error updating machine Laser 10 utilisation summary: Error: Incorrect integer value: '' for column 'NonProdOn' at row 75431
+2024-03-22T09:43:20.510Z [test] error: Error updating machine Laser 10 utilisation summary: Error: Incorrect integer value: '' for column 'ProdON' at row 75431

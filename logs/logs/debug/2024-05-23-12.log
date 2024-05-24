@@ -1,0 +1,9 @@
+2024-05-23T06:31:52.795Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-23T06:31:53.821Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-23T06:32:29.382Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-23T06:35:57.817Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-23T07:05:27.166Z [test] info: Login Success - adminuser
+2024-05-23T07:05:31.604Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-23T07:05:31.970Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-23T07:11:57.730Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-23T07:11:58.697Z [test] error: Incorrect DATE value: 'undefined-undefined-'

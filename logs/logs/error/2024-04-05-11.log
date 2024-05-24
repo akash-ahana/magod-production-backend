@@ -1,0 +1,14 @@
+2024-04-05T05:47:32.669Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''100' at line 5
+2024-04-05T05:47:50.537Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''100' at line 5
+2024-04-05T05:48:02.187Z [test] error: Unknown column 's1.TaskNo' in 'where clause'
+2024-04-05T05:49:02.392Z [test] error: Unknown column 's1.TaskNo' in 'where clause'
+2024-04-05T06:06:14.989Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-04-05T06:07:01.375Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-04-05T06:09:35.309Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-04-05T06:15:45.862Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T06:15:46.071Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T06:16:09.655Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T06:16:09.808Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T06:24:03.319Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-04-05T06:27:42.267Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T06:27:44.065Z [test] error: Incorrect DATE value: 'undefined-undefined-'

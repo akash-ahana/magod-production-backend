@@ -1,0 +1,8 @@
+2024-05-17T12:31:41.436Z [test] info: listening on port 5006
+2024-05-17T12:31:48.859Z [test] error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'magodmis.ncp.NCProgramNo' which is not in SELECT list; this is incompatible with DISTINCT
+2024-05-17T12:33:24.576Z [test] info: listening on port 5006
+2024-05-17T12:33:38.777Z [test] error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'magodmis.ncp.NCProgramNo' which is not in SELECT list; this is incompatible with DISTINCT
+2024-05-17T12:33:53.544Z [test] info: listening on port 5006
+2024-05-17T12:35:19.988Z [test] info: listening on port 5006
+2024-05-17T12:36:14.293Z [test] info: listening on port 5006
+2024-05-17T12:42:34.414Z [test] info: listening on port 5006

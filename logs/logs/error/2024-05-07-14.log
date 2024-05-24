@@ -1,0 +1,5 @@
+2024-05-07T09:24:57.144Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 22560)'
+2024-05-07T09:24:57.787Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 2398)'
+2024-05-07T09:27:54.468Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 22560)'
+2024-05-07T09:29:50.130Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 22560)'
+2024-05-07T09:29:50.659Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 2398)'

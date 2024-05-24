@@ -49,7 +49,7 @@ scheduleListService.get('/schedulesList', async (req, res, next) => {
         WHERE (o.Schedule_Status='Tasked' OR o.Schedule_Status='Programmed' 
         OR o.Schedule_Status='Production' OR o.Schedule_Status='Processing' OR o.Schedule_Status='Completed' )
         AND c.cust_code=o.cust_code  AND o.Type='Service' 
-        ORDER BY o.Delivery_date`, (err, data) => {
+        ORDER BY o.Delivery_date DESC`, (err, data) => {
             if (err) logger.error(err);
             res.send(data);
         })

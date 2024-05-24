@@ -1,0 +1,46 @@
+2023-12-20T10:32:08.336Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T10:32:09.740Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T10:32:54.768Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T10:32:55.811Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T10:33:42.264Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T10:33:43.126Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T10:41:52.079Z [test] info: listening on port 5006
+2023-12-20T10:42:03.945Z [test] info: listening on port 5006
+2023-12-20T10:42:09.703Z [test] info: listening on port 5006
+2023-12-20T10:42:15.724Z [test] info: listening on port 5006
+2023-12-20T10:42:28.149Z [test] info: listening on port 5006
+2023-12-20T10:42:38.563Z [test] info: listening on port 5006
+2023-12-20T10:43:01.688Z [test] info: listening on port 5006
+2023-12-20T10:46:49.787Z [test] info: listening on port 5006
+2023-12-20T10:48:02.638Z [test] info: listening on port 5006
+2023-12-20T10:48:07.025Z [test] info: listening on port 5006
+2023-12-20T10:48:56.225Z [test] info: listening on port 5006
+2023-12-20T10:49:07.834Z [test] error: Status Code : undefined  - Error : formatedShiftDate is not defined
+2023-12-20T10:49:42.956Z [test] info: listening on port 5006
+2023-12-20T10:51:04.020Z [test] info: listening on port 5006
+2023-12-20T10:51:07.492Z [test] info: listening on port 5006
+2023-12-20T10:51:35.638Z [test] info: listening on port 5006
+2023-12-20T10:51:48.245Z [test] info: listening on port 5006
+2023-12-20T10:52:06.888Z [test] error: Status Code : undefined  - Error : Incorrect date value: '21-12-2023' for column 'ShiftDate' at row 1
+2023-12-20T10:52:52.349Z [test] info: listening on port 5006
+2023-12-20T10:53:02.579Z [test] info: listening on port 5006
+2023-12-20T10:53:25.348Z [test] info: listening on port 5006
+2023-12-20T10:53:57.141Z [test] info: listening on port 5006
+2023-12-20T10:54:05.921Z [test] info: listening on port 5006
+2023-12-20T10:57:15.136Z [test] info: listening on port 5006
+2023-12-20T10:57:17.266Z [test] info: listening on port 5006
+2023-12-20T10:57:25.379Z [test] info: listening on port 5006
+2023-12-20T11:00:11.691Z [test] info: listening on port 5006
+2023-12-20T11:02:30.896Z [test] info: listening on port 5006
+2023-12-20T11:02:32.926Z [test] info: listening on port 5006
+2023-12-20T11:02:53.114Z [test] info: listening on port 5006
+2023-12-20T11:03:00.104Z [test] info: listening on port 5006
+2023-12-20T11:03:09.957Z [test] info: listening on port 5006
+2023-12-20T11:03:58.643Z [test] info: listening on port 5006
+2023-12-20T11:04:03.408Z [test] info: listening on port 5006
+2023-12-20T11:04:06.577Z [test] info: listening on port 5006
+2023-12-20T11:04:39.043Z [test] info: listening on port 5006
+2023-12-20T11:05:30.074Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T11:05:31.077Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2023-12-20T11:06:07.198Z [test] info: listening on port 5006
+2023-12-20T11:06:23.849Z [test] info: listening on port 5006

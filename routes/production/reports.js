@@ -795,7 +795,7 @@ reports.post('/printDailyReport', jsonParser , async (req, res, next) => {
 // SToppageList
 reports.get('/getGroupName', jsonParser, async (req, res, next) => {
   try {
-    mchQueryMod(`SELECT * FROM magod_production.stoppage_category where Active=1`, (err, data) => {
+    mchQueryMod(`SELECT * FROM magod_production.stoppage_category where Active=1 ORDER BY StoppageGpId DESC`, (err, data) => {
       if (err) logger.error(err);
       // console.log(data.length)
       res.send(data)
@@ -808,7 +808,7 @@ reports.get('/getGroupName', jsonParser, async (req, res, next) => {
 reports.post('/getReason', jsonParser, async (req, res, next) => {
   // console.log("get Reason",req.body);
   try {
-    mchQueryMod(`SELECT * FROM magod_production.stoppagereasonlist WHERE StoppageGpId = ${req.body.StoppageGpId} AND \`Use\` = '1'`, (err, data) => {
+    mchQueryMod(`SELECT * FROM magod_production.stoppagereasonlist WHERE StoppageGpId = ${req.body.StoppageGpId} AND \`Use\` = '1' ORDER BY StoppageID DESC`, (err, data) => {
       if (err) logger.error(err);
       // console.log(data.length)
       res.send(data);

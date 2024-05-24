@@ -1,0 +1,2 @@
+2024-05-17T12:31:48.859Z [test] error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'magodmis.ncp.NCProgramNo' which is not in SELECT list; this is incompatible with DISTINCT
+2024-05-17T12:33:38.777Z [test] error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'magodmis.ncp.NCProgramNo' which is not in SELECT list; this is incompatible with DISTINCT
