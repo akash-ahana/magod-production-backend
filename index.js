@@ -59,6 +59,9 @@ app.use("/user", userRouter);
 const reportsRouter = require('./routes/production/reports');
 app.use("/reports", reportsRouter);
 
+const locationRouter = require('./routes/production/Location');
+app.use("/location", locationRouter);
+
  
 app.use((err, req, res, next) => {
     res.status(err.status || 500);

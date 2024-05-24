@@ -69,19 +69,20 @@ function delay(time) {
 shiftManagerService.get('/allCompleted', jsonParser ,  async (req, res, next) => {
     //console.log('/taskNoProgramNoCompleted' , req.body)
      try {
-         mchQueryMod(`SELECT n.*, (
-            SELECT p.ProcessDescription 
-            FROM machine_data.magod_process_list AS p 
-            WHERE p.ProcessDescription = n.Operation
-        ) AS ProcessDescription
-        FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Completed'
-        AND EXISTS (
-            SELECT 1 
-            FROM machine_data.magod_process_list AS p 
-            WHERE p.ProcessDescription = n.Operation 
-            AND (p.Service = 1 OR p.Service = -1)
-        );`, (err, data) => {
+         mchQueryMod(`
+        SELECT n.*, 
+       (SELECT p.ProcessDescription
+        FROM machine_data.magod_process_list AS p
+        WHERE p.ProcessDescription = n.Operation
+        LIMIT 1) AS ProcessDescription
+FROM magodmis.ncprograms AS n
+WHERE n.PStatus = 'Completed'
+  AND EXISTS (SELECT 1
+              FROM machine_data.magod_process_list AS p
+              WHERE p.ProcessDescription = n.Operation
+                AND (p.Service = 1 OR p.Service = -1))
+        
+        `, (err, data) => {
              if (err) logger.error(err);
              //console.log(data)
              res.send(data)

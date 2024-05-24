@@ -295,14 +295,15 @@ shiftEditor.post('/getMachineOperatorsShift', jsonParser ,  async (req, res, nex
         ToTime=req.body.ToTime.split(' ');
         ToTime1=ToTime[0].split('-')
         ToTimeNew=ToTime1[2]+"-"+ToTime1[1]+"-"+ToTime1[0]+" "+ToTime[1];
-        // console.log("time FromTimeNew is",FromTimeNew,"ToTimeNew is",ToTimeNew);
+        console.log("finalDay",finalDay,"FromTimeNew is",FromTimeNew,"ToTimeNew",ToTimeNew);
 
         try { 
        
-            misQueryMod(`SELECT * FROM magodmis.shiftregister where ShiftDate ='${finalDay}' and  Shift='${req.body.Shift}' and FromTime='${FromTimeNew}' and ToTime='${ToTimeNew}'`, (err, data) => {
+            misQueryMod(`SELECT * FROM magodmis.shiftregister where ShiftDate ='${finalDay}' and  Shift='${req.body.Shift}' and FromTime='${FromTimeNew}' and ToTime='${ToTimeNew}' ORDER BY ShiftID DESC`, (err, data) => {
                 if (err) logger.error(err);  
                 // console.log(' /getMachineOperatorsShift TABLE Response ' , data)
-                res.send(data) 
+                res.send(data);
+                // console.log("data",data); 
             })
         } catch (error) {
             next(error)  
@@ -525,7 +526,7 @@ shiftEditor.post('/deleteSingleDayShift', jsonParser ,  async (req, res, next) =
 
 
 // getSingleDayDetailShiftInformation
-shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) => {
+shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
     // console.log('/setMachineOperators', req.body);
     let inputArray = req.body;
 
@@ -552,13 +553,30 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
             toTime = " 22:00:00";
         } else if (inputArray[i].Shift === "Third") {
             fromTime = " 22:00:00";
+
+            // Calculate the next day for toTime
+            let shiftDate = new Date(finalDay);
+            let nextDay = new Date(shiftDate);
+            nextDay.setDate(nextDay.getDate() + 1); // Add one day
+
+            // Format the next day's date
+            let nextYear = nextDay.getFullYear();
+            let nextMonth = ('0' + (nextDay.getMonth() + 1)).slice(-2); // Ensure month is 2 digits
+            let nextDate = ('0' + nextDay.getDate()).slice(-2); // Ensure date is 2 digits
+            let nextFinalDay = `${nextYear}-${nextMonth}-${nextDate}`;
+
             toTime = " 06:00:00";
+            inputArray[i].ToTime = nextFinalDay + toTime;
         } else if (inputArray[i].Shift === "General") {
             fromTime = " 09:00:00";
             toTime = " 17:00:00";
         }
+        
         inputArray[i].FromTime = inputArray[i].ShiftDate + fromTime;
-        inputArray[i].ToTime = inputArray[i].ShiftDate + toTime;
+        if (inputArray[i].Shift !== "Third") {
+            inputArray[i].ToTime = inputArray[i].ShiftDate + toTime;
+        }
+
         try {
             // Check if operator is already added for this dayShiftID
             const operatorData = await new Promise((resolve, reject) => {
@@ -571,6 +589,7 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
                     resolve(data);
                 });
             });
+
             if (operatorData.length > 0) {
                 operatorAlreadyPresent = true; // Set the flag
             } else {
@@ -606,8 +625,7 @@ shiftEditor.post('/setMachineOperators', jsonParser ,  async (req, res, next) =>
             res.send('Data Added Sucessfully');
         }
     }
-}); 
-
+});
 
 // getFullWeekDetailPlan
 // Utility function to introduce a delay

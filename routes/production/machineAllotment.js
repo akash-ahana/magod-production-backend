@@ -209,7 +209,7 @@ machineAllotment.post('/getNCprogramTabTableDatauseEffect', jsonParser, async (r
           INNER JOIN magodmis.cust_data c ON c.Cust_Code = ncp.Cust_Code
           WHERE ncp.PStatus = 'Created' OR ncp.PStatus = 'MtrlReturn' 
           OR ncp.PStatus = 'Cutting' OR ncp.PStatus = 'Mtrl Issue'
-          OR ncp.PStatus = 'Processing'`,
+          OR ncp.PStatus = 'Processing' ORDER BY NCProgramNo DESC`,
           (err, data) => {
             if (err) logger.error(err);
             // console.log(data);
@@ -233,7 +233,7 @@ machineAllotment.post('/getNCprogramTabTableData', jsonParser ,  async (req, res
     //    console.log(req.body.MachineName.MachineName) 
         misQueryMod(` SELECT * , c.Cust_name  FROM magodmis.ncprograms ncp
         inner join magodmis.cust_data c on c.Cust_Code = ncp.Cust_Code
-        where ncp.Machine = '${req.body.MachineName.MachineName}' && (PStatus = 'Created' || PStatus = 'MtrlReturn' || PStatus = 'Cutting' || PStatus = 'Mtrl Issue' || PStatus = 'Processing' )`, (err, data) => {
+        where ncp.Machine = '${req.body.MachineName.MachineName}' && (PStatus = 'Created' || PStatus = 'MtrlReturn' || PStatus = 'Cutting' || PStatus = 'Mtrl Issue' || PStatus = 'Processing' ) ORDER BY NCProgramNo DESC`, (err, data) => {
             if (err) logger.error(err);
             // console.log(data)
             res.send(data)

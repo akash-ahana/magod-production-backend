@@ -1,0 +1,23 @@
+2024-04-05T04:36:57.416Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:36:58.462Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:36:59.193Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:36:59.723Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:36:59.994Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:37:20.272Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:37:26.736Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:20.005Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:21.074Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:21.635Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:21.804Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:21.972Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:22.124Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:22.282Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:22.482Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:42:23.006Z [test] error: Incorrect integer value: '' for column 'Skill_Level' at row 1
+2024-04-05T04:43:48.582Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-04-05T04:51:00.471Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T04:51:00.475Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T04:55:54.259Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o.Schedule_Status='Completed' )
+        AND c.cust_code=o.cust_code AND o.Order_' at line 4
+2024-04-05T04:58:36.436Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-04-05T04:58:37.504Z [test] error: Incorrect DATE value: 'undefined-undefined-'

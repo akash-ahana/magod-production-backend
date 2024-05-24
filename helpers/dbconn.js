@@ -3,65 +3,65 @@ var mysql = require('mysql2');
 var misConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Welcome@123',
+    password: 'kimbu@403',
     database: 'magodmis',
     dateStrings:true, 
-    port:33062
+    port:3306
 });
 
 var setupConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Welcome@123',
+    password: 'kimbu@403',
     database: 'magod_setup',
     dateStrings:true,  
-    port:33062
+    port:3306
 
 });
 
 var qtnConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Welcome@123',
+    password: 'kimbu@403',
     database: 'magodqtn',
     dateStrings:true,
-    port:33062
+    port:3306
 });
 
 var mchConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Welcome@123',
+    password: 'kimbu@403',
     database: 'machine_data',
     dateStrings:true,
-    port:33062
+    port:3306
 });
 
 var slsConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password:'Welcome@123',
+    password:'kimbu@403',
     database: 'magod_sales',
     dateStrings:true,
-    port:33062
+    port:3306
 });
 
 var mtrlConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Welcome@123',
+    password: 'kimbu@403',
     database: 'magod_mtrl',
     dateStrings:true,
-    port:33062
+    port:3306
 });
 
 var productionConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Welcome@123', 
+    password: 'kimbu@403', 
     database: 'magod_production',
     dateStrings:true,
-    port:33062
+    port:3306
 });
 
 let misQuery = async (q, callback) => {

@@ -1,0 +1,15 @@
+2024-05-15T06:32:56.515Z [test] error: Subquery returns more than 1 row
+2024-05-15T06:33:09.758Z [test] error: Subquery returns more than 1 row
+2024-05-15T06:35:11.350Z [test] error: Subquery returns more than 1 row
+2024-05-15T06:35:42.377Z [test] info: listening on port 5006
+2024-05-15T06:36:48.752Z [test] error: Subquery returns more than 1 row
+2024-05-15T06:38:34.334Z [test] error: Subquery returns more than 1 row
+2024-05-15T06:38:50.441Z [test] error: Subquery returns more than 1 row
+2024-05-15T06:41:07.031Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-15T06:41:07.481Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-15T06:52:23.148Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-15T06:52:23.165Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-15T07:03:59.649Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-05-15T07:04:23.858Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-05-15T07:04:50.376Z [test] error: Subquery returns more than 1 row
+2024-05-15T07:05:11.497Z [test] error: Subquery returns more than 1 row

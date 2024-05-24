@@ -10,7 +10,7 @@ var jsonParser = bodyParser.json()
 //getALL ShiftIncharge
 EditShiftIc.get ('/getShiftIc', jsonParser, (req, res, next) => {
     try {
-        mchQueryMod(`SELECT * FROM magod_production.shift_ic_list where Active='1'`, (err, data) => {
+        mchQueryMod(`SELECT * FROM magod_production.shift_ic_list where Active='1' ORDER BY ID DESC`, (err, data) => {
             if (err) logger.error(err);
             res.send(data)
         })
