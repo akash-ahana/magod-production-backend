@@ -1,0 +1,2 @@
+2024-05-14T12:30:25.856Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-14T12:30:26.052Z [test] error: Incorrect DATE value: 'undefined-undefined-'

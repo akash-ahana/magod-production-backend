@@ -1,7 +1,0 @@
-2024-05-17T10:38:56.392Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2024-05-17T10:38:56.450Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-05-17T11:05:46.832Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-05-17T11:05:47.500Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2024-05-17T11:06:10.553Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-05-17T11:06:11.876Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2024-05-17T11:27:28.118Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'orderby Machine_srl DESC' at line 1

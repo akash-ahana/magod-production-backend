@@ -1,8 +1,0 @@
-2024-04-03T09:30:20.409Z [test] info: Login Success - adminuser
-2024-04-03T09:30:46.316Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
-2024-04-03T09:49:15.090Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
-2024-04-03T09:57:34.172Z [test] info: Login Success - adminuser
-2024-04-03T10:00:32.131Z [test] info: listening on port 5006
-2024-04-03T10:00:42.572Z [test] info: Login Success - adminuser
-2024-04-03T10:05:34.689Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
-2024-04-03T10:16:29.624Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')

@@ -1,0 +1,34 @@
+2024-05-27T11:33:43.746Z [test] info: listening on port 5006
+2024-05-27T11:33:56.461Z [test] info: listening on port 5006
+2024-05-27T11:35:46.829Z [test] info: listening on port 5006
+2024-05-27T11:35:50.792Z [test] info: listening on port 5006
+2024-05-27T11:35:56.383Z [test] info: listening on port 5006
+2024-05-27T11:36:11.350Z [test] info: listening on port 5006
+2024-05-27T11:36:38.870Z [test] info: listening on port 5006
+2024-05-27T11:37:54.770Z [test] info: listening on port 5006
+2024-05-27T11:51:33.463Z [test] info: listening on port 5006
+2024-05-27T11:54:45.275Z [test] info: listening on port 5006
+2024-05-27T11:56:55.780Z [test] info: listening on port 5006
+2024-05-27T11:58:09.268Z [test] info: listening on port 5006
+2024-05-27T11:58:14.965Z [test] info: listening on port 5006
+2024-05-27T11:59:14.771Z [test] info: listening on port 5006
+2024-05-27T12:00:04.967Z [test] info: listening on port 5006
+2024-05-27T12:00:11.074Z [test] info: listening on port 5006
+2024-05-27T12:01:00.826Z [test] info: listening on port 5006
+2024-05-27T12:01:05.117Z [test] info: listening on port 5006
+2024-05-27T12:01:08.111Z [test] info: listening on port 5006
+2024-05-27T12:02:19.341Z [test] info: listening on port 5006
+2024-05-27T12:02:31.112Z [test] info: listening on port 5006
+2024-05-27T12:02:56.541Z [test] error: Status Code : undefined  - Error : Incorrect datetime value: '2024-05-27 00:00:00 14:00:00' for column 'FromTime' at row 1
+2024-05-27T12:04:33.513Z [test] info: listening on port 5006
+2024-05-27T12:06:37.818Z [test] info: listening on port 5006
+2024-05-27T12:07:56.121Z [test] info: listening on port 5006
+2024-05-27T12:08:13.776Z [test] info: listening on port 5006
+2024-05-27T12:08:17.186Z [test] info: listening on port 5006
+2024-05-27T12:08:55.625Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T12:08:58.113Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T12:09:07.102Z [test] info: listening on port 5006
+2024-05-27T12:10:55.615Z [test] info: listening on port 5006
+2024-05-27T12:11:19.484Z [test] info: listening on port 5006
+2024-05-27T12:12:25.782Z [test] info: listening on port 5006
+2024-05-27T12:12:38.097Z [test] info: listening on port 5006

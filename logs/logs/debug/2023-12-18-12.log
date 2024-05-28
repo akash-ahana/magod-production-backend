@@ -1,9 +1,0 @@
-2023-12-18T06:32:10.009Z [test] info: listening on port 5006
-2023-12-18T06:32:38.974Z [test] info: listening on port 5006
-2023-12-18T06:32:48.570Z [test] info: listening on port 5006
-2023-12-18T06:34:23.958Z [test] info: listening on port 5006
-2023-12-18T06:35:23.066Z [test] info: listening on port 5006
-2023-12-18T06:35:41.017Z [test] info: listening on port 5006
-2023-12-18T06:35:44.127Z [test] info: listening on port 5006
-2023-12-18T06:39:25.559Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2023-12-18T06:39:26.345Z [test] error: Incorrect DATE value: 'undefined-undefined-'

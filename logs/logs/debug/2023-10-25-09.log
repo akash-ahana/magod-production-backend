@@ -1,8 +1,0 @@
-2023-10-25T04:17:03.598Z [test] info: listening on port 5006
-2023-10-25T04:18:00.457Z [test] info: Login Success - akash1
-2023-10-25T04:18:02.320Z [test] info: Login Success - akash1
-2023-10-25T04:18:08.813Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2023-10-25T04:18:08.978Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2023-10-25T04:20:05.011Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2023-10-25T04:20:05.190Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2023-10-25T04:20:17.522Z [test] info: listening on port 5006

@@ -1,4 +1,0 @@
-2023-12-06T10:00:52.827Z [test] info: Login Success - akash1
-2023-12-06T10:03:53.311Z [test] info: Login Success - akash1
-2023-12-06T10:04:01.531Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2023-12-06T10:04:01.670Z [test] error: Incorrect DATE value: 'undefined-undefined-'
