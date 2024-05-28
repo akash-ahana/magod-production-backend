@@ -1,0 +1,15 @@
+2024-05-27T10:46:13.499Z [test] error: Incorrect datetime value: '2024-05-2717:00:00' for column 'ToTime' at row 1
+2024-05-27T10:46:13.505Z [test] error: Status Code : undefined  - Error : Incorrect datetime value: '2024-05-2717:00:00' for column 'ToTime' at row 1
+2024-05-27T10:46:15.990Z [test] error: Incorrect DATE value: 'undefined-undefined-2024-05-27'
+2024-05-27T10:46:15.994Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-2024-05-27'
+2024-05-27T10:46:28.965Z [test] error: Incorrect DATE value: 'undefined-undefined-undefined-undefined-2024-05-27'
+2024-05-27T10:46:28.970Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-undefined-undefined-2024-05-27'
+2024-05-27T10:46:35.975Z [test] error: Incorrect DATE value: 'undefined-undefined-undefined-undefined-undefined-undefined-2024-05-27'
+2024-05-27T10:46:35.984Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-undefined-undefined-undefined-undefined-2024-05-27'
+2024-05-27T10:46:53.250Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T10:46:54.862Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T10:58:46.618Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T10:58:48.628Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T10:59:44.156Z [test] error: Status Code : undefined  - Error : Incorrect datetime value: '2024-05-2706:00:00' for column 'FromTime' at row 1
+2024-05-27T11:27:41.931Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T11:27:44.131Z [test] error: Incorrect DATE value: 'undefined-undefined-'

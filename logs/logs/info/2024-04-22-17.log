@@ -1,5 +1,0 @@
-2024-04-22T11:40:29.286Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-04-22T11:40:30.007Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2024-04-22T11:40:38.178Z [test] info: Login Success - adminuser
-2024-04-22T11:46:56.821Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-04-22T11:46:57.024Z [test] error: Incorrect DATE value: 'undefined-undefined-'

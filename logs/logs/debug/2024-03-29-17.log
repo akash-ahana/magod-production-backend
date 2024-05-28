@@ -1,8 +1,0 @@
-2024-03-29T11:44:46.132Z [test] info: listening on port 5006
-2024-03-29T11:45:58.897Z [test] info: listening on port 5006
-2024-03-29T11:47:53.831Z [test] info: listening on port 5006
-2024-03-29T11:47:59.818Z [test] info: listening on port 5006
-2024-03-29T12:00:50.569Z [test] info: listening on port 5006
-2024-03-29T12:14:35.563Z [test] info: Login Success - anil
-2024-03-29T12:14:46.953Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-03-29T12:14:47.300Z [test] error: Incorrect DATE value: 'undefined-undefined-'

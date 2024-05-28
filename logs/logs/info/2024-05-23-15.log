@@ -1,3 +1,0 @@
-2024-05-23T10:28:43.901Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-05-23T10:28:45.576Z [test] error: Incorrect DATE value: 'undefined-undefined-'
-2024-05-23T10:29:50.749Z [test] info: listening on port 5006

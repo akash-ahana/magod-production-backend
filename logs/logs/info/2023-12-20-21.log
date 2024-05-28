@@ -1,7 +1,0 @@
-2023-12-20T15:30:47.767Z [test] info: Login Success - akash1
-2023-12-20T16:07:03.355Z [test] error: Unknown column 'undefined' in 'where clause'
-2023-12-20T16:07:33.844Z [test] error: Unknown column 'undefined' in 'where clause'
-2023-12-20T16:07:57.464Z [test] error: Unknown column 'undefined' in 'where clause'
-2023-12-20T16:08:10.634Z [test] error: Unknown column 'undefined' in 'where clause'
-2023-12-20T16:10:16.823Z [test] error: Unknown column 'undefined' in 'where clause'
-2023-12-20T16:12:31.923Z [test] info: listening on port 5006

@@ -1,4 +1,0 @@
-2024-04-04T12:33:23.279Z [test] error: Unknown column 'undefined' in 'where clause'
-2024-04-04T12:47:35.117Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
-2024-04-04T12:53:29.262Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
-2024-04-04T12:53:30.056Z [test] error: Incorrect DATE value: 'undefined-undefined-'

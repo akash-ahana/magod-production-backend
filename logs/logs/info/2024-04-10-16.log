@@ -1,8 +1,0 @@
-2024-04-10T10:30:38.630Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'magodmis.cust_data c 
-        WHERE (o.Schedule_Status='Tasked' OR o.Schedule_St' at line 2
-2024-04-10T10:31:38.311Z [test] info: listening on port 5006
-2024-04-10T10:31:41.837Z [test] info: listening on port 5006
-2024-04-10T10:31:44.446Z [test] info: listening on port 5006
-2024-04-10T10:38:56.417Z [test] info: Login Success - adminuser
-2024-04-10T10:39:26.077Z [test] info: listening on port 5006
-2024-04-10T10:41:14.298Z [test] info: Login Success - adminuser

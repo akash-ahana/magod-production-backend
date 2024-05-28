@@ -1,0 +1,3 @@
+2024-05-27T12:02:56.541Z [test] error: Status Code : undefined  - Error : Incorrect datetime value: '2024-05-27 00:00:00 14:00:00' for column 'FromTime' at row 1
+2024-05-27T12:08:55.625Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-05-27T12:08:58.113Z [test] error: Incorrect DATE value: 'undefined-undefined-'

@@ -1,4 +1,0 @@
-2023-12-18T06:25:57.272Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'Name')
-2023-12-18T06:26:49.823Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'Name')
-2023-12-18T06:29:27.782Z [test] error: Truncated incorrect DOUBLE value: 'undefined'
-2023-12-18T06:29:53.055Z [test] error: Truncated incorrect DOUBLE value: 'undefined'

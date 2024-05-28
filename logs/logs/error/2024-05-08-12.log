@@ -1,1 +1,0 @@
-2024-05-08T07:27:13.356Z [test] error: BIGINT UNSIGNED value is out of range in '((1440 - `magod_production`.`machine_utilisationsummary`.`TotalOff`) - 10560)'
