@@ -1,0 +1,6 @@
+2024-06-05T04:56:54.933Z [test] error: Error updating machine Laser 11 utilisation summary: Error: Out of range value for column 'NonProdOn' at row 76845
+2024-06-05T05:05:59.408Z [test] error: Error updating machine Laser 10 utilisation summary: Error: Out of range value for column 'NonProdOn' at row 76846
+2024-06-05T05:11:34.100Z [test] error: Error updating machine Laser 10 utilisation summary: Error: Out of range value for column 'NonProdOn' at row 76846
+2024-06-05T05:12:40.530Z [test] error: Error updating machine Laser 27 (3010) utilisation summary: Error: Out of range value for column 'NonProdOn' at row 76848
+2024-06-05T05:14:49.189Z [test] error: Error updating machine Laser 25 utilisation summary: Error: Out of range value for column 'NonProdOn' at row 76847
+2024-06-05T05:15:10.028Z [test] error: Error updating machine Laser 25 utilisation summary: Error: Out of range value for column 'NonProdOn' at row 76847
