@@ -297,7 +297,6 @@ scheduleListProfile.post('/scheduleListSaveCleared', jsonParser ,  async (req, r
 });
 
 scheduleListProfile.post('/scheduleListSaveClearedCompleted', jsonParser ,  async (req, res, next) => {
-    console.log(req.body)
     for (let i = 0 ; i < req.body.length ; i++) {
     try {
         misQueryMod(`UPDATE magodmis.task_partslist

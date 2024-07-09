@@ -1,0 +1,12 @@
+2024-06-20T06:48:25.591Z [test] info: listening on port 5006
+2024-06-20T06:48:48.945Z [test] info: Login Success - adminuser
+2024-06-20T06:48:53.545Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-06-20T06:53:01.503Z [test] info: listening on port 5006
+2024-06-20T06:55:29.698Z [test] info: listening on port 5006
+2024-06-20T06:55:37.448Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-06-20T06:58:42.593Z [test] info: listening on port 5006
+2024-06-20T06:59:07.230Z [test] info: listening on port 5006
+2024-06-20T07:18:01.091Z [test] info: listening on port 5006
+2024-06-20T07:19:14.154Z [test] info: listening on port 5006
+2024-06-20T07:19:22.648Z [test] info: listening on port 5006
+2024-06-20T07:19:54.063Z [test] info: listening on port 5006
