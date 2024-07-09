@@ -21,7 +21,6 @@ processSetup.post('/addProcess', jsonParser, (req, res, next) => {
 });
 
 processSetup.post('/SavedProcess', jsonParser, (req, res, next) => {
-    console.log("save",req.body)
     try {
         // Determine the values for MultiOperation and No_of_Operations based on Service and Profile
         // let multiOperationValue = req.body.Service === 1 && req.body.Profile === 1 ? 1 : 0;

@@ -307,18 +307,7 @@ machineSetup.post('/getMachine', jsonParser , async (req, res, next) => {
     }
 });
 
-// //delete machine 
-// machineSetup.post('/deleteMachine', jsonParser , async (req, res, next) => {
-//     //console.log(req.body)
-//     try {
-//         mchQueryMod(`DELETE FROM machine_list WHERE refName='${req.body.refName}'`, (err, data) => {
-//             if (err) logger.error(err);
-//             res.send(data)
-//         })
-//     } catch (error) {
-//         next(error)
-//     }
-// });
+
 
 //delete machine 
 machineSetup.post('/deleteMachine', jsonParser , async (req, res, next) => {
