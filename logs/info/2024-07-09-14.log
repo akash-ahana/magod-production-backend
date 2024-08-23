@@ -1,0 +1,8 @@
+2024-07-09T09:25:43.360Z [test] info: listening on port 5007
+2024-07-09T09:25:50.067Z [test] info: Login Success - adminuser
+2024-07-09T09:26:10.623Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-07-09T09:26:10.631Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-07-09T09:26:10.640Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-07-09T09:26:10.912Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-07-09T09:26:45.696Z [test] info: listening on port 5007
+2024-07-09T09:29:49.805Z [test] info: listening on port 5007
