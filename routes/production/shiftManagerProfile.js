@@ -15,7 +15,7 @@ function delay(time) {
      try {
          misQueryMod(`Select * from magodmis.day_shiftregister where ShiftDate = '${req.body.ShiftDate}' && Shift = '${req.body.Shift}'`, (err, data) => {
              if (err) logger.error(err);
-             console.log(data)
+            //  console.log(data)
              res.send(data) 
          })
      } catch (error) { 
@@ -443,7 +443,6 @@ shiftManagerProfile.post('/profileListMachinesProgramesProcessing', jsonParser ,
  });
 
  shiftManagerProfile.post('/shiftManagerCloseProgram', jsonParser ,  async (req, res, next) => {
-    // console.log("req.body shiftManagerCloseProgram", req.body);
 
     for(let i = 0; i < req.body.length; i++) {
         try {
