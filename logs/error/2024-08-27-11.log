@@ -1,0 +1,14 @@
+2024-08-27T06:02:56.870Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:02:56.893Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:03:34.810Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:03:34.812Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:04:58.050Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:04:58.057Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:21:28.294Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:21:28.296Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:21:41.915Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:21:41.918Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:26:09.945Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:26:09.948Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:27:14.132Z [test] error: Error - TypeError: Cannot destructure property 'role' of 'req.body' as it is undefined.
+2024-08-27T06:27:14.133Z [test] error: Status Code : undefined  - Error : Cannot destructure property 'role' of 'req.body' as it is undefined.
