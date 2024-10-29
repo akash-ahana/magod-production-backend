@@ -145,13 +145,6 @@ machineSetup.get('/getMachineTypes', async (req, res, next) => {
 //adds a new machine to the db 
 machineSetup.post('/addNewMachine', jsonParser ,  async (req, res, next) => {
 
-   // console.log(req.body)
-
-    //refName must be unique to all machines as well do validation for that
-    //console.log(req.body.refName)
-    //console.log(req.body.Working)
-    //Working values are integer -  0 for not working , 1 for working
-
     try {
         //nested try block to check refNo is always unique
         try {

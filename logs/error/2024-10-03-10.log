@@ -1,0 +1,11 @@
+2024-10-03T04:34:49.228Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-10-03T04:35:34.809Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-10-03T04:36:20.716Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:36:20.719Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:36:20.857Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:36:20.936Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.686Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.694Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.788Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.991Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:53:48.851Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')

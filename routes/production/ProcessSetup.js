@@ -41,7 +41,6 @@ processSetup.post('/SavedProcess', jsonParser, (req, res, next) => {
 
 
 processSetup.post('/deleteProcess', jsonParser, (req, res, next) => {
-    console.log("request delete",req.body)
     try {
         mchQueryMod(`UPDATE machine_data.magod_process_list 
         SET Active='0' where ID='${req.body.ID}'`, (err, data) => {

@@ -174,137 +174,80 @@ shiftEditor.post('/getDailyShiftPlanTable', jsonParser ,  async (req, res, next)
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   } 
-//  shiftEditor.post('/getWeeklyShiftPlanSecondTable', jsonParser ,  async (req, res, next) => {
-//     //delay is given so that as soon as the data is created from create week shift , the table has to get populated with all the records 
-//     await delay(200);
-//     let newDates = [];
-//     if(req.body === '') {
-//         res.send(null)   
-//     } else {
-//         for(let i=0; i<req.body.length; i++) {
-//                     //console.log(letinputArray[i].ShiftDate)
-//                     let dateSplit = req.body[i].split("/");
-//                   let year = dateSplit[2];
-//                   let month = dateSplit[1];
-//                   let day = dateSplit[0];
-//                   let finalDay = year+"-"+month+"-"+day
-//                   req.body[i].ShiftDatae = finalDay
-//                   newDates.push(finalDay)
-//                   //console.log(finalDay)   
-//                 }
-//                 try {
-//                         misQueryMod(` SELECT * FROM day_shiftregister WHERE ShiftDate='${newDates[0]}' || ShiftDate='${newDates[1]}' || ShiftDate='${newDates[2]}' || ShiftDate='${newDates[3]}' || ShiftDate='${newDates[4]}' || ShiftDate='${newDates[5]}' || ShiftDate='${newDates[6]}'`, (err, data) => {
-//                             if (err) logger.error(err);
-                            
-//                             if(data === null) {
-//                               //  console.log('DATA IS EMPTY')
-//                             } else {
-//                                 // console.log('DATA IS PRESENT',data);
-//                                 for(let i =0 ; i < data.length ; i++) {
-//                                     console.log("data[i] is",data[i],"ShiftDate",data[i].ShiftDate);
-//                                     console.log("data[i].ShiftDate?.split("-")",data[i].ShiftDate?.split("-"))
-//                                     let dateSplit = data[i].ShiftDate?.split("-");
-//                                     console.log("dateSplit is",dateSplit);
-//                                     let year = dateSplit[2];
-//                                     let month = dateSplit[1];
-//                                     let day = dateSplit[0];
-//                                     let finalDay = year+"-"+month+"-"+day 
-//                                     data[i].ShiftDate = finalDay 
-            
-//                                     let dateSplitFromTime = data[i].FromTime.split("-");
-//                                     let yearFromTime = dateSplitFromTime[0];
-//                                     let monthFromTime = dateSplitFromTime[1];
-//                                     let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
-//                                     let dayFromTimeFinal = dayFromTimeINITIAL[0]
-//                                     let time = dayFromTimeINITIAL[1]
-//                                     let finalDayFromTime = dayFromTimeFinal+"-"+monthFromTime+"-"+yearFromTime+" "+time
-//                                     data[i].FromTime = finalDayFromTime 
-            
-//                                     let dateSplitToTime = data[i].ToTime.split("-");
-//                                     let yearToTime = dateSplitToTime[0];
-//                                     let monthToTime = dateSplitToTime[1];
-//                                     let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
-//                                     let dayToTimeFinal = dayToTimeINITIAL[0]
-//                                     let time1 = dayToTimeINITIAL[1]
-//                                     let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time1
-//                                     data[i].ToTime = finalDayToTime 
-            
-//                                 } 
-//                             }
-//                            // console.log('/getWeeklyShiftPlanSecondTable RESPONSE IS' , data)
-//                             res.send(data)
-                            
-//                         })
-//                     } catch (error) {  
-//                         next(error)
-//                     }
-
-
-//     }
-// });
-
-// Gets Information of the daily shift plan of a particular shift
-
-shiftEditor.post('/getWeeklyShiftPlanSecondTable', jsonParser, async (req, res, next) => {
+ shiftEditor.post('/getWeeklyShiftPlanSecondTable', jsonParser ,  async (req, res, next) => {
+    //delay is given so that as soon as the data is created from create week shift , the table has to get populated with all the records 
+    // console.log('/getWeeklyShiftPlanSecondTable REQUEST IS ' , req.body)
     await delay(200);
     let newDates = [];
-    if (req.body === '') {
-        res.send(null);
+    if(req.body === '') {
+        res.send(null)   
     } else {
-        for (let i = 0; i < req.body.length; i++) {
-            let dateSplit = req.body[i].split("/");
-            let year = dateSplit[2];
-            let month = dateSplit[1];
-            let day = dateSplit[0];
-            let finalDay = year + "-" + month + "-" + day;
-            req.body[i].ShiftDate = finalDay;
-            newDates.push(finalDay);
-        }
-
-        try {
-            misQueryMod(`SELECT * FROM day_shiftregister WHERE ShiftDate='${newDates[0]}' || ShiftDate='${newDates[1]}' || ShiftDate='${newDates[2]}' || ShiftDate='${newDates[3]}' || ShiftDate='${newDates[4]}' || ShiftDate='${newDates[5]}' || ShiftDate='${newDates[6]}'`, (err, data) => {
-                if (err) logger.error(err);
-
-                if (data === null) {
-                    // No data found
-                } else {
-                    for (let i = 0; i < data.length; i++) {
-                        // Convert ShiftDate to string and split
-                        let shiftDateString = new Date(data[i].ShiftDate).toISOString().split('T')[0];
-                        let dateSplit = shiftDateString.split("-");
-                        console.log("dateSplit is", dateSplit);
-                        let year = dateSplit[0];
-                        let month = dateSplit[1];
-                        let day = dateSplit[2];
-                        let finalDay = `${year}-${month}-${day}`;
-                        data[i].ShiftDate = finalDay;
-
-                        // Handle FromTime similarly if it's a Date object
-                        let fromTimeString = new Date(data[i].FromTime).toISOString();
-                        let fromTimeSplit = fromTimeString.split('T');
-                        let dateFrom = fromTimeSplit[0]; // Date part
-                        let timeFrom = fromTimeSplit[1].split('.')[0]; // Time part
-                        data[i].FromTime = `${dateFrom} ${timeFrom}`;
-
-                        // Handle ToTime similarly if it's a Date object
-                        let toTimeString = new Date(data[i].ToTime).toISOString();
-                        let toTimeSplit = toTimeString.split('T');
-                        let dateTo = toTimeSplit[0]; // Date part
-                        let timeTo = toTimeSplit[1].split('.')[0]; // Time part
-                        data[i].ToTime = `${dateTo} ${timeTo}`;
-                    }
+        for(let i=0; i<req.body.length; i++) {
+                    //console.log(letinputArray[i].ShiftDate)
+                    let dateSplit = req.body[i].split("/");
+                  let year = dateSplit[2];
+                  let month = dateSplit[1];
+                  let day = dateSplit[0];
+                  let finalDay = year+"-"+month+"-"+day
+                  req.body[i].ShiftDatae = finalDay
+                  newDates.push(finalDay)
+                  //console.log(finalDay)   
                 }
+                try {
+                        misQueryMod(` SELECT * FROM day_shiftregister WHERE ShiftDate='${newDates[0]}' || ShiftDate='${newDates[1]}' || ShiftDate='${newDates[2]}' || ShiftDate='${newDates[3]}' || ShiftDate='${newDates[4]}' || ShiftDate='${newDates[5]}' || ShiftDate='${newDates[6]}'`, (err, data) => {
+                            if (err) logger.error(err);
+                            
+                            if(data === null) {
+                              //  console.log('DATA IS EMPTY')
+                            } else {
+                                // console.log('DATA IS PRESENT')
+                                for(let i =0 ; i < data.length ; i++) {
+                                    let dateSplit = data[i].ShiftDate.split("-");
+                                    let year = dateSplit[2];
+                                    let month = dateSplit[1];
+                                    let day = dateSplit[0];
+                                    let finalDay = year+"-"+month+"-"+day 
+                                   // console.log( 'RESPONSE SHIFT DATE IS ' , finalDay)
+                                    data[i].ShiftDate = finalDay 
+            
+                                    let dateSplitFromTime = data[i].FromTime.split("-");
+                                    //console.log( ' DATE SPLIT RESPONSE From tIME IS ' , dateSplitFromTime)
+                                    let yearFromTime = dateSplitFromTime[0];
+                                    let monthFromTime = dateSplitFromTime[1];
+                                    let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
+                                    let dayFromTimeFinal = dayFromTimeINITIAL[0]
+                                    let time = dayFromTimeINITIAL[1]
+                                    let finalDayFromTime = dayFromTimeFinal+"-"+monthFromTime+"-"+yearFromTime+" "+time
+                                    //console.log( 'RESPONSE From tIME IS ' , finalDayFromTime)
+                                    data[i].FromTime = finalDayFromTime 
+            
+                                    let dateSplitToTime = data[i].ToTime.split("-");
+                                    // console.log( ' DATE SPLIT RESPONSE To tIME IS ' , dateSplitToTime)
+                                    let yearToTime = dateSplitToTime[0];
+                                    let monthToTime = dateSplitToTime[1];
+                                    let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
+                                    let dayToTimeFinal = dayToTimeINITIAL[0]
+                                    let time1 = dayToTimeINITIAL[1]
+                                    let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time1
+                                   // console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
+                                    data[i].ToTime = finalDayToTime 
+                                    //data[i].FromTime = finalDayFromTime 
+            
+                                } 
+                            }
+                           // console.log('/getWeeklyShiftPlanSecondTable RESPONSE IS' , data)
+                            res.send(data)
+                            
+                        })
+                    } catch (error) {  
+                        next(error)
+                    }
 
-                res.send(data);
-            });
-        } catch (error) {
-            next(error);
-        }
+
     }
 });
 
-
-
+// Gets Information of the daily shift plan of a particular shift
 shiftEditor.post('/getDailyShiftPlan', jsonParser ,  async (req, res, next) => {
     try { 
        
@@ -469,7 +412,7 @@ shiftEditor.post('/setMachineOperatorDay', jsonParser, async (req, res, next) =>
     }
 });
 
-
+ 
 
 // Delete Machine Operator For a Single Day 
 shiftEditor.post('/deleteMachineOperatorDay', jsonParser ,  async (req, res, next) => {
