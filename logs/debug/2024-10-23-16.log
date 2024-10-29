@@ -1,0 +1,4 @@
+2024-10-23T10:55:11.985Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-23T10:55:12.010Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-10-23T10:55:12.058Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-10-23T10:55:12.230Z [test] error: Incorrect DATE value: 'undefined-undefined-'

@@ -103,7 +103,7 @@ WHERE n.PStatus = 'Completed'
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting'
+        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing'
         AND EXISTS (
             SELECT 1 
             FROM machine_data.magod_process_list AS p 
@@ -129,7 +129,7 @@ WHERE n.PStatus = 'Completed'
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' and
+        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing' and
         n.NCProgramNo = '${req.body.NCProgramNo}'
         AND EXISTS (
             SELECT 1 
@@ -157,7 +157,7 @@ WHERE n.PStatus = 'Completed'
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' and
+        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing' and
         n.Machine = '${req.body.MachineName}'
         AND EXISTS (
             SELECT 1 
@@ -179,13 +179,12 @@ WHERE n.PStatus = 'Completed'
     // console.log('OnClick of Machines')
     let outputArray = []
     try {
-        misQueryMod(`SELECT DISTINCT m.refName , m.Machine_srl, n.TaskNo, n.Mtrl_Code , n.NCProgramNo , n.PStatus FROM machine_data.machine_list m
-        LEFT JOIN magodmis.ncprograms n ON n.Machine = m.refName AND (n.PStatus = 'Cutting' || n.PStatus = 'Completed') 
-        JOIN machine_data.machine_process_list m1 ON m1.Machine_srl=m.Machine_srl JOIN machine_data.operationslist o ON
-        o.Operation=m1.RefProcess JOIN  machine_data.service_operationslist p ON p.OperationId=o.OperationID
-        WHERE m.Working`, async (err, data) => {
+        misQueryMod(`SELECT DISTINCT m.refName , m.Machine_srl, n.TaskNo, n.Mtrl_Code,n.NCProgramNo, n.PStatus,n.Operation 
+        FROM machine_data.machine_list m
+        LEFT JOIN magodmis.ncprograms n ON n.Machine = m.refName AND (n.PStatus = 'Cutting'|| n.PStatus = 'Completed' ||  n.PStatus = 'Processing')
+        JOIN machine_data.magod_process_list p On p.ProcessDescription=n.Operation where
+         m.Working and p.Service = 1 OR p.Service = -1 and m.Working`, async (err, data) => {
             if (err) logger.error(err);
-            console.log('data length is ' , data.length)
             const machineMap = {};
 
             // Iterate through the input array
@@ -364,7 +363,7 @@ shiftManagerService.post('/ProductionTaskList', jsonParser, async (req, res, nex
       FROM magodmis.ncprograms n
       JOIN magodmis.nc_task_list m1 ON n.TaskNo = m1.TaskNo
       JOIN magodmis.orderschedule o ON o.ScheduleId = m1.ScheduleId
-      WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Completed')
+      WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Completed' OR n.PStatus = 'Processing')
         AND o.Type = '${req.body.Type}'
       GROUP BY n.TaskNo
       `, (err, data) => {

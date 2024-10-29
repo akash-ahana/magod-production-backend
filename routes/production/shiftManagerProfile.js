@@ -15,7 +15,7 @@ function delay(time) {
      try {
          misQueryMod(`Select * from magodmis.day_shiftregister where ShiftDate = '${req.body.ShiftDate}' && Shift = '${req.body.Shift}'`, (err, data) => {
              if (err) logger.error(err);
-            //  console.log(data)
+             console.log(data)
              res.send(data) 
          })
      } catch (error) { 
@@ -78,15 +78,14 @@ shiftManagerProfile.get('/profileListMachinesTaskNo', async (req, res, next) => 
     // console.log('OnClick of Machines')
     let outputArray = []
     try {
-        misQueryMod(`SELECT DISTINCT m.refName , m.Machine_srl, n.TaskNo, n.Mtrl_Code , n.NCProgramNo , n.PStatus FROM machine_data.machine_list m
-        LEFT JOIN magodmis.ncprograms n ON n.Machine = m.refName AND (n.PStatus = 'Cutting' || n.PStatus = 'Completed') 
-        JOIN machine_data.machine_process_list m1 ON m1.Machine_srl=m.Machine_srl JOIN machine_data.operationslist o ON
-        o.Operation=m1.RefProcess JOIN  machine_data.profile_cuttingoperationslist p ON p.OperationId=o.OperationID
-        WHERE m.Working`, async (err, data) => {
+        misQueryMod(`SELECT DISTINCT m.refName , m.Machine_srl, n.TaskNo, n.Mtrl_Code,n.NCProgramNo, n.PStatus,n.Operation 
+        FROM machine_data.machine_list m
+        LEFT JOIN magodmis.ncprograms n ON n.Machine = m.refName AND (n.PStatus = 'Cutting'|| n.PStatus = 'Completed' || n.PStatus = 'Processing')
+        JOIN machine_data.magod_process_list p On p.ProcessDescription=n.Operation where
+         m.Working and p.Profile = 1 OR p.Profile = -1 and m.Working`, async (err, data) => {
             if (err) logger.error(err);
             // console.log('data length is ' , data.length)
         
-
             const machineMap = {};
 
             // Iterate through the input array
@@ -198,7 +197,7 @@ shiftManagerProfile.post('/taskNoProgramNoCompleted', jsonParser ,  async (req, 
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' and
+        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing' and
         n.NCProgramNo = '${req.body.NCProgramNo}'
         AND EXISTS (
             SELECT 1 
@@ -253,7 +252,7 @@ shiftManagerProfile.post('/profileListMachinesProgramesProcessing', jsonParser ,
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' and
+        WHERE n.PStatus = 'Cutting'  OR n.PStatus = 'Processing' and
         n.Machine = '${req.body.MachineName}'
         AND EXISTS (
             SELECT 1 
@@ -287,7 +286,7 @@ shiftManagerProfile.post('/profileListMachinesProgramesProcessing', jsonParser ,
  shiftManagerProfile.post('/OperationMachinesProgramesProcessing', jsonParser ,  async (req, res, next) => {
     //console.log('/profileListMachinesProgramesProcessing' , req.body)
      try {
-         misQueryMod(`SELECT * FROM magodmis.ncprograms where Machine = '${req.body.MachineName}' && Operation = '${req.body.Operation}' &&  PStatus = 'Cutting'`, (err, data) => {
+         misQueryMod(`SELECT * FROM magodmis.ncprograms where Machine = '${req.body.MachineName}' && Operation = '${req.body.Operation}' &&  PStatus = 'Cutting' OR n.PStatus = 'Processing'`, (err, data) => {
              if (err) logger.error(err);
              //console.log(data)
              res.send(data)
@@ -326,7 +325,7 @@ shiftManagerProfile.post('/profileListMachinesProgramesProcessing', jsonParser ,
  shiftManagerProfile.post('/CustomerProgramesProcessing', jsonParser ,  async (req, res, next) => {
     //console.log('/profileListMachinesProgramesProcessing' , req.body)
      try {
-         misQueryMod(`SELECT * FROM magodmis.ncprograms where Cust_Code = '${req.body.Cust_Code}'  &&  PStatus = 'Cutting'`, (err, data) => {
+         misQueryMod(`SELECT * FROM magodmis.ncprograms where Cust_Code = '${req.body.Cust_Code}'  &&  PStatus = 'Cutting' OR n.PStatus = 'Processing'`, (err, data) => {
              if (err) logger.error(err);
              //console.log(data)
              res.send(data)
@@ -339,7 +338,7 @@ shiftManagerProfile.post('/profileListMachinesProgramesProcessing', jsonParser ,
  shiftManagerProfile.post('/OperationProgramesProcessing', jsonParser ,  async (req, res, next) => {
     //console.log('/profileListMachinesProgramesProcessing' , req.body)
      try {
-         misQueryMod(`SELECT * FROM magodmis.ncprograms where  Operation = '${req.body.Operation}' &&  PStatus = 'Cutting'`, (err, data) => {
+         misQueryMod(`SELECT * FROM magodmis.ncprograms where  Operation = '${req.body.Operation}' &&  PStatus = 'Cutting' OR n.PStatus = 'Processing'`, (err, data) => {
              if (err) logger.error(err);
              //console.log(data)
              res.send(data)
@@ -443,6 +442,7 @@ shiftManagerProfile.post('/profileListMachinesProgramesProcessing', jsonParser ,
  });
 
  shiftManagerProfile.post('/shiftManagerCloseProgram', jsonParser ,  async (req, res, next) => {
+    // console.log("req.body shiftManagerCloseProgram", req.body);
 
     for(let i = 0; i < req.body.length; i++) {
         try {
@@ -646,7 +646,7 @@ shiftManagerProfile.post('/ProductionTaskList', jsonParser, async (req, res, nex
       FROM magodmis.ncprograms n
       JOIN magodmis.nc_task_list m1 ON n.TaskNo = m1.TaskNo
       JOIN magodmis.orderschedule o ON o.ScheduleId = m1.ScheduleId
-      WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Completed')
+      WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Completed' OR n.PStatus = 'Processing')
         AND o.Type = '${req.body.Type}'
       GROUP BY n.TaskNo
       `, (err, data) => {
@@ -752,7 +752,7 @@ shiftManagerProfile.post('/ProductionTaskList', jsonParser, async (req, res, nex
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting'
+        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing'
         AND EXISTS (
             SELECT 1 
             FROM machine_data.magod_process_list AS p 
@@ -827,6 +827,8 @@ shiftManagerProfile.post('/ProductionTaskList', jsonParser, async (req, res, nex
         next(error)
     }
   });
+
+
   
 
 module.exports = shiftManagerProfile;
