@@ -1,0 +1,5 @@
+2024-10-02T09:49:45.550Z [test] info: listening on port 5007
+2024-10-02T10:21:47.057Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-02T10:21:47.065Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-10-02T10:21:47.075Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-10-02T10:21:47.414Z [test] error: Incorrect DATE value: 'undefined-undefined-'
