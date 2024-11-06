@@ -1,0 +1,19 @@
+2024-10-03T04:34:38.684Z [test] info: Login Success - adminuser
+2024-10-03T04:34:49.228Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-10-03T04:35:34.809Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-10-03T04:36:14.320Z [test] info: Login Success - adminuser
+2024-10-03T04:36:20.716Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:36:20.719Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:36:20.857Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:36:20.936Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:42:58.299Z [test] info: Login Success - adminuser
+2024-10-03T04:45:06.046Z [test] info: listening on port 5006
+2024-10-03T04:52:17.686Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.694Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.788Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:17.991Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-10-03T04:52:41.604Z [test] info: Login Success - adminuser
+2024-10-03T04:53:48.851Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
+2024-10-03T04:59:38.245Z [test] info: listening on port 5006
+2024-10-03T05:01:19.789Z [test] info: Login Success - adminuser
+2024-10-03T05:03:59.895Z [test] info: Login Success - adminuser

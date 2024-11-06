@@ -1,0 +1,5 @@
+2024-09-28T15:21:01.991Z [test] info: Login Success - adminuser
+2024-09-28T15:21:07.378Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-09-28T15:21:07.386Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-09-28T15:21:07.417Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-09-28T15:21:07.631Z [test] error: Incorrect DATE value: 'undefined-undefined-'

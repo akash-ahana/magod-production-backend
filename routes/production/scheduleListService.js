@@ -41,6 +41,7 @@ scheduleListService.post("/getSchedulesByCustomer", jsonParser , async (req, res
         next(error)    
     }
   });  
+  
 
 scheduleListService.get('/schedulesList', async (req, res, next) => {
     try {

@@ -1,0 +1,2 @@
+2024-09-27T05:57:19.131Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-09-27T05:57:52.131Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')
