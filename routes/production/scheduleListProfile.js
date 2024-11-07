@@ -133,7 +133,8 @@ scheduleListProfile.get('/schedulesList', async (req, res, next) => {
 scheduleListProfile.get('/schedulesListStatusProgrammed', async (req, res, next) => {
    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
-        misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Programmed'  order by osd.Delivery_date`, (err, data) => {
+        misQueryMod(`select * , c.Cust_name,DATE_FORMAT(osd.schTgtDate, '%d/%m/%Y') AS schTgtDate,
+        DATE_FORMAT(osd.Delivery_date, '%d/%m/%Y') AS Delivery_Date from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Programmed' AND osd.Delivery_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
           //  console.log(data.length)  
             //const slicedArray = data.slice(0, 200); 
@@ -147,7 +148,8 @@ scheduleListProfile.get('/schedulesListStatusProgrammed', async (req, res, next)
 scheduleListProfile.get('/schedulesListStatusCompleted', async (req, res, next) => {
    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
-        misQueryMod(`select * , c.Cust_name from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Completed'  order by osd.Delivery_date`, (err, data) => {
+        misQueryMod(`select * , c.Cust_name ,DATE_FORMAT(osd.schTgtDate, '%d/%m/%Y') AS schTgtDate,
+        DATE_FORMAT(osd.Delivery_date, '%d/%m/%Y') AS Delivery_Date  from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code = osd.Cust_Code where osd.Type='Profile' && osd.Schedule_Status = 'Completed'  AND osd.Delivery_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)  order by osd.Delivery_date`, (err, data) => {
             if (err) logger.error(err);
           //  console.log(data.length)
             //const slicedArray = data.slice(0, 200); 
@@ -161,7 +163,8 @@ scheduleListProfile.get('/schedulesListStatusCompleted', async (req, res, next) 
 scheduleListProfile.get('/schedulesListStatusProduction', async (req, res, next) => {
    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
-        misQueryMod(`SELECT *, c.Cust_name
+        misQueryMod(`SELECT *, c.Cust_name,DATE_FORMAT(osd.schTgtDate, '%d/%m/%Y') AS schTgtDate,
+        DATE_FORMAT(osd.Delivery_date, '%d/%m/%Y') AS Delivery_Date
         FROM magodmis.orderschedule osd
         INNER JOIN magodmis.cust_data c ON c.Cust_Code = osd.Cust_Code
         WHERE osd.Type = 'Profile'
@@ -182,7 +185,8 @@ scheduleListProfile.get('/schedulesListStatusProduction', async (req, res, next)
 scheduleListProfile.get('/schedulesListStatusTasked', async (req, res, next) => {
    // console.log('Request Done to Get Schedule List Profile Table ')
     try {
-        misQueryMod(`SELECT *, c.Cust_name
+        misQueryMod(`SELECT *, c.Cust_name,DATE_FORMAT(osd.schTgtDate, '%d/%m/%Y') AS schTgtDate,
+        DATE_FORMAT(osd.Delivery_date, '%d/%m/%Y') AS Delivery_Date
         FROM magodmis.orderschedule osd
         INNER JOIN magodmis.cust_data c ON c.Cust_Code = osd.Cust_Code
         WHERE osd.Type = 'Profile'
@@ -295,6 +299,7 @@ scheduleListProfile.post('/scheduleListSaveCleared', jsonParser ,  async (req, r
     }
     res.send('Request Recieved')
 });
+
 
 scheduleListProfile.post('/scheduleListSaveClearedCompleted', jsonParser ,  async (req, res, next) => {
     for (let i = 0 ; i < req.body.length ; i++) {
