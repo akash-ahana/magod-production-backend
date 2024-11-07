@@ -1,0 +1,18 @@
+2024-11-07T09:34:31.175Z [test] info: listening on port 5006
+2024-11-07T09:39:07.210Z [test] info: listening on port 5006
+2024-11-07T09:39:51.715Z [test] info: listening on port 5006
+2024-11-07T09:40:32.411Z [test] info: listening on port 5006
+2024-11-07T09:40:40.817Z [test] info: listening on port 5006
+2024-11-07T09:42:23.312Z [test] info: listening on port 5006
+2024-11-07T09:46:56.011Z [test] info: listening on port 5006
+2024-11-07T09:47:50.446Z [test] info: listening on port 5006
+2024-11-07T09:49:47.381Z [test] info: listening on port 5006
+2024-11-07T09:50:10.140Z [test] info: listening on port 5006
+2024-11-07T09:53:38.631Z [test] info: listening on port 5006
+2024-11-07T09:53:54.810Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code =' at line 1
+2024-11-07T09:55:04.689Z [test] info: listening on port 5006
+2024-11-07T09:55:57.921Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code =' at line 1
+2024-11-07T09:57:11.142Z [test] info: listening on port 5006
+2024-11-07T09:57:40.688Z [test] info: listening on port 5006
+2024-11-07T09:58:03.008Z [test] info: listening on port 5006
+2024-11-07T09:58:35.413Z [test] info: listening on port 5006
