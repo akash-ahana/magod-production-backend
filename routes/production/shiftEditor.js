@@ -51,7 +51,6 @@ shiftEditor.get('/shiftInchargeList', async (req, res, next) => {
 
 // Creates Weekly Shift Planner 
 shiftEditor.post('/createWeeklyShiftPlan', jsonParser, async (req, res, next) => {
-    // console.log('CREATE WEEKLY SHIFT PLAN REQUEST', req.body);
     let inputArray = req.body;
     let shiftDataPresent = false; // Flag to track whether shift data is already present
 
@@ -567,10 +566,15 @@ shiftEditor.post('/deleteSingleDayShift', jsonParser ,  async (req, res, next) =
 shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
     let inputArray = req.body;
 
-    let hasError = false; // Track if there's an error
-    let operatorAlreadyPresent = false; // Track if operator is already present
+    let hasError = false;
+    let operatorAlreadyPresent = false;
 
     for (let i = 0; i < inputArray.length; i++) {
+        // Skip the record if `isChecked` is true
+        if (inputArray[i].isChecked) {
+            continue; 
+        }
+
         // Date formatting code
         let dateSplit = inputArray[i].ShiftDate.split("/");
         let year = dateSplit[2];
@@ -598,12 +602,11 @@ shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
             // Calculate the next day for toTime
             let shiftDate = new Date(finalDay);
             let nextDay = new Date(shiftDate);
-            nextDay.setDate(nextDay.getDate() + 1); // Add one day
+            nextDay.setDate(nextDay.getDate() + 1);
 
-            // Format the next day's date
             let nextYear = nextDay.getFullYear();
-            let nextMonth = ('0' + (nextDay.getMonth() + 1)).slice(-2); // Ensure month is 2 digits
-            let nextDate = ('0' + nextDay.getDate()).slice(-2); // Ensure date is 2 digits
+            let nextMonth = ('0' + (nextDay.getMonth() + 1)).slice(-2);
+            let nextDate = ('0' + nextDay.getDate()).slice(-2);
             let nextFinalDay = `${nextYear}-${nextMonth}-${nextDate}`;
 
             toTime = " 06:00:00";
@@ -625,17 +628,12 @@ shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
             const operatorQuery = `SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${inputArray[i].ShiftDate}' AND (Shift='${inputArray[i].Shift}' OR Shift='${newShift}' OR Shift='${newShift1}')  AND Operator='${inputArray[i].Operator}'`;
             const machineQuery = `SELECT * FROM magodmis.shiftregister WHERE ShiftDate='${inputArray[i].ShiftDate}' AND (Shift='${inputArray[i].Shift}' OR Shift='${newShift}' OR Shift='${newShift1}') AND Machine='${inputArray[i].Machine}'`;
 
-            // Log the queries
-            // console.log("Operator Query:", operatorQuery);
-            // console.log("Machine Query:", machineQuery);
-
-            // Execute the queries
             const [operatorData, machineData] = await Promise.all([
                 new Promise((resolve, reject) => {
                     misQueryMod(operatorQuery, (err, data) => {
                         if (err) {
                             console.error(err);
-                            hasError = true; // Set the error flag
+                            hasError = true;
                             return reject(err);
                         }
                         resolve(data);
@@ -645,7 +643,7 @@ shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
                     misQueryMod(machineQuery, (err, data) => {
                         if (err) {
                             console.error(err);
-                            hasError = true; // Set the error flag
+                            hasError = true;
                             return reject(err);
                         }
                         resolve(data);
@@ -655,16 +653,15 @@ shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
 
             if (operatorData.length > 0 || machineData.length > 0) {
                 console.log("operatorData.length", operatorData.length, "machineData.length", machineData.length);
-                operatorAlreadyPresent = true; // Set the flag
+                operatorAlreadyPresent = true;
             } else {
-                // Insert the data
                 const dayShiftID = 123; // Replace with the actual dayShiftID
                 const insertData = await new Promise((resolve, reject) => {
                     misQueryMod(`INSERT INTO magodmis.shiftregister (ShiftDate, Shift, FromTime, ToTime, Machine, Operator, DayShiftID) VALUES 
                         ('${inputArray[i].ShiftDate}', '${inputArray[i].Shift}', '${inputArray[i].FromTime}', '${inputArray[i].ToTime}', '${inputArray[i].Machine}', '${inputArray[i].Operator}', '${dayShiftID}')`, (err, data) => {
                         if (err) {
                             console.error(err);
-                            hasError = true; // Set the error flag
+                            hasError = true;
                             return reject(err);
                         }
                         resolve(data);
@@ -672,23 +669,21 @@ shiftEditor.post('/setMachineOperators', jsonParser, async (req, res, next) => {
                 });
             }
         } catch (error) {
-            hasError = true; // Set the error flag
+            hasError = true;
             next(error);
         }
     }
     if (hasError) {
-        // Send an error response
         return res.status(404).send('No data found for the provided shift date and shift.');
     } else {
         if (operatorAlreadyPresent) {
-            // Send response if operator is already present
             res.send('Operator/Machine already present');
         } else {
-            // Send a success response
             res.send('Machine Operator Added Successfully');
         }
     }
 });
+
 
 
 // getFullWeekDetailPlan

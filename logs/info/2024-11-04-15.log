@@ -1,0 +1,5 @@
+2024-11-04T10:22:09.034Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-04T10:22:09.054Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-11-04T10:22:09.056Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-11-04T10:22:09.224Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-04T10:22:13.600Z [test] error: Status Code : undefined  - Error : Cannot read properties of undefined (reading 'MachineName')

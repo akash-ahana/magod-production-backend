@@ -1,0 +1,2 @@
+2024-11-07T09:53:54.810Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code =' at line 1
+2024-11-07T09:55:57.921Z [test] error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from magodmis.orderschedule osd inner join magodmis.cust_data c on c.Cust_Code =' at line 1

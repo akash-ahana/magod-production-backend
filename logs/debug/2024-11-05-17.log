@@ -1,0 +1,22 @@
+2024-11-05T11:44:07.463Z [test] info: Login Success - adminuser
+2024-11-05T11:44:13.685Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-11-05T11:46:22.714Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-11-05T11:46:29.960Z [test] error: Unknown column 'undefined' in 'where clause'
+2024-11-05T11:46:31.430Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T11:46:31.435Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T11:46:31.525Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T11:46:31.526Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:02:38.248Z [test] info: listening on port 5006
+2024-11-05T12:02:41.099Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:02:41.106Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:02:41.118Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:02:41.385Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:02:49.219Z [test] info: listening on port 5006
+2024-11-05T12:06:30.647Z [test] info: listening on port 5006
+2024-11-05T12:12:51.191Z [test] error: Database error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:12:51.202Z [test] error: Status Code : undefined  - Error : Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:12:51.214Z [test] error: Error fetching first query data: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:12:51.420Z [test] error: Incorrect DATE value: 'undefined-undefined-'
+2024-11-05T12:15:53.170Z [test] info: listening on port 5006
+2024-11-05T12:15:56.481Z [test] info: listening on port 5006
+2024-11-05T12:19:50.535Z [test] info: listening on port 5006
