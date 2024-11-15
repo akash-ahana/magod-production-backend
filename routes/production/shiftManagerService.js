@@ -129,7 +129,7 @@ WHERE n.PStatus = 'Completed'
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing' and
+        WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Processing') and
         n.NCProgramNo = '${req.body.NCProgramNo}'
         AND EXISTS (
             SELECT 1 
@@ -157,7 +157,7 @@ WHERE n.PStatus = 'Completed'
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
         FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing' and
+        WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Processing') and
         n.Machine = '${req.body.MachineName}'
         AND EXISTS (
             SELECT 1 
