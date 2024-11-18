@@ -200,7 +200,7 @@ shiftManagerProfile.post(
 	"/taskNoProgramNoCompleted",
 	jsonParser,
 	async (req, res, next) => {
-		//console.log('/taskNoProgramNoCompleted' , req.body)
+		// console.log('/taskNoProgramNoCompleted' , req.body)
 		try {
 			mchQueryMod(
 				`
@@ -243,15 +243,16 @@ shiftManagerProfile.post(
             FROM machine_data.magod_process_list AS p 
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
-        FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting' OR n.PStatus = 'Processing' and
-        n.NCProgramNo = '${req.body.NCProgramNo}'
-        AND EXISTS (
-            SELECT 1 
-            FROM machine_data.magod_process_list AS p 
-            WHERE p.ProcessDescription = n.Operation 
+FROM magodmis.ncprograms AS n
+WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Processing')
+    AND n.NCProgramNo = '${req.body.NCProgramNo}'
+    AND EXISTS (
+        SELECT 1 
+        FROM machine_data.magod_process_list AS p 
+        WHERE p.ProcessDescription = n.Operation 
             AND (p.Profile = 1 OR p.Profile = -1)
-        )
+    );
+
          `,
 				(err, data) => {
 					if (err) logger.error(err);
@@ -312,15 +313,16 @@ shiftManagerProfile.post(
             FROM machine_data.magod_process_list AS p 
             WHERE p.ProcessDescription = n.Operation
         ) AS ProcessDescription
-        FROM magodmis.ncprograms AS n
-        WHERE n.PStatus = 'Cutting'  OR n.PStatus = 'Processing' and
-        n.Machine = '${req.body.MachineName}'
-        AND EXISTS (
-            SELECT 1 
-            FROM machine_data.magod_process_list AS p 
-            WHERE p.ProcessDescription = n.Operation 
+FROM magodmis.ncprograms AS n
+WHERE (n.PStatus = 'Cutting' OR n.PStatus = 'Processing')
+    AND n.Machine = '${req.body.MachineName}'
+    AND EXISTS (
+        SELECT 1 
+        FROM machine_data.magod_process_list AS p 
+        WHERE p.ProcessDescription = n.Operation 
             AND (p.Profile = 1 OR p.Profile = -1)
-        );
+    );
+
          `,
 				(err, data) => {
 					if (err) logger.error(err);
@@ -341,7 +343,7 @@ shiftManagerProfile.post(
 		//console.log('/profileListMachinesProgramesCompleted' , req.body)
 		try {
 			mchQueryMod(
-				`SELECT * FROM magodmis.ncprograms where Machine = '${req.body.MachineName}' && Operation = '${req.body.Operation}' && PStatus = 'Completed'`,
+				`SELECT * FROM magodmis.ncprograms n where Machine = '${req.body.MachineName}' && Operation = '${req.body.Operation}' && PStatus = 'Completed'`,
 				(err, data) => {
 					if (err) logger.error(err);
 					//console.log(data)
@@ -361,7 +363,11 @@ shiftManagerProfile.post(
 		//console.log('/profileListMachinesProgramesProcessing' , req.body)
 		try {
 			misQueryMod(
-				`SELECT * FROM magodmis.ncprograms where Machine = '${req.body.MachineName}' && Operation = '${req.body.Operation}' &&  PStatus = 'Cutting' OR n.PStatus = 'Processing'`,
+				`SELECT * 
+FROM magodmis.ncprograms AS n 
+WHERE n.Machine = '${req.body.MachineName}' 
+    AND n.Operation = '${req.body.Operation}' 
+    AND (n.PStatus = 'Cutting' OR n.PStatus = 'Processing');`,
 				(err, data) => {
 					if (err) logger.error(err);
 					//console.log(data)
@@ -421,7 +427,11 @@ shiftManagerProfile.post(
 		//console.log('/profileListMachinesProgramesProcessing' , req.body)
 		try {
 			misQueryMod(
-				`SELECT * FROM magodmis.ncprograms where Cust_Code = '${req.body.Cust_Code}'  &&  PStatus = 'Cutting' OR n.PStatus = 'Processing'`,
+				`SELECT * 
+FROM magodmis.ncprograms AS n 
+WHERE n.Cust_Code = '${req.body.Cust_Code}' 
+    AND (n.PStatus = 'Cutting' OR n.PStatus = 'Processing');
+`,
 				(err, data) => {
 					if (err) logger.error(err);
 					//console.log(data)
@@ -441,7 +451,7 @@ shiftManagerProfile.post(
 		//console.log('/profileListMachinesProgramesProcessing' , req.body)
 		try {
 			misQueryMod(
-				`SELECT * FROM magodmis.ncprograms where  Operation = '${req.body.Operation}' &&  PStatus = 'Cutting' OR n.PStatus = 'Processing'`,
+				`SELECT * FROM magodmis.ncprograms n where  Operation = '${req.body.Operation}' and  (PStatus = 'Cutting' OR n.PStatus = 'Processing')`,
 				(err, data) => {
 					if (err) logger.error(err);
 					//console.log(data)
@@ -466,7 +476,7 @@ shiftManagerProfile.get(
         INNER JOIN machine_data.operationslist ol ON pcol.OperationId = ol.OperationID 
         JOIN machine_data.machine_process_list mpl ON mpl.RefProcess = ol.Operation
                    JOIN machine_data.machine_list ml ON ml.Machine_srl = mpl.Machine_srl AND ml.Working = '1'
-        LEFT JOIN magodmis.ncprograms n ON n.Machine=ml.refName AND n.Operation=ol.Operation AND (PStatus='Completed' || PStatus='Cutting' || PStatus='Processing')`,
+        LEFT JOIN magodmis.ncprograms n ON n.Machine=ml.refName AND n.Operation=ol.Operation AND (PStatus='Completed' || PStatus='Cutting')`,
 				async (err, data) => {
 					if (err) logger.error(err);
 
@@ -630,11 +640,9 @@ shiftManagerProfile.post(
 				(err, data) => {
 					if (err) {
 						logger.error(err);
-						res
-							.status(500)
-							.json({
-								error: "An error occurred while updating the first table.",
-							});
+						res.status(500).json({
+							error: "An error occurred while updating the first table.",
+						});
 					} else {
 						// Check the result of the query
 						const canCloseValue = data[0].canClose;
@@ -771,7 +779,7 @@ shiftManagerProfile.get(
 
 		try {
 			misQueryMod(
-				`SELECT C.Cust_name, C.Cust_Code, N.NCProgramNo, N.TaskNo , N.Machine , N.PStatus FROM magodmis.cust_data C LEFT JOIN magodmis.ncprograms N ON C.Cust_Code = N.Cust_Code  AND (N.PStatus='Completed' || N.PStatus='Cutting' || N.PStatus='Processing') WHERE C.LastBilling > '2021-06-11 00:00:00'`,
+				`SELECT C.Cust_name, C.Cust_Code, N.NCProgramNo, N.TaskNo , N.Machine , N.PStatus FROM magodmis.cust_data C LEFT JOIN magodmis.ncprograms N ON C.Cust_Code = N.Cust_Code  AND (N.PStatus='Completed' || N.PStatus='Cutting') WHERE C.LastBilling > '2021-06-11 00:00:00'`,
 				async (err, data) => {
 					if (err) logger.error(err);
 					// console.log(data)
@@ -908,7 +916,7 @@ shiftManagerProfile.post("/machineLog", jsonParser, async (req, res, next) => {
 
 //////
 shiftManagerProfile.get("/allCompleted", jsonParser, async (req, res, next) => {
-	//console.log('/taskNoProgramNoCompleted' , req.body)
+	// console.log('/taskNoProgramNoCompleted' , req.body)
 	try {
 		mchQueryMod(
 			`SELECT n.*, 
@@ -939,7 +947,7 @@ shiftManagerProfile.get(
 	"/allProcessing",
 	jsonParser,
 	async (req, res, next) => {
-		//console.log('/taskNoProgramNoCompleted' , req.body)
+		// console.log('/taskNoProgramNoCompleted' , req.body)
 		try {
 			mchQueryMod(
 				`

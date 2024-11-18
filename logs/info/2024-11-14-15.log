@@ -1,0 +1,46 @@
+2024-11-14T09:30:22.470Z [test] info: listening on port 5006
+2024-11-14T09:30:26.045Z [test] info: listening on port 5006
+2024-11-14T09:49:50.461Z [test] info: listening on port 5006
+2024-11-14T09:50:22.491Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:25.482Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:27.190Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:34.549Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:43.655Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:46.887Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:48.808Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:50.316Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:53.317Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:54.663Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:57.522Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:57.739Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:50:58.635Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:09.111Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:09.321Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:12.786Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:13.621Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:14.696Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:15.379Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:16.242Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:17.434Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:51:20.308Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:52:14.080Z [test] info: listening on port 5006
+2024-11-14T09:52:30.205Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:54:09.421Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T09:54:10.839Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:02.723Z [test] info: listening on port 5006
+2024-11-14T10:00:09.490Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:14.398Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:22.652Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:30.601Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:31.883Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:33.133Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:00:34.951Z [test] error: Unknown column 'n.PStatus' in 'where clause'
+2024-11-14T10:01:06.084Z [test] info: listening on port 5006
+2024-11-14T10:01:26.358Z [test] info: listening on port 5006
+2024-11-14T10:01:32.020Z [test] info: listening on port 5006
+2024-11-14T10:01:34.541Z [test] info: listening on port 5006
+2024-11-14T10:06:34.849Z [test] info: listening on port 5006
+2024-11-14T10:10:26.284Z [test] info: listening on port 5006
+2024-11-14T10:15:20.424Z [test] info: listening on port 5006
+2024-11-14T10:24:31.393Z [test] info: listening on port 5006
+2024-11-14T10:26:51.796Z [test] info: listening on port 5006
