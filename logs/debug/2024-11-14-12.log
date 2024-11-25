@@ -1,15 +1,2 @@
-2024-11-14T06:44:57.523Z [test] info: listening on port 5006
-2024-11-14T06:46:56.238Z [test] error: Unknown column 'usr.Password' in 'field list'
-2024-11-14T06:47:29.919Z [test] info: listening on port 5006
-2024-11-14T06:56:18.739Z [test] info: listening on port 5006
-2024-11-14T06:56:35.050Z [test] info: Login Success - adminuser
-2024-11-14T06:56:45.947Z [test] error: Unknown column 'undefined' in 'where clause'
-2024-11-14T07:21:22.508Z [test] info: listening on port 5006
-2024-11-14T07:21:48.376Z [test] info: Login Success - adminuser
-2024-11-14T07:21:56.655Z [test] error: Unknown column 'undefined' in 'where clause'
-2024-11-14T07:26:59.209Z [test] info: listening on port 5006
-2024-11-14T07:27:09.547Z [test] info: listening on port 5006
-2024-11-14T07:27:17.965Z [test] info: listening on port 5006
-2024-11-14T07:28:15.540Z [test] info: listening on port 5006
-2024-11-14T07:28:41.320Z [test] info: listening on port 5006
-2024-11-14T07:28:56.843Z [test] info: listening on port 5006
+2024-11-14T06:38:53.352Z [test] info: listening on port 5006
+2024-11-14T07:23:07.251Z [test] info: listening on port 5006

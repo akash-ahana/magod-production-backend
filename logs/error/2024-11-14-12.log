@@ -1,3 +1,0 @@
-2024-11-14T06:46:56.238Z [test] error: Unknown column 'usr.Password' in 'field list'
-2024-11-14T06:56:45.947Z [test] error: Unknown column 'undefined' in 'where clause'
-2024-11-14T07:21:56.655Z [test] error: Unknown column 'undefined' in 'where clause'
