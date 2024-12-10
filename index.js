@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
     res.send("hello");
 });
 
+app.use(bodyParser.json());
+
 const testRoute = require('./routes/production/testRoute');
 app.use("/testRoute", testRoute);
 
