@@ -72,6 +72,9 @@ shiftManagerProfile.post("/getShiftInformation", async (req, res, next) => {
       // Send the resulting data or a message if no matching shift is found
       if (currentShiftData.length > 0) {
         res.send(currentShiftData);
+
+        console.log(currentShiftData);
+        
       } else {
         res.send("No current shift matches the time range.");
       }
