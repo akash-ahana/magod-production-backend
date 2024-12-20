@@ -74,7 +74,6 @@ shiftManagerProfile.post("/getShiftInformation", async (req, res, next) => {
         res.send(currentShiftData);
 
         console.log(currentShiftData);
-        
       } else {
         res.send("No current shift matches the time range.");
       }
@@ -824,6 +823,59 @@ shiftManagerProfile.get(
   }
 );
 
+// shiftManagerProfile.get(
+//   "/orderByCustomers",
+//   jsonParser,
+//   async (req, res, next) => {
+//     // console.log('/orderByCustomers')
+//     let outputArray = [];
+
+//     try {
+//       misQueryMod(
+//         `SELECT C.Cust_name, C.Cust_Code, N.NCProgramNo, N.TaskNo , N.Machine , N.PStatus FROM magodmis.cust_data C LEFT JOIN magodmis.ncprograms N ON C.Cust_Code = N.Cust_Code  AND (N.PStatus='Completed' || N.PStatus='Cutting') WHERE C.LastBilling > '2021-06-11 00:00:00'`,
+//         async (err, data) => {
+//           if (err) logger.error(err);
+//           // console.log(data)
+//           // console.log(data.length)
+
+//           data.forEach((item) => {
+//             const customerIndex = outputArray.findIndex(
+//               (custItem) => custItem.Customer.Cust_Code === item.Cust_Code
+//             );
+//             if (customerIndex === -1) {
+//               const newCustomer = {
+//                 Customer: {
+//                   Cust_name: item.Cust_name,
+//                   Cust_Code: item.Cust_Code,
+//                   programs: [],
+//                 },
+//               };
+//               outputArray.push(newCustomer);
+//             }
+
+//             const program = {
+//               NCProgramNo: item.NCProgramNo,
+//               TaskNo: item.TaskNo,
+//               Machine: item.Machine || "",
+//               PStatus: item.PStatus,
+//             };
+
+//             if (customerIndex !== -1) {
+//               outputArray[customerIndex].Customer.programs.push(program);
+//             }
+//           });
+
+//           // console.log(JSON.stringify(outputArray, null, 4));
+//           // console.log(outputArray.length)
+//           res.send(outputArray);
+//         }
+//       );
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
+
 shiftManagerProfile.get(
   "/orderByCustomers",
   jsonParser,
@@ -833,7 +885,22 @@ shiftManagerProfile.get(
 
     try {
       misQueryMod(
-        `SELECT C.Cust_name, C.Cust_Code, N.NCProgramNo, N.TaskNo , N.Machine , N.PStatus FROM magodmis.cust_data C LEFT JOIN magodmis.ncprograms N ON C.Cust_Code = N.Cust_Code  AND (N.PStatus='Completed' || N.PStatus='Cutting') WHERE C.LastBilling > '2021-06-11 00:00:00'`,
+        `SELECT DISTINCT 
+    C.Cust_name, 
+    C.Cust_Code, 
+    N.NCProgramNo, 
+    N.TaskNo, 
+    N.Machine, 
+    N.PStatus 
+FROM 
+    magodmis.cust_data C
+LEFT JOIN 
+    magodmis.ncprograms N 
+    ON C.Cust_Code = N.Cust_Code 
+       AND N.PStatus IN ('Completed', 'Cutting', 'Processing') -- Apply status filter in the JOIN clause
+WHERE 
+    C.LastBilling > '2021-06-11 00:00:00';
+`,
         async (err, data) => {
           if (err) logger.error(err);
           // console.log(data)
