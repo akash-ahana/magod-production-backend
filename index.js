@@ -64,6 +64,9 @@ app.use("/reports", reportsRouter);
 const locationRouter = require('./routes/production/Location');
 app.use("/location", locationRouter);
 
+const savePDF = require('./routes/production/savePDFServer');
+app.use("/PDF", savePDF);
+
  
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
